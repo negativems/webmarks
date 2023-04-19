@@ -1,0 +1,98 @@
+// Import tailwind CSS
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+// Define custom CSS variables
+$accent: #3AE000;
+$accent-dark: #4DA32F;
+$accent-darker: #255116;
+$accent-light: #9DFF7A;
+$red: #FF0000;
+$light-theme-text: #000000;
+$headerHeight: 70px;
+$footerHeight: 300px;
+
+// Global styles
+* {
+   box-sizing: border-box;
+   padding: 0;
+   margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+   font-weight: bold;
+}
+
+h1 {
+   font-size: 2.5rem;
+   font-weight: 900;
+}
+
+h2 {
+   font-size: 2rem;
+}
+
+h3 {
+   font-size: 1.5rem;
+}
+
+h4 {
+   font-size: 1.25rem;
+}
+
+h5 {
+   font-size: 1rem;
+}
+
+#__nuxt {
+   background-color: #F5F5F5;
+
+   >header {
+      height: $headerHeight;
+   }
+
+   main {
+      min-height: calc(100vh - $headerHeight - $footerHeight);
+   }
+}
+
+/* header .logo-container a {
+  height: calc(var(--header-height) - 20px);
+}
+
+header .logo-container span {
+  font-size: 1.5rem;
+  font-weight: 500;
+} */
+
+
+svg.logo.shadowed {
+   filter: drop-shadow(3px 3px 0px rgba(0, 0, 0, .25));
+}
+
+/* On hover on .location make ::before appears */
+.location::before {
+   display: none;
+   content: '';
+   position: absolute;
+   top: -250px;
+   left: 50%;
+   transform: translateX(-50%);
+   width: 744px;
+   height: 222px;
+   z-index: 100;
+   transition: opacity .3s ease-in-out;
+   background-image: url('/malaga.jpg');
+   background-size: cover;
+   background-position: center;
+}
+
+.location:hover::before {
+   display: block;
+}
