@@ -13,6 +13,17 @@ $light-theme-text: #000000;
 $headerHeight: 70px;
 $footerHeight: 300px;
 
+:root {
+   --accent: #3AE000;
+   --accent-dark: #4DA32F;
+   --accent-darker: #255116;
+   --accent-light: #9DFF7A;
+   --red: #FF0000;
+   --light-theme-text: #000000;
+   --header-height: 70px;
+   --footer-height: 300px;
+}
+
 // Global styles
 * {
    box-sizing: border-box;

@@ -85,3 +85,9 @@ export const NumberedSquare = ({ number = 0, className = '' }) => {
       </div>
    );
 };
+
+export const SearchIcon = ({ className = '' }) => {
+   return (
+      <svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" fill="none"><path fill="#9DA0B8" fill-rule="evenodd" d="M8.944 2.556a6.389 6.389 0 1 0 0 12.777 6.389 6.389 0 0 0 0-12.777ZM0 8.944a8.944 8.944 0 1 1 16.108 5.357l6.518 6.518a1.278 1.278 0 0 1-1.807 1.807L14.3 16.108A8.944 8.944 0 0 1 0 8.944Z" clip-rule="evenodd" /></svg>
+   );
+};
