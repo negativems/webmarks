@@ -1,0 +1,167 @@
+[
+   {
+      "name": "The New York Times",
+      "description": "This is one of the most reputable newspapers in the world.",
+      "url": "https://www.nytimes.com/"
+   },
+   {
+      "name": "HackerRank",
+      "description": "This is a great website to practice coding problems and prepare for technical interviews.",
+      "url": "https://www.hackerrank.com/"
+   },
+   {
+      "name": "Stack Overflow",
+      "description": "This is a go-to website for programmers to find solutions to their coding problems.",
+      "url": "https://stackoverflow.com/"
+   },
+   {
+      "name": "Ubuntu",
+      "description": "This is a popular Linux distribution that is easy to use and great for beginners.",
+      "url": "https://ubuntu.com/"
+   },
+   {
+      "name": "The Guardian",
+      "description": "This is a reputable newspaper with a strong focus on investigative journalism.",
+      "url": "https://www.theguardian.com/"
+   },
+   {
+      "name": "GitHub",
+      "description": "This is a popular platform for hosting and sharing code with other developers.",
+      "url": "https://github.com/"
+   },
+   {
+      "name": "Python",
+      "description": "This is a popular programming language for data science and automation.",
+      "url": "https://www.python.org/"
+   },
+   {
+      "name": "The Washington Post",
+      "description": "This is a reputable newspaper with a strong focus on politics and policy.",
+      "url": "https://www.washingtonpost.com/"
+   },
+   {
+      "name": "Codecademy",
+      "description": "This is a great website to learn coding and programming skills in an interactive way.",
+      "url": "https://www.codecademy.com/"
+   },
+   {
+      "name": "Arch Linux",
+      "description": "This is a lightweight and customizable Linux distribution that is great for advanced users.",
+      "url": "https://archlinux.org/"
+   },
+   {
+      "name": "CNN",
+      "description": "This is a reputable news network with a strong focus on breaking news.",
+      "url": "https://www.cnn.com/"
+   },
+   {
+      "name": "CodePen",
+      "description": "This is a great website for front-end developers to showcase and test their code.",
+      "url": "https://codepen.io/"
+   },
+   {
+      "name": "Fedora",
+      "description": "This is a popular Linux distribution that is known for its cutting-edge technology.",
+      "url": "https://getfedora.org/"
+   },
+   {
+      "name": "BBC News",
+      "description": "This is a reputable news network with a strong focus on international news.",
+      "url": "https://www.bbc.com/news"
+   },
+   {
+      "name": "W3Schools",
+      "description": "This is a great website to learn web development skills such as HTML, CSS, and JavaScript.",
+      "url": "https://www.w3schools.com/"
+   },
+   {
+      "name": "Linux Mint",
+      "description": "This is a popular Linux distribution that is known for its ease of use and reliability.",
+      "url": "https://linuxmint.com/"
+   },
+   {
+      "name": "Reuters",
+      "description": "This is a reputable news network with a strong focus on financial news.",
+      "url": "https://www.reuters.com/"
+   },
+   {
+      "name": "FreeCodeCamp",
+      "description": "This is a great website to learn web development skills and earn certifications.",
+      "url": "https://www.freecodecamp.org/"
+   },
+   {
+      "name": "Debian",
+      "description": "This is a popular Linux distribution that is known for its stability and security.",
+      "url": "https://www.debian.org/"
+   },
+   {
+      "name": "The Economist",
+      "description": "This is a reputable newspaper with a strong focus on global affairs and economics.",
+      "url": "https://www.economist.com/"
+   },
+   {
+      "name": "Code Wars",
+      "description": "This is a great website to practice coding problems and improve your skills.",
+      "url": "https://www.codewars.com/"
+   },
+   {
+      "name": "Manjaro Linux",
+      "description": "This is a popular Linux distribution that is known for its user-friendly interface and community support.",
+      "url": "https://manjaro.org/"
+   },
+   {
+      "name": "Financial Times",
+      "description": "This is a reputable newspaper with a strong focus on finance and business news.",
+      "url": "https://www.ft.com/"
+   },
+   {
+      "name": "Mozilla Developer Network",
+      "description": "This is a great website to learn web development skills and explore Mozilla technologies.",
+      "url": "https://developer.mozilla.org/"
+   },
+   {
+      "name": "Kali Linux",
+      "description": "This is a popular Linux distribution that is used for ethical hacking and penetration testing.",
+      "url": "https://www.kali.org/"
+   },
+   {
+      "name": "Al Jazeera",
+      "description": "This is a reputable news network with a strong focus on international news and perspectives.",
+      "url": "https://www.aljazeera.com/"
+   },
+   {
+      "name": "Codeanywhere",
+      "description": "This is a great website for developers to code online in a collaborative environment.",
+      "url": "https://codeanywhere.com/"
+   },
+   {
+      "name": "OpenSUSE",
+      "description": "This is a popular Linux distribution that is known for its stability and ease of use.",
+      "url": "https://www.opensuse.org/"
+   },
+   {
+      "name": "Bloomberg",
+      "description": "This is a reputable news network with a strong focus on business and finance news.",
+      "url": "https://www.bloomberg.com/"
+   },
+   {
+      "name": "MDN Web Docs",
+      "description": "This is a great website to learn web development skills and explore Mozilla technologies.",
+      "url": "https://developer.mozilla.org/en-US/docs/Web"
+   },
+   {
+      "name": "Gentoo",
+      "description": "This is a popular Linux distribution that is known for its customization and performance.",
+      "url": "https://www.gentoo.org/"
+   },
+   {
+      "name": "The Wall Street Journal",
+      "description": "This is a reputable newspaper with a strong focus on business and finance news.",
+      "url": "https://www.wsj.com/"
+   },
+   {
+      "name": "CodeSandbox",
+      "description": "This is a great website for developers to code and test their projects in a sandbox environment.",
+      "url": "https://codesandbox.io/"
+   },
+];

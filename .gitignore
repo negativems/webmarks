@@ -4,6 +4,9 @@ node_modules
 .nitro
 .cache
 .output
-.env
 dist
 .DS_Store
+
+# local env files
+.env
+.env*.local

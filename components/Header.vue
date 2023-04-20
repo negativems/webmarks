@@ -15,6 +15,7 @@ const headerLinks = [
    { href: '/about', label: 'ABOUT' }
 ] as any;
 
+const user = useSupabaseUser();
 </script>
 
 <template>
@@ -33,7 +34,7 @@ const headerLinks = [
                   {{ link.label }}
                </NuxtLink>
          </div>
-         <div class="flex-1 flex justify-end">
+         <div class="flex-1 flex justify-end" v-if="user">
             <NuxtLink to="/dashboard" class="btn btn-primary border-2 border-accent bg-white hover:shadow-solid-xl duration-150 p-3 rounded-xl">Dashboard</NuxtLink>
          </div>
       </div>
