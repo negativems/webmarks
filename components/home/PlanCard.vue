@@ -1,5 +1,5 @@
 <template>
-   <div :class="'plan-card p-10 shadow-md shadow-black rounded-3xl relative ' + (dark ? 'bg-accent-darker text-white' : 'bg-white') + ' ' + className">
+   <div :class="'plan-card p-10 shadow-xl rounded-3xl relative ' + (dark ? 'bg-accent-darker text-white' : 'bg-white') + ' ' + className">
       <header class="plan-card-header flex justify-between relative mb-10">
          <h3 class="text-center w-full">{{ name }}</h3>
          <span v-if="saveAmount" class="plan-card-save absolute top-1/2 -translate-y-1/2 right-0 px-3 py-1 rounded-md text-[10px]" :class="(dark ? 'bg-white text-black' : 'bg-red-400')">

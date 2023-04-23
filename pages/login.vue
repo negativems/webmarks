@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { GithubIcon, GoogleIcon } from '~/components/Icons';
-
 const client = useSupabaseClient();
 const user = useSupabaseUser();
 </script>

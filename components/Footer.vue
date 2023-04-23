@@ -1,5 +1,5 @@
 <script lang="tsx" setup>
-import { BuyMeACoffeIcon } from './Icons';
+import { BuyMeACoffeIcon, Logo } from './Icons';
 </script>
 
 <template>

@@ -61,8 +61,11 @@ h5 {
    font-size: 1rem;
 }
 
-#__nuxt {
+body {
    background-color: #F5F5F5;
+}
+
+#__nuxt {
 
    >header {
       height: $headerHeight;

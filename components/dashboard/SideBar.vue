@@ -41,7 +41,10 @@ const user = useSupabaseUser();
          </NuxtLink>
 
          <div class="buttons flex gap-5">
-            <button class="login-button w-full inline-flex justify-center bg-black text-white font-bold p-5 rounded-lg hover:bg-gray-900 justify-self-end" @click="client.auth.signInWithOAuth({ provider: 'github' })" v-if="!user">
+            <button
+               class="login-button w-full inline-flex justify-center bg-black text-white font-bold p-5 rounded-lg hover:bg-gray-900 justify-self-end"
+               @click="client.auth.signInWithOAuth({ provider: 'github' })" v-if="!user"
+            >
                <GithubIcon class="invert" />
             </button>
 
