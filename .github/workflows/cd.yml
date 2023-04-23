@@ -33,4 +33,4 @@ jobs:
                  cd /var/www/webmarks
                  git pull
                  git status
-                 pnpm generate
+                 npm run generate
