@@ -22,7 +22,7 @@ import { BuyMeACoffeIcon } from './Icons';
             <h3>Buy me a coffee</h3>
             <p>Please consider buy me a coffee if you think it deserves it.</p>
 
-            <NuxtLink to="https://www.buymeacoffeee.com/mohamedbh" class="font-bold" target="_blank" rel="noreferrer">
+            <NuxtLink to="https://www.buymeacoffee.com/mohamedbh" class="font-bold" target="_blank" rel="noreferrer">
                <BuyMeACoffeIcon />
             </NuxtLink>
          </div>
