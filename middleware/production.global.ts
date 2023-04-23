@@ -1,6 +1,6 @@
 export default defineNuxtRouteMiddleware((to) => {
-   const isProduction = process.env.NODE_ENV === 'production' ?? true;
+   const isProduction = process.env.NODE_ENV === 'development' ?? true;
    if (isProduction && to.path !== '/maintenance') {
-      return '/maintenance';
+      return navigateTo('/maintenance');
    }
 });
