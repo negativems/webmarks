@@ -1,6 +1,8 @@
+
+
 <template>
    <HomeHero />
-   <main class="container my-10 mx-auto">
+   <main class="container mx-auto my-10">
       <HomePlansSection />
    </main>
 </template>
