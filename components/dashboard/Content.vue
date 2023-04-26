@@ -4,22 +4,8 @@
    </main>
 </template>
 
-<style>
-::-webkit-scrollbar {
-   width: 10px;
-}
-
+<style scoped>
 ::-webkit-scrollbar-track {
-   border-radius: 10px;
    margin: 20px 0px;
-}
-
-::-webkit-scrollbar-thumb {
-   background: var(--accent);
-   border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-   background: var(--accent-dark);
 }
 </style>
