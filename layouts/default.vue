@@ -1,7 +1,5 @@
 <template>
    <Header />
-   <main class="my-10">
-      <NuxtPage />
-   </main>
+   <NuxtPage />
    <Footer />
 </template>
