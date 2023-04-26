@@ -12,6 +12,7 @@ $red: #FF0000;
 $light-theme-text: #000000;
 $headerHeight: 70px;
 $footerHeight: 300px;
+$tailwindHeaderMaringTop: 20px;
 
 :root {
    --accent: #3AE000;
@@ -72,8 +73,25 @@ body {
    }
 
    main {
-      min-height: calc(100vh - $headerHeight - $footerHeight);
+      min-height: calc(100vh - $headerHeight - $footerHeight - $tailwindHeaderMaringTop);
    }
+}
+
+::-webkit-scrollbar {
+   width: 10px;
+}
+
+::-webkit-scrollbar-track {
+   border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+   background: var(--accent-dark);
+   border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+   background: var(--accent-dark);
 }
 
 /* header .logo-container a {
