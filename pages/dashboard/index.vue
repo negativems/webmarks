@@ -10,31 +10,12 @@ definePageMeta({
 const search = ref("");
 const bookmarks = ref(await getBookmarks(user, client));
 const hasBookmarks = computed(() => bookmarks.value.length > 0);
-
-const dragEnter = (e: DragEvent) => {
-   e.preventDefault();
-   e.stopPropagation();
-
-   // add tailwind class to the body
-   document.querySelector('.bookmarks')?.classList.add("bg-red-300");
-   document.querySelector('.dark-backround-modal')?.classList.remove("hidden");
-};
-
-const dragLeave = (e: DragEvent) => {
-   e.preventDefault();
-   e.stopPropagation();
-
-   document.querySelector('.bookmarks')?.classList.remove("bg-red-300");
-   document.querySelector('.dark-backround-modal')?.classList.add("hidden");
-};
 </script>
 
 <template>
    <div
       class="bookmarks flex"
       :class="{ 'flex-col gap-10': hasBookmarks, 'justify-center items-center h-full': !hasBookmarks }"
-      v-on:dragenter="dragEnter"
-      v-on:dragend="dragLeave"
    >
       <DashboardSearchBar
          v-model:search="search"
@@ -43,7 +24,10 @@ const dragLeave = (e: DragEvent) => {
 
       <DashboardBookmarks :search="search" />
 
-      <div class="no-bookmarks border-8 border-dashed inline-flex flex-col items-center gap-5 rounded-2xl p-10 text-center backdrop-blur-3xl">
+      <div
+         class="no-bookmarks border-8 border-dashed inline-flex flex-col items-center gap-5 rounded-2xl p-10 text-center backdrop-blur-3xl"
+         v-if="!hasBookmarks"
+      >
          <h2 class="text-2xl font-bold">No bookmarks found</h2>
          <p class="text-gray-500">
             You don't have any bookmarks yet.
@@ -54,6 +38,5 @@ const dragLeave = (e: DragEvent) => {
             <span>Create Bookmark</span>
          </button>
       </div>
-      <div class="dark-backround-modal bg-black opacity-30 absolute left-0 top-0 w-screen h-screen hidden"></div>
    </div>
 </template>

@@ -15,9 +15,7 @@ const { isSidebarHover } = defineProps({
 </script>
 
 <template>
-   <div
-      class="quick-links flex flex-col gap-5 h-full"
-   >
+   <div class="quick-links flex flex-col gap-5 h-full">
       <NuxtLink
          class="p-5 hover:bg-accent flex gap-5 items-center justify-center rounded-lg hover:scale-110 duration-200"
          v-for="{ name, link, icon } in pages"
@@ -28,7 +26,10 @@ const { isSidebarHover } = defineProps({
             'shadow-solid-md': isSidebarHover,
          }"
       >
-         <component :is="icon" :class="{ 'hidden': isSidebarHover }" />
+         <component
+            :is="icon"
+            :class="{ 'hidden': isSidebarHover }"
+         />
          <span :class="{ 'hidden': !isSidebarHover }">
             {{ name }}
          </span>

@@ -3,15 +3,10 @@ import { GithubIcon, GoogleIcon, Logo, LogoutIcon } from '../Icons';
 import SideBarLinks from './sidebar/SideBarLinks.vue';
 const router = useRouter();
 
-const isSidebarHover = ref(true);
-const isSidebarToggled = ref(false);
+const isSidebarHover = ref(false);
 
 const client = useSupabaseClient();
 const user = useSupabaseUser();
-
-setTimeout(() => {
-   isSidebarHover.value = true;
-}, 1000);
 
 function signOut() {
    client.auth.signOut().then(() => {
@@ -22,16 +17,20 @@ function signOut() {
 
 <template>
    <div
-      class="sidebar p-5 box-content flex flex-col bg-white m-5 rounded-2xl duration-700 ease-in-out gap-10"
+      class="sidebar p-5 box-content flex flex-col bg-white m-5 rounded-2xl duration-200 ease-in-out gap-10"
       v-on:mouseenter="() => isSidebarHover = true"
       v-on:mouseleave="() => isSidebarHover = false"
+      :class="{
+         'w-64': isSidebarHover,
+         'w-16': !isSidebarHover
+      }"
    >
       <div class="logo flex justify-center">
          <NuxtLink
             to="/"
-            class="inline-block mb-5 hover:scale-110 duration-150 drop-shadow-2xl hover:drop-shadow-2xl shadow-red-800"
+            class="inline-block mb-5 hover:scale-110 duration-150 drop-shadow-solid-md hover:drop-shadow-solid-xl shadow-red-800"
          >
-            <Logo class="mx-auto h-24 duration-200" />
+            <Logo class="mx-auto h-24 duration-200 drop-shadow-solid" />
          </NuxtLink>
       </div>
 
