@@ -1,20 +1,18 @@
 <script setup lang="ts">
+import { store } from '~/store/store';
+import { type Bookmark } from '~/types/types';
+
 const dragEnter = (e: DragEvent) => {
    e.preventDefault();
    e.stopPropagation();
-   console.log("Drag enter");
-
    // add tailwind class to the body
-   document.querySelector('main')?.classList.add("bg-red-300");
+   document.querySelector('main')?.classList.add("bg-gray-300");
 };
 
 const dragLeave = (e: any) => {
    e.preventDefault();
    e.stopPropagation();
-   console.log("Drag leave");
 
-   // First check if the mouse is still inside the main element
-   // If it is, don't remove the class
    const main = document.querySelector('main');
    const rect = main?.getBoundingClientRect();
    const x = e.clientX;
@@ -23,16 +21,30 @@ const dragLeave = (e: any) => {
       return;
    }
 
-   document.querySelector('main')?.classList.remove("bg-red-300");
+   document.querySelector('main')?.classList.remove("bg-gray-300");
 };
 
-const drop = (e: any) => {
+const user = useSupabaseUser();
+const client = useSupabaseClient();
+
+const drop = async (e: any) => {
    e.preventDefault();
    e.stopPropagation();
 
-   console.log(e.dataTransfer.getData("text/plain"));
+   const plainInput = e.dataTransfer.getData("text/plain");
 
-   // Check if the data transfer is not an url and it is a folder
+   document.querySelector('main')?.classList.remove("bg-gray-300");
+
+   // Check if the data transfer is not an url and it is a bookmark folder (not a folder or file)
+   if (plainInput.startsWith("http")) {
+      const url = e.dataTransfer.getData("text/plain");
+      const user_id: string | undefined = user.value?.id ?? undefined;
+      const title = new URL(url).hostname.split('.')[0];
+
+      const bookmark: Bookmark = { user_id, url, title };
+
+      store.addBookmark(bookmark, user.value, client);
+   }
 };
 </script>
 
@@ -41,7 +53,7 @@ const drop = (e: any) => {
       className="bg-gray-100 flex-1 rounded-3xl p-10 m-5 h-min-[500px] overflow-auto"
       @dragenter="dragEnter"
       @dragleave="dragLeave"
-      v-on:drop="drop"
+      @drop="drop"
       @dragover="e => e.preventDefault()"
    >
       <slot />
