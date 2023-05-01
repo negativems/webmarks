@@ -1,10 +1,21 @@
-interface Bookmark {
-   id: number;
-   title: string;
-   description: string;
-   url: string;
-}
+// const client = useSupabaseClient();
 
+import { Bookmark } from "~/types/types";
+
+// export async function addBookmark(user_id: number | null, bookmark: any): Promise<boolean> {
+//    if (user_id === null) {
+//       // TODO: add to local storage
+//       console.log("addBookmark", "User is not logged in");
+
+//       return false;
+//    }
+
+//    const { error } = await client.from('bookmarks').upsert(bookmark);
+
+//    console.log("addBookmark", "Error is", error);
+
+//    return error === null;
+// }
 
 export async function hasBookmarks(user: any, client: any): Promise<boolean> {
    if (user.value === null) return false;
