@@ -32,12 +32,24 @@ $tailwindHeaderMaringTop: 20px;
    margin: 0;
 }
 
+html {
+   overflow-y: overlay;
+}
+
+@font-face {
+   font-family: 'nunito';
+   src: url('/nunito.ttf') format('truetype');
+   font-weight: 900;
+   font-style: normal;
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
+   font-family: 'nunito', sans-serif !important;
    font-weight: bold;
 }
 
@@ -60,10 +72,6 @@ h4 {
 
 h5 {
    font-size: 1rem;
-}
-
-body {
-   background-color: #F5F5F5;
 }
 
 #__nuxt {
