@@ -6,8 +6,15 @@
    },
    "parser": "vue-eslint-parser",
    "parserOptions": {
-      "parser": "@typescript-eslint/parser"
+      "parser": "@typescript-eslint/parser",
+      "ecmaVersion": 2020,
+      "ecmaFeatures": {
+         "jsx": true
+      }
    },
+   "plugins": [
+      "tailwindcss"
+   ],
    "rules": {
       "no-irregular-whitespace": [
          "off"
@@ -19,6 +26,12 @@
       "no-unused-vars": "off",
       "@typescript-eslint/explicit-function-return-type": [
          "off"
+      ],
+      "tailwindcss/no-custom-classname": [
+         "off"
+      ],
+      "tailwindcss/classnames-order": [
+         "warn"
       ]
    }
 }
