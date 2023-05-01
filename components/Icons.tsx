@@ -1,10 +1,10 @@
-export const GoogleIcon = ({ color = 'black' }) => (
+export const GoogleIcon = ({ color = 'black' }: any) => (
    <svg width="18" height="19" viewBox="0 0 18 19" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M17.9167 8.0392L17.8134 7.62359H9.2733V11.3759H14.3813C14.0963 12.521 13.4483 13.534 12.5409 14.253C11.6337 14.972 10.5194 15.3555 9.37661 15.342C7.8853 15.3293 6.45247 14.7406 5.35907 13.6915C4.82158 13.1435 4.39387 12.4911 4.10038 11.7718C3.80691 11.0526 3.65344 10.2805 3.64876 9.49977C3.66611 7.93174 4.26622 6.43073 5.32465 5.30809C6.4026 4.25168 7.83434 3.66857 9.31921 3.68127C10.5909 3.6914 11.8154 4.18118 12.7628 5.05872L15.2881 2.37508C13.6237 0.83894 11.4694 -0.00685917 9.23886 0.000170556C8.0118 -0.00736977 6.7954 0.235179 5.65898 0.713984C4.52258 1.19278 3.48845 1.89844 2.61569 2.79068C0.95552 4.57457 0.0195285 6.94891 0.000301786 9.42508C-0.0189135 11.9013 0.880117 14.2908 2.51238 16.102C3.41671 17.034 4.49155 17.7704 5.67407 18.2678C6.85658 18.7653 8.12302 19.014 9.39956 18.9994C10.5571 19.0083 11.7044 18.774 12.7719 18.3107C13.8393 17.8473 14.8046 17.1647 15.6095 16.3039C17.1889 14.5074 18.0432 12.1534 17.9971 9.72539C18.0095 9.16206 17.9826 8.59861 17.9167 8.0392Z" fill="white" />
    </svg>
 );
 
-export const GithubIcon = ({ color = 'black' }) => (
+export const GithubIcon = ({ color = 'black' }: any) => (
    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
       <path
          d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"
@@ -13,15 +13,15 @@ export const GithubIcon = ({ color = 'black' }) => (
    </svg>
 );
 
-export const Logo = ({ className = '', color = 'white' }) => (
-   <svg class={`${className} logo`} height="110" viewBox="0 0 59 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+export const Logo = ({ color = 'white' }: any) => (
+   <svg class={`logo`} height="110" viewBox="0 0 59 110" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path d="M0 5.9C0 2.64152 2.64152 0 5.9 0H53.1C56.3585 0 59 2.64152 59 5.9V20.06C59 20.06 41.3812 28 29.5 28C17.6188 28 0 20.06 0 20.06V5.9Z" fill="#3AE000" />
       <path d="M0 28.3199C0 28.3199 17.1799 39.5 29.5 39.5C41.8201 39.5 59 28.3199 59 28.3199V89.645C59 98.595 59 103.07 56.0876 104.78C53.1751 106.49 49.2671 104.31 41.4512 99.9499L40.9976 99.6969C35.3784 96.5621 32.5688 94.9947 29.5 94.9947C26.4312 94.9947 23.6216 96.5621 18.0024 99.6969L17.5488 99.9499C9.73287 104.31 5.82489 106.49 2.91244 104.78C0 103.07 0 98.595 0 89.645V28.3199Z" fill="#3AE000" />
       <path d="M0 22.42C0 22.42 17.6053 30.5 29.5 30.5C41.3947 30.5 59 22.42 59 22.42V25.96C59 25.96 41.8008 37 29.5 37C17.1992 37 0 25.96 0 25.96V22.42Z" fill={color} />
    </svg>
 );
 
-export const LogginIcon = ({ color = 'black' }) => (
+export const LogginIcon = ({ color = 'black' }: any) => (
    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
       <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
       <polyline points="10 17 15 12 10 7"></polyline>
@@ -29,7 +29,7 @@ export const LogginIcon = ({ color = 'black' }) => (
    </svg>
 );
 
-export const BuyMeACoffeIcon = ({ color = 'black' }) => (
+export const BuyMeACoffeIcon = ({ color = 'black' }: any) => (
    <svg xmlns="http://www.w3.org/2000/svg" width="31" height="45" fill="none">
       <path fill="#000" d="m27.47 10.26-.03-.018-.072-.02a.169.169 0 0 0 .101.038Zm.007-.022a.053.053 0 0 1-.01-.002v.007a.02.02 0 0 0 .01-.005Zm.408 3.155.052-.03.018-.01.018-.018a.295.295 0 0 0-.088.058Zm-.33-3.071-.05-.048-.035-.018a.14.14 0 0 0 .085.066Zm-12.628 30.56a.262.262 0 0 0-.103.078l.032-.02c.022-.02.052-.043.071-.058Zm7.34-1.434c0-.044-.023-.036-.018.125 0-.013.006-.026.008-.039l.01-.086Zm-.762 1.434a.262.262 0 0 0-.104.078l.032-.02c.022-.02.052-.043.072-.058Zm-11.74.347a.217.217 0 0 0-.108-.051l.087.043.02.008ZM8.607 40.12a.338.338 0 0 0-.042-.133c.017.043.03.087.04.131l.002.002Z" />
       <path fill="#FD0" d="M16.41 20.357c-1.597.678-3.407 1.446-5.752 1.446a10.97 10.97 0 0 1-2.904-.397l1.622 16.538c.057.691.375 1.336.889 1.806s1.188.731 1.887.73c0 0 2.3.119 3.067.119.826 0 3.304-.12 3.304-.12.699 0 1.372-.26 1.886-.73.514-.47.83-1.114.888-1.805l1.737-18.274c-.777-.262-1.56-.437-2.444-.437-1.528-.001-2.759.52-4.18 1.125v-.001Z" />
@@ -38,27 +38,27 @@ export const BuyMeACoffeIcon = ({ color = 'black' }) => (
    </svg>
 );
 
-export const FooterCurveIcon = ({ color = 'black' }) => (
-   <svg class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1920px] overflow-hidden" width="1920" height="100" fill="none">
+export const FooterCurveIcon = ({ color = 'black' }: any) => (
+   <svg class="absolute bottom-0 left-1/2 w-[1920px] -translate-x-1/2 overflow-hidden" width="1920" height="100" fill="none">
       <path fill="#9DFF7A" d="M0 0h1920v100H0z" />
       <path fill="#77FF47" d="M968.5 59.088C588.405 59.51 0 0 0 0v100h1920V.5s-578.2 58.173-951.5 58.588Z" />
       <path fill="#255116" d="M1920 100V.5s-582.1 76.65-960 76.65S0 0 0 0v100h1920Z" />
    </svg>
 );
 
-export const CrossIcon = ({ color = 'red' }) => (
-   <svg class="w-5 inline" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+export const CrossIcon = ({ color = 'red' }: any) => (
+   <svg class="inline w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
       <path fill={color} d="m18.8 16 5.5-5.5c.8-.8.8-2 0-2.8-.3-.4-.8-.7-1.3-.7s-1 .2-1.4.6L16 13.2l-5.5-5.5c-.8-.8-2.1-.8-2.8 0-.4.3-.7.8-.7 1.4s.2 1 .6 1.4l5.5 5.5-5.5 5.5c-.3.4-.6.9-.6 1.5 0 .5.2 1 .6 1.4.4.4.9.6 1.4.6.5 0 1-.2 1.4-.6l5.5-5.5 5.5 5.5c.8.8 2.1.8 2.8 0 .8-.8.8-2.1 0-2.8L18.8 16z" />
    </svg>
 );
 
-export const CheckIcon = ({ color = 'green' }) => (
+export const CheckIcon = ({ color = 'green' }: any) => (
    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 17.837 17.837">
       <path fill={color} d="M16.145 2.571a.7.7 0 0 0-.99 0L6.92 10.804l-4.241-4.27a.698.698 0 0 0-.989 0L.204 8.019a.703.703 0 0 0 0 .99l6.217 6.258a.704.704 0 0 0 .99 0L17.63 5.047a.7.7 0 0 0 0-.994l-1.485-1.482z" />
    </svg>
 );
 
-export const ListBulletIcon = ({ className = '' }) => (
+export const ListBulletIcon = ({ className = '' }: any) => (
    <svg xmlns="http://www.w3.org/2000/svg" class={'w-6 h-6' + (className ? ' ' + className : '')} fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
    </svg>
@@ -70,7 +70,7 @@ export const Clock = () => (
    </svg>
 );
 
-export const NumberedSquare = ({ number = 0, className = '' }) => (
+export const NumberedSquare = ({ number = 0, className = '' }: any) => (
    <div class={'flex items-center justify-center w-6 h-6 rounded-full border-black border-[1px] p-2' + (className ? ' ' + className : '')}>
       <span class="text-gray-500">{number}</span>
    </div>
@@ -82,7 +82,7 @@ export const SearchIcon = () => (
    </svg>
 );
 
-export const BookmarkIcon = ({ color = "black" }) => (
+export const BookmarkIcon = ({ color = "black" }: any) => (
    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
       <path fill={color} d="M19 2.01H6c-1.206 0-3 .799-3 3v14c0 2.201 1.794 3 3 3h15v-2H6.012C5.55 19.998 5 19.815 5 19.01c0-.101.009-.191.024-.273.112-.575.583-.717.987-.727H20c.018 0 .031-.009.049-.01H21V4.01c0-1.103-.897-2-2-2zm0 14H5v-11c0-.806.55-.988 1-1h7v7l2-1 2 1v-7h2v12z" />
    </svg>
@@ -94,10 +94,24 @@ export const StarIcon = () => (
    </svg>
 );
 
-export const LogoutIcon = ({ color = 'black' }) => (
+export const LogoutIcon = ({ color = 'black' }: any) => (
    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="css-i6dzq1">
       <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
       <polyline points="16 17 21 12 16 7"></polyline>
       <line x1="21" y1="12" x2="9" y2="12"></line>
+   </svg>
+);
+
+export const SunIcon = () => (
+   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke-width="2" class="ai ai-SunFill">
+      <path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10z" />
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M12 1a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0V2a1 1 0 0 1 1-1zM3.293 3.293a1 1 0 0 1 1.414 0l1.5 1.5a1 1 0 0 1-1.414 1.414l-1.5-1.5a1 1 0 0 1 0-1.414zm17.414 0a1 1 0 0 1 0 1.414l-1.5 1.5a1 1 0 1 1-1.414-1.414l1.5-1.5a1 1 0 0 1 1.414 0zM1 12a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2H2a1 1 0 0 1-1-1zm19 0a1 1 0 0 1 1-1h1a1 1 0 1 1 0 2h-1a1 1 0 0 1-1-1zM6.207 17.793a1 1 0 0 1 0 1.414l-1.5 1.5a1 1 0 0 1-1.414-1.414l1.5-1.5a1 1 0 0 1 1.414 0zm11.586 0a1 1 0 0 1 1.414 0l1.5 1.5a1 1 0 0 1-1.414 1.414l-1.5-1.5a1 1 0 0 1 0-1.414zM12 20a1 1 0 0 1 1 1v1a1 1 0 1 1-2 0v-1a1 1 0 0 1 1-1z" />
+   </svg>
+);
+
+export const MoonIcon = () => (
+   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ai ai-Moon">
+      <path d="M20.958 15.325c.204-.486-.379-.9-.868-.684a7.684 7.684 0 0 1-3.101.648c-4.185 0-7.577-3.324-7.577-7.425a7.28 7.28 0 0 1 1.134-3.91c.284-.448-.057-1.068-.577-.936C5.96 4.041 3 7.613 3 11.862 3 16.909 7.175 21 12.326 21c3.9 0 7.24-2.345 8.632-5.675z" />
+      <path d="M15.611 3.103c-.53-.354-1.162.278-.809.808l.63.945a2.332 2.332 0 0 1 0 2.588l-.63.945c-.353.53.28 1.162.81.808l.944-.63a2.332 2.332 0 0 1 2.588 0l.945.63c.53.354 1.162-.278.808-.808l-.63-.945a2.332 2.332 0 0 1 0-2.588l.63-.945c.354-.53-.278-1.162-.809-.808l-.944.63a2.332 2.332 0 0 1-2.588 0l-.945-.63z" />
    </svg>
 );

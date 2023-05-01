@@ -18,7 +18,6 @@ const selected = computed(() => {
 const headerLinks = [
    { href: '/', label: 'HOME' },
    { href: '/features', label: 'FEATURES' },
-   { href: '/about', label: 'ABOUT' }
 ] as any;
 
 const user = useSupabaseUser();
@@ -30,31 +29,43 @@ watchEffect(() => {
 </script>
 
 <template>
-   <header :class="'flex items-center bg-transparent mt-5' + (isHome ? ' absolute w-full' : '')">
-      <div :class="'container mx-auto flex justify-between items-center h-full px-10 box-content bg-white rounded-3xl'">
-         <div class="logo-container flex-1 relative h-full">
+   <header :class="'flex items-center bg-transparent mt-5 z-10' + (isHome ? ' absolute w-full' : '')">
+      <div
+         class="container mx-auto box-content flex h-full items-center justify-between gap-12 rounded-3xl px-10 dark:bg-gray-900"
+         :class="{
+            'bg-white': !isHome,
+         }"
+      >
+         <div class="logo-container relative h-full flex-1">
             <HeaderLogo />
          </div>
-         <div class="navbar flex gap-12 flex-1">
+         <div class="navbar flex flex-1 gap-12">
             <NuxtLink
                v-for="link in headerLinks"
                :key="link.href"
                :to="link.href"
-               :class="'w-full text-center hover:bg-accent-light p-3 rounded-xl ' + (selected === link.href ? 'border-b-4 border-accent rounded-none bg-accent-light' : '')"
+               class="max-w-fit rounded-xl p-3 px-10 text-center font-bold hover:bg-accent-light hover:shadow-md dark:text-white dark:hover:bg-accent-dark"
+               :class="{
+                  'rounded-none border-b-4 border-accent bg-accent-light dark:bg-accent-dark': selected === link.href
+               }"
             >
                {{ link.label }}
             </NuxtLink>
          </div>
          <div
-            class="flex-1 flex justify-end"
+            class="flex flex-1 justify-end"
             v-if="user"
          >
             <NuxtLink
                to="/dashboard"
-               class="btn btn-primary border-2 border-accent bg-white hover:shadow-solid-xl duration-150 p-3 rounded-xl"
+               class="btn btn-primary rounded-xl border-2 border-accent bg-white p-3 duration-150 hover:shadow-solid-xl"
             >
                Dashboard
             </NuxtLink>
+         </div>
+
+         <div class="color-scheme">
+            <ColorSchemeToggle />
          </div>
       </div>
    </header>

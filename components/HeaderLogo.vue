@@ -2,9 +2,9 @@
 import { Logo } from './Icons';
 
 <template>
-   <NuxtLink to="/" class="inline-flex h-full items-center cursor-pointer hover:scale-105 transition ease-in-out">
-      <Logo class="shadowed h-14 mr-4" />
-      <span class="logo-text">WEBMARKS</span>
+   <NuxtLink to="/" class="inline-flex h-full cursor-pointer items-center transition ease-in-out hover:scale-105">
+      <Logo class="shadowed mr-4 h-14" />
+      <span class="logo-text font-bold dark:text-white">WEBMARKS</span>
    </NuxtLink>
 </template>
 
