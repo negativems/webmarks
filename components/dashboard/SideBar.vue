@@ -3,7 +3,7 @@ import { GithubIcon, GoogleIcon, Logo, LogoutIcon } from '../Icons';
 import SideBarLinks from './sidebar/SideBarLinks.vue';
 const router = useRouter();
 
-const isSidebarHover = ref(false);
+const isSidebarHover = ref(true);
 
 const client = useSupabaseClient();
 const user = useSupabaseUser();
@@ -13,11 +13,12 @@ function signOut() {
       router.push('/');
    });
 }
+
 </script>
 
 <template>
    <div
-      class="sidebar p-5 box-content flex flex-col bg-white m-5 rounded-2xl duration-200 ease-in-out gap-10"
+      class="sidebar p-5 box-content flex flex-col bg-white m-5 rounded-2xl duration-100 ease-in-out gap-10"
       v-on:mouseenter="() => isSidebarHover = true"
       v-on:mouseleave="() => isSidebarHover = false"
       :class="{
@@ -41,7 +42,7 @@ function signOut() {
 
       <div class="account-buttons">
          <div
-            class="not-logged flex gap-5"
+            class="not-logged flex gap-5 justify-center"
             v-if="!user && isSidebarHover"
          >
             <button
@@ -67,7 +68,7 @@ function signOut() {
          >
             <LogoutIcon :class="{ 'hidden': isSidebarHover }" />
             <span
-               class=""
+               class="delay-200"
                :class="{ 'hidden': !isSidebarHover }"
             >
                Logout

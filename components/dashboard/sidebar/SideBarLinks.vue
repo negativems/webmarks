@@ -9,28 +9,26 @@ const pages = [
 ];
 const isSelectedPage = (link) => link === router.currentRoute.value.path;
 
-const { isSidebarHover } = defineProps({
-   isSidebarHover: Boolean,
-});
+const { isSidebarHover } = defineProps(['isSidebarHover']);
 </script>
 
 <template>
    <div class="quick-links flex flex-col gap-5 h-full">
       <NuxtLink
-         class="p-5 hover:bg-accent flex gap-5 items-center justify-center rounded-lg hover:scale-110 duration-200"
+         class="p-5 hover:bg-accent flex gap-5 items-center justify-center rounded-lg hover:scale-110 duration-200 overflow-hidden"
          v-for="{ name, link, icon } in pages"
          :key="link"
          :to="link"
          :class="{
-            'bg-accent font-semibold': isSelectedPage(link),
-            'shadow-solid-md': isSidebarHover,
-         }"
+               'bg-accent font-semibold': isSelectedPage(link),
+               'shadow-solid-md': isSidebarHover,
+            }"
       >
          <component
             :is="icon"
             :class="{ 'hidden': isSidebarHover }"
          />
-         <span :class="{ 'hidden': !isSidebarHover }">
+         <span :class="{ 'hidden': !isSidebarHover }" class="whitespace-nowrap">
             {{ name }}
          </span>
       </NuxtLink>
