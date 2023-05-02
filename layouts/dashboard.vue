@@ -14,11 +14,10 @@ useHead({
       class: isDark.value ? 'dark' : 'bg-gray-100',
    },
 });
-//    const isDarkModePreferred = window.matchMedia('(prefers-color-scheme: dark)').matches;
 </script>
 
 <template>
-   <div class="dashboard flex h-[100vh] max-h-[100vh] min-h-[300px] bg-accent-light">
+   <div class="dashboard flex h-[100vh] max-h-[100vh] min-h-[300px] bg-accent-light dark:bg-gray-900">
       <DashboardSideBar />
       <DashboardContent>
          <slot />
