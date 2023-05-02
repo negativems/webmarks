@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { GithubIcon, GoogleIcon, Logo, LogoutIcon } from '../Icons';
-import SideBarLinks from './sidebar/SideBarLinks.vue';
+import { GithubIcon, GoogleIcon, Logo, LogoutIcon } from '@/components/Icons';
+import SideBarLinks from './SideBarLinks.vue';
 const router = useRouter();
 
 const isSidebarHover = ref(true);
@@ -18,7 +18,7 @@ function signOut() {
 
 <template>
    <div
-      class="sidebar p-5 box-content flex flex-col bg-white m-5 rounded-2xl duration-100 ease-in-out gap-10"
+      class="sidebar m-5 box-content flex flex-col gap-10 rounded-2xl bg-white p-5 duration-200 ease-in-out dark:bg-gray-800"
       v-on:mouseenter="() => isSidebarHover = true"
       v-on:mouseleave="() => isSidebarHover = false"
       :class="{
@@ -29,9 +29,9 @@ function signOut() {
       <div class="logo flex justify-center">
          <NuxtLink
             to="/"
-            class="inline-block mb-5 hover:scale-110 duration-150 drop-shadow-solid-md hover:drop-shadow-solid-xl shadow-red-800"
+            class="mb-5 inline-block shadow-red-800 drop-shadow-solid-md duration-100 hover:scale-110 hover:drop-shadow-solid-xl"
          >
-            <Logo class="mx-auto h-24 duration-200 drop-shadow-solid" />
+            <Logo class="drop-shadow-solid mx-auto h-24 w-full duration-200" />
          </NuxtLink>
       </div>
 
@@ -42,18 +42,18 @@ function signOut() {
 
       <div class="account-buttons">
          <div
-            class="not-logged flex gap-5 justify-center"
+            class="not-logged flex justify-center gap-5"
             v-if="!user && isSidebarHover"
          >
             <button
-               class="login-button w-24 inline-flex justify-center items-center bg-black text-white font-bold p-5 rounded-lg hover:bg-gray-800 justify-self-end hover:scale-110 duration-150"
+               class="login-button inline-flex w-24 items-center justify-center justify-self-end rounded-lg bg-black p-5 font-bold text-white duration-100 hover:scale-110 hover:bg-gray-800 dark:hover:bg-gray-700"
                @click="client.auth.signInWithOAuth({ provider: 'github' })"
             >
                <GithubIcon class="invert" />
             </button>
 
             <button
-               class="login-button w-24 inline-flex justify-center items-center bg-red-500 text-white font-bold p-5 rounded-lg hover:bg-red-600 justify-self-end hover:scale-110 duration-150"
+               class="login-button inline-flex w-24 items-center justify-center justify-self-end rounded-lg bg-red-500 p-5 font-bold text-white duration-100 hover:scale-110 hover:bg-red-600"
                @click="client.auth.signInWithOAuth({ provider: 'google' })"
             >
                <GoogleIcon />
@@ -62,7 +62,7 @@ function signOut() {
          </div>
 
          <button
-            class="login-button w-full bg-red-400 text-white font-bold p-5 rounded-lg hover:bg-gray-900 justify-self-end"
+            class="login-button w-full justify-self-end rounded-lg bg-red-400 p-5 font-bold text-white hover:bg-gray-900"
             @click="signOut()"
             v-if="user"
          >
@@ -75,4 +75,5 @@ function signOut() {
             </span>
          </button>
       </div>
-   </div></template>
+   </div>
+</template>
