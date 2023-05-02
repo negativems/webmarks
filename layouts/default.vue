@@ -22,9 +22,3 @@ useHead({
    <NuxtPage />
    <Footer />
 </template>
-
-<style lang="scss">
-body.dark {
-   @apply bg-gray-800 text-white;
-}
-</style>

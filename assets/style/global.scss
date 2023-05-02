@@ -43,6 +43,10 @@ html {
    font-style: normal;
 }
 
+body.dark {
+   @apply bg-gray-800 text-white;
+}
+
 h1,
 h2,
 h3,
@@ -83,6 +87,11 @@ h5 {
    main {
       min-height: calc(100vh - $headerHeight - $footerHeight - $tailwindHeaderMaringTop);
    }
+}
+
+svg {
+   height: 24px;
+   width: 24px;
 }
 
 ::-webkit-scrollbar {
