@@ -8,7 +8,7 @@ const isDarkMode = computed(() => store.theme === 'dark');
       <label class="switch">
          <input
             type="checkbox"
-            v-model="isDarkMode"
+            :checked="isDarkMode"
             @change="store.toggleTheme()"
          />
          <span class="slider"></span>
