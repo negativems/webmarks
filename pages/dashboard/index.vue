@@ -1,39 +1,47 @@
 <script setup lang="ts">
 import { store } from '~/store/store';
-import { Bookmark } from '~/types/types';
+import { BookmarkDisplayFormat } from '~/types/types';
 
 definePageMeta({
    layout: 'dashboard',
-   // middleware: 'authentication'
 });
 
 const search = ref("");
-const bookmarks = store.bookmarks as Bookmark[];
-const hasBookmarks = computed(() => store.bookmarks.length > 0);
+const bookmarks = computed(() => store.bookmarks);
+const hasBookmarks = computed(() => bookmarks.value.length > 0);
+
+const displayFormat = computed(() => store.bookmarkDisplayFormat as BookmarkDisplayFormat);
 
 onMounted(() => {
-   if (!isLogged()) {
-      store.bookmarks = localStorage.getItem('bookmarks') ? JSON.parse(localStorage.getItem('bookmarks')!) : [];
-      console.log('store', store.bookmarks);
-   }
+   store.loadBookmarks();
+   store.loadBookmarkDisplayFormat();
 });
 </script>
 
 <template>
    <div
-      class="bookmarks flex"
-      :class="{ 'flex-col gap-10': hasBookmarks, 'h-full items-center justify-center': !hasBookmarks }"
+      class="flex"
+      :class="{
+         'flex-col gap-10': hasBookmarks,
+         'h-full items-center justify-center': !hasBookmarks
+      }"
    >
-      <DashboardSearchBar
-         v-model:search="search"
-         v-if="bookmarks.length > 0"
-      />
+      <header class="flex gap-5">
+         <DashboardHeaderSearchBar
+            v-model:search="search"
+            v-if="hasBookmarks"
+         />
+         <DashboardHeaderDisplayFormatSwitcher
+            :format="displayFormat"
+            v-if="hasBookmarks"
+         />
+      </header>
 
       <DashboardBookmarks :search="search" />
 
       <div
          class="no-bookmarks inline-flex flex-col items-center gap-5 rounded-2xl border-8 border-dashed p-10 text-center backdrop-blur-3xl"
-         v-if="!hasBookmarks"
+         v-if="!hasBookmarks && store.bookmarksLoaded"
       >
          <h2 class="text-2xl font-bold">No bookmarks found</h2>
          <p class="text-gray-500">
