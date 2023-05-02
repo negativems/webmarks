@@ -5,3 +5,5 @@ export interface Bookmark {
    id?: number;
    description?: string;
 }
+
+export type BookmarkDisplayFormat = 'columns' | 'cards';
