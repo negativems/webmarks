@@ -1,5 +1,6 @@
 <script setup>
 import { BookmarkIcon, Clock, StarIcon } from '~/components/Icons';
+import { store } from '~/store/store';
 const router = useRouter();
 
 const pages = [
@@ -10,22 +11,24 @@ const pages = [
 const isSelectedPage = (link) => link === router.currentRoute.value.path;
 
 const { isSidebarHover } = defineProps(['isSidebarHover']);
+
+const iconColor = computed(() => store.theme === 'dark' ? 'white' : 'black');
 </script>
 
 <template>
-   <div class="quick-links flex flex-col gap-5 h-full">
+   <div class="quick-links flex h-full flex-col gap-5">
       <NuxtLink
-         class="p-5 hover:bg-accent flex gap-5 items-center justify-center rounded-lg hover:scale-110 duration-200 overflow-hidden"
+         class="flex items-center justify-center gap-5 overflow-hidden rounded-lg p-5 duration-150 hover:scale-110 hover:bg-accent"
          v-for="{ name, link, icon } in pages"
          :key="link"
          :to="link"
          :class="{
-               'bg-accent font-semibold': isSelectedPage(link),
+               'bg-accent font-semibold dark:bg-accent': isSelectedPage(link),
                'shadow-solid-md': isSidebarHover,
             }"
       >
          <component
-            :is="icon"
+            :is="icon({color: iconColor})"
             :class="{ 'hidden': isSidebarHover }"
          />
          <span :class="{ 'hidden': !isSidebarHover }" class="whitespace-nowrap">
