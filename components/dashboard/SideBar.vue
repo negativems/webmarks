@@ -18,7 +18,7 @@ function signOut() {
 
 <template>
    <div
-      class="sidebar m-5 box-content flex flex-col gap-10 rounded-2xl bg-white p-5 duration-200 ease-in-out dark:bg-gray-800"
+      class="sidebar m-5 box-content flex-col gap-10 rounded-2xl bg-white p-5 duration-200 ease-in-out dark:bg-gray-800 max-[500px]:hidden md:flex"
       v-on:mouseenter="() => isSidebarHover = true"
       v-on:mouseleave="() => isSidebarHover = false"
       :class="{

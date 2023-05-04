@@ -61,10 +61,8 @@ export default {
                <p class="mx-auto mt-5 max-w-xl text-xl text-gray-600 dark:text-gray-400">Whether you're a student, a developer, a designer or a business owner, we've got the perfect plan for you.</p>
             </div>
          </div>
-         <!-- A tailwindcss table showing the features as rows and the plan as column with every cell with a green checkmark or gray cross -->
-         <table>
 
-         </table>
-         </section>
+         
+      </section>
    </main>
 </template>

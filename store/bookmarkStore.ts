@@ -16,6 +16,29 @@ export const bookmarkStore = {
          localStorage.setItem('bookmarkDisplayFormat', this.bookmarkDisplayFormat);
       }
    },
+   incrementRedirects(id: number | undefined) {
+      if (id === undefined) return;
+
+      if (process.client) {
+         const user = useSupabaseUser().value;
+         const client = useSupabaseClient();
+
+         if (user === null) {
+            const bookmark = this.bookmarks.find(bookmark => bookmark.id === id);
+            if (bookmark !== undefined) {
+               bookmark.redirects++;
+               localStorage.setItem('bookmarks', JSON.stringify(this.bookmarks));
+            }
+
+            return;
+         }
+
+         const redirects = this.bookmarks.find(bookmark => bookmark.id === id)?.redirects || 0;
+         client.from('bookmarks').upsert({ id, redirects } as any).then(() => {
+            console.log('Bookmark redirects incremented');
+         });
+      }
+   },
    async loadBookmarks(): Promise<void> {
       this.bookmarksLoaded = false;
       if (process.client) {
@@ -28,7 +51,7 @@ export const bookmarkStore = {
             return;
          }
 
-         const { data } = await client.from('bookmarks').select('id, title, description, url').eq('user_id', user.id).limit(100);
+         const { data } = await client.from('bookmarks').select('id, title, description, url, redirects').eq('user_id', user.id).limit(100);
          this.bookmarks = (data || []) as Bookmark[];
          this.bookmarksLoaded = true;
          return;
@@ -36,7 +59,7 @@ export const bookmarkStore = {
 
       this.bookmarks = [];
    },
-   async addBookmark(bookmark: Bookmark) {
+   async addBookmark(data: Bookmark | Bookmark[]) {
       if (this.bookmarks === undefined) return;
 
       if (process.client) {
@@ -44,35 +67,35 @@ export const bookmarkStore = {
          const client = useSupabaseClient();
 
          if (user === null) {
-            bookmark.id = this.bookmarks.length + 1;
-            localStorage.setItem('bookmarks', JSON.stringify([...this.bookmarks, bookmark]));
-            this.bookmarks.push(bookmark);
+            if (Array.isArray(data)) {
+               data.forEach(bookmark => {
+                  bookmark.id = this.bookmarks.length + 1;
+                  bookmark.redirects = 0;
+               });
+
+               localStorage.setItem('bookmarks', JSON.stringify([...this.bookmarks, ...data]));
+               this.bookmarks.push(...data);
+               return;
+            }
+
+            data.id = this.bookmarks.length + 1;
+            data.redirects = 0;
+            localStorage.setItem('bookmarks', JSON.stringify([...this.bookmarks, data]));
+            this.bookmarks.push(data);
             return;
          }
 
-         bookmark.user_id = user.id;
-         client.from('bookmarks').insert(bookmark as any).then(() => {
-            this.bookmarks?.push(bookmark);
-            console.log('Bookmark added');
+         if (Array.isArray(data)) {
+            data.forEach(bookmark => bookmark.user_id = user.id);
+         } else {
+            data.user_id = user.id;
+         }
+
+         client.from('bookmarks').insert(data as any).then(() => {
+            this.bookmarks?.push(Array.isArray(data) ? [...data] as any : data);
          });
       }
    },
-   // async hasBookmarks(): Promise<boolean> {
-   //    if (process.client) {
-   //       const user = useSupabaseUser().value;
-   //       const client = useSupabaseClient();
-
-   //       if (user === null) {
-   //          const localBookmarks = localStorage.getItem('bookmarks');
-   //          return localBookmarks !== null && JSON.parse(localBookmarks).length > 0;
-   //       }
-
-   //       const { data } = await client.from('bookmarks').select('id').eq('user_id', user.id).limit(1);
-   //       return (data !== null && data.length > 0);
-   //    }
-
-   //    return false;
-   // },
    async deleteBookmark(id: number | undefined) {
       if (id === undefined) return;
 

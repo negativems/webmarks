@@ -23,20 +23,52 @@ const dragLeave = (e: any) => {
    document.querySelector('main')?.classList.remove("bg-gray-300");
 };
 
+/**
+ * Handles the drop event to add a bookmark
+ * or add a bookmark export file
+ */
 const drop = async (e: any) => {
    e.preventDefault();
    e.stopPropagation();
 
-   const plainInput = e.dataTransfer.getData("text/plain");
-
-   document.querySelector('main')?.classList.remove("bg-gray-300");
-
-   if (plainInput.startsWith("http")) {
-      const url = e.dataTransfer.getData("text/plain");
+   // Check if the data being dragged is a URL or a file
+   const urlInput = e.dataTransfer.getData("URL");
+   if (urlInput) {
+      const url = e.dataTransfer.getData("URL");
       const title = new URL(url).hostname;
-      const bookmark: Bookmark = { url, title };
+      const bookmark: Bookmark = { url, title, redirects: 0 };
       store.addBookmark(bookmark);
+      return;
    }
+
+   const file = e.dataTransfer.files[0];
+   if (!file) return;
+
+   // Check if the file is an html file
+   const reader = new FileReader();
+   reader.onload = async (e) => {
+      const html = e.target?.result;
+      if (!html) return;
+
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html as string, "text/html");
+      const links = doc.querySelectorAll("a");
+      const bookmarks: Bookmark[] = [];
+
+      links.forEach((link) => {
+         const url = link.href;
+         const title = link.innerText;
+         if (url && title) {
+            bookmarks.push({ url, title, redirects: 0 });
+         }
+      });
+
+      store.bookmarks = store.bookmarks.concat(bookmarks);
+   };
+
+   reader.readAsText(file);
+
+   
 };
 </script>
 

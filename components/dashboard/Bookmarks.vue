@@ -24,12 +24,12 @@ const bookmarks = computed(() => {
    <div
       class="bookmarks grid gap-5"
       :class="{
-         'sm:grid-cols-6 md:grid-cols-4 xl:grid-cols-6': isColumn,
+         'sm:grid-cols-1 md:grid-cols-4 xl:grid-cols-6': isColumn,
       }"
    >
       <div
          class="bookmark flex"
-         v-for="{ id, title, url } in bookmarks"
+         v-for="{ id, title, url, redirects } in bookmarks"
          :key="id"
       >
          <NuxtLink
@@ -40,6 +40,7 @@ const bookmarks = computed(() => {
                   'flex-col': isColumn,
                   'items-center': !isColumn,
                }"
+            @click="store.incrementRedirects(id)"
          >
             <div>
                <h3 class="text-xl font-bold">{{ title }}</h3>
@@ -51,6 +52,7 @@ const bookmarks = computed(() => {
                   @click="$event.preventDefault(); store.deleteBookmark(id)"
                >
                   <span>Delete</span>
+                  {{ redirects }}
                </button>
             </div>
          </NuxtLink>

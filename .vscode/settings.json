@@ -6,6 +6,8 @@
       "vue",
       "javascript",
       "typescript",
+      "javascriptreact",
+      "typescriptreact",
    ],
-   "html.format.wrapAttributes": "force-expand-multiline"
+   "html.format.wrapAttributes": "force-expand-multiline",
 }
