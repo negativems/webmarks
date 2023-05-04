@@ -18,12 +18,12 @@ const iconColor = computed(() => store.theme === 'dark' ? 'white' : 'black');
 <template>
    <div class="quick-links flex h-full flex-col gap-5">
       <NuxtLink
-         class="flex items-center justify-center gap-5 overflow-hidden rounded-lg p-5 duration-150 hover:scale-110 hover:bg-accent"
+         class="flex items-center justify-center gap-5 overflow-hidden rounded-lg p-5 duration-150 hover:scale-110 hover:bg-accent dark:hover:bg-accent-dark"
          v-for="{ name, link, icon } in pages"
          :key="link"
          :to="link"
          :class="{
-               'bg-accent font-semibold dark:bg-accent': isSelectedPage(link),
+               'bg-accent font-semibold dark:bg-accent-dark': isSelectedPage(link),
                'shadow-solid-md': isSidebarHover,
             }"
       >

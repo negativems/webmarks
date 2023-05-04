@@ -7,9 +7,7 @@ definePageMeta({
 });
 
 const search = ref("");
-const bookmarks = computed(() => store.bookmarks);
-const hasBookmarks = computed(() => bookmarks.value.length > 0);
-
+const hasBookmarks = computed(() => store.bookmarks.length > 0);
 const displayFormat = computed(() => store.bookmarkDisplayFormat as BookmarkDisplayFormat);
 
 onMounted(() => {

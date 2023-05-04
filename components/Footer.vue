@@ -19,7 +19,7 @@ import { BuyMeACoffeIcon, Logo } from './Icons';
          </div>
          <div class="logo col-span-4 flex flex-col items-center gap-5">
             <h2 class="text-2xl font-extrabold">WEBMARKS</h2>
-            <Logo />
+            <Logo class="h-[100px] w-[100px]" />
          </div>
          <div class="coffee col-span-4 flex flex-col items-center gap-5">
             <h3>Buy me a coffee</h3>
@@ -27,17 +27,17 @@ import { BuyMeACoffeIcon, Logo } from './Icons';
 
             <NuxtLink
                to="https://www.buymeacoffee.com/mohamedbh"
-               class="font-bold"
+               class="inline"
                target="_blank"
                rel="noreferrer"
             >
-               <BuyMeACoffeIcon color="gray"/>
+               <BuyMeACoffeIcon class="h-[50px] w-[32px]" />
             </NuxtLink>
          </div>
       </div>
       <div class="h-[100px] w-full bg-accent-darker">
          <svg
-            class="mx-auto bg-accent-light dark:fill-gray-900"
+            class="mx-auto bg-white dark:fill-gray-900"
             width="1920"
             height="100"
             fill="none"

@@ -1,5 +1,4 @@
 import { Bookmark, BookmarkDisplayFormat } from "~/types/types";
-import { type SupabaseClient, User } from "@supabase/supabase-js";
 
 export const bookmarkStore = {
    bookmarks: [] as Bookmark[],
@@ -17,42 +16,6 @@ export const bookmarkStore = {
          localStorage.setItem('bookmarkDisplayFormat', this.bookmarkDisplayFormat);
       }
    },
-   async addBookmark(bookmark: Bookmark) {
-      if (this.bookmarks === undefined) return;
-
-      if (process.client) {
-         const user = useSupabaseUser().value;
-         const client = useSupabaseClient();
-
-         if (user === null) {
-            bookmark.id = this.bookmarks.length + 1;
-            localStorage.setItem('bookmarks', JSON.stringify([...this.bookmarks, bookmark]));
-            this.bookmarks.push(bookmark);
-            return;
-         }
-
-         client.from('bookmarks').insert(bookmark as any).then(() => {
-            this.bookmarks?.push(bookmark);
-            console.log('Bookmark added');
-         });
-      }
-   },
-   async hasBookmarks(): Promise<boolean> {
-      if (process.client) {
-         const user = useSupabaseUser().value;
-         const client = useSupabaseClient();
-
-         if (user === null) {
-            const localBookmarks = localStorage.getItem('bookmarks');
-            return localBookmarks !== null && JSON.parse(localBookmarks).length > 0;
-         }
-
-         const { count } = await client.from('bookmarks').select('id').eq('user_id', user.id).limit(1);
-         return (count !== null && count > 0);
-      }
-
-      return false;
-   },
    async loadBookmarks(): Promise<void> {
       this.bookmarksLoaded = false;
       if (process.client) {
@@ -68,10 +31,48 @@ export const bookmarkStore = {
          const { data } = await client.from('bookmarks').select('id, title, description, url').eq('user_id', user.id).limit(100);
          this.bookmarks = (data || []) as Bookmark[];
          this.bookmarksLoaded = true;
+         return;
       }
 
       this.bookmarks = [];
    },
+   async addBookmark(bookmark: Bookmark) {
+      if (this.bookmarks === undefined) return;
+
+      if (process.client) {
+         const user = useSupabaseUser().value;
+         const client = useSupabaseClient();
+
+         if (user === null) {
+            bookmark.id = this.bookmarks.length + 1;
+            localStorage.setItem('bookmarks', JSON.stringify([...this.bookmarks, bookmark]));
+            this.bookmarks.push(bookmark);
+            return;
+         }
+
+         bookmark.user_id = user.id;
+         client.from('bookmarks').insert(bookmark as any).then(() => {
+            this.bookmarks?.push(bookmark);
+            console.log('Bookmark added');
+         });
+      }
+   },
+   // async hasBookmarks(): Promise<boolean> {
+   //    if (process.client) {
+   //       const user = useSupabaseUser().value;
+   //       const client = useSupabaseClient();
+
+   //       if (user === null) {
+   //          const localBookmarks = localStorage.getItem('bookmarks');
+   //          return localBookmarks !== null && JSON.parse(localBookmarks).length > 0;
+   //       }
+
+   //       const { data } = await client.from('bookmarks').select('id').eq('user_id', user.id).limit(1);
+   //       return (data !== null && data.length > 0);
+   //    }
+
+   //    return false;
+   // },
    async deleteBookmark(id: number | undefined) {
       if (id === undefined) return;
 

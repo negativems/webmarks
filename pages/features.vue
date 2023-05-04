@@ -57,37 +57,14 @@ export default {
          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div class="text-center">
                <h2 class="text-base font-semibold uppercase tracking-wide">Features</h2>
-               <p class="mt-1 text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">The right price for you, whoever you are</p>
-               <p class="mx-auto mt-5 max-w-xl text-xl text-gray-500">Whether you're a student, a developer, a designer or a business owner, we've got the perfect plan for you.</p>
+               <p class="mt-1 text-4xl font-extrabold text-gray-800 dark:text-white sm:text-5xl sm:tracking-tight lg:text-6xl">The right price for you, whoever you are</p>
+               <p class="mx-auto mt-5 max-w-xl text-xl text-gray-600 dark:text-gray-400">Whether you're a student, a developer, a designer or a business owner, we've got the perfect plan for you.</p>
             </div>
          </div>
-         <div class="mx-auto mt-20 max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="flex gap-10">
-               <HomePlanCard
-                  class="flex-1"
-                  name='Free'
-                  :features="freeFeatures"
-                  :price="0"
-               />
-               <HomePlanCard
-                  class="flex-1"
-                  name='Premium'
-                  :features="premiumFeatures"
-                  :price="19"
-                  :saveAmount="20"
-                  tryable
-                  dark
-               />
-               <HomePlanCard
-                  class="flex-1"
-                  name='Enterprise'
-                  :features="enterpriseFeatures"
-                  :price="19"
-                  :saveAmount="20"
-                  tryable
-               />
-            </div>
-         </div>
-      </section>
+         <!-- A tailwindcss table showing the features as rows and the plan as column with every cell with a green checkmark or gray cross -->
+         <table>
+
+         </table>
+         </section>
    </main>
 </template>
