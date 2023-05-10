@@ -33,4 +33,4 @@ jobs:
                  cd /var/www/webmarks
                  git pull
                  git status
-                 npm run generate
+                 pm2 restart webmarks
