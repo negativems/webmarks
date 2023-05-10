@@ -4,7 +4,7 @@
    "scripts": {
       "build": "nuxt build",
       "start": "nuxt start",
-      "deploy": "nuxt build && nuxt start && pm2 restart webmarks",
+      "deploy": "nuxt build && pm2 restart webmarks",
       "dev": "nuxt dev",
       "generate": "nuxt generate",
       "preview": "nuxt preview",
