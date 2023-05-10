@@ -3,7 +3,8 @@
    "private": true,
    "scripts": {
       "build": "nuxt build",
-      "deploy": "nuxt build && nuxt start",
+      "start": "nuxt start",
+      "deploy": "nuxt build && nuxt start && pm2 restart webmarks",
       "dev": "nuxt dev",
       "generate": "nuxt generate",
       "preview": "nuxt preview",
