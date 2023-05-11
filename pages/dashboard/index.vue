@@ -39,7 +39,7 @@ onMounted(() => {
 
       <div
          class="no-bookmarks inline-flex flex-col items-center gap-5 rounded-2xl border-8 border-dashed p-10 text-center backdrop-blur-3xl"
-         v-if="!hasBookmarks && store.bookmarksLoaded"
+         v-if="store.bookmarksLoaded && !hasBookmarks"
       >
          <h2 class="text-2xl font-bold">No bookmarks found</h2>
          <p class="text-gray-500">

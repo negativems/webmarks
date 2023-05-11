@@ -18,7 +18,7 @@ const selected = computed(() => {
 const headerLinks = [
    { href: '/', label: 'HOME' },
    { href: '/features', label: 'FEATURES' },
-] as any;
+];
 
 const user = useSupabaseUser();
 
@@ -58,7 +58,7 @@ watchEffect(() => {
          >
             <NuxtLink
                to="/dashboard"
-               class="btn btn-primary rounded-xl border-2 border-accent bg-white p-3 duration-150 hover:shadow-solid-xl"
+               class="btn btn-primary rounded-xl border-2 border-accent bg-white p-3 duration-150 hover:shadow-solid-xl dark:bg-gray-700"
             >
                Dashboard
             </NuxtLink>

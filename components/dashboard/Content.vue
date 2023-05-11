@@ -36,7 +36,7 @@ const drop = async (e: any) => {
    if (urlInput) {
       const url = e.dataTransfer.getData("URL");
       const title = new URL(url).hostname;
-      const bookmark: Bookmark = { url, title, redirects: 0 };
+      const bookmark: Bookmark = { url, title, redirects: 0, last_used: new Date() };
       store.addBookmark(bookmark);
       return;
    }
@@ -59,7 +59,7 @@ const drop = async (e: any) => {
          const url = link.href;
          const title = link.innerText;
          if (url && title) {
-            bookmarks.push({ url, title, redirects: 0 });
+            bookmarks.push({ url, title, redirects: 0, last_used: new Date() });
          }
       });
 
@@ -67,8 +67,6 @@ const drop = async (e: any) => {
    };
 
    reader.readAsText(file);
-
-   
 };
 </script>
 

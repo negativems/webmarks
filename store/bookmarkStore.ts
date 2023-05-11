@@ -1,4 +1,4 @@
-import { Bookmark, BookmarkDisplayFormat } from "~/types/types";
+import { Bookmark, BookmarkDisplayFormat, Tag } from "~/types/types";
 
 export const bookmarkStore = {
    bookmarks: [] as Bookmark[],
@@ -10,7 +10,7 @@ export const bookmarkStore = {
       }
    },
    toggleBookmarkDisplayFormat() {
-      this.bookmarkDisplayFormat = this.bookmarkDisplayFormat === 'columns' ? 'cards' : 'columns';
+      this.bookmarkDisplayFormat = this.bookmarkDisplayFormat === 'rows' ? 'cards' : 'rows';
 
       if (process.client) {
          localStorage.setItem('bookmarkDisplayFormat', this.bookmarkDisplayFormat);
@@ -33,13 +33,18 @@ export const bookmarkStore = {
             return;
          }
 
-         const redirects = this.bookmarks.find(bookmark => bookmark.id === id)?.redirects || 0;
-         client.from('bookmarks').upsert({ id, redirects } as any).then(() => {
-            console.log('Bookmark redirects incremented');
-         });
+         const redirects = this.bookmarks.find(bookmark => bookmark.id === id)!.redirects + 1 || 1;
+         const result = { id, redirects } as never;
+         client
+            .from('bookmarks')
+            .update(result)
+            .eq('id', id)
+            .then(() => {
+               console.log('Bookmark redirects incremented');
+            });
       }
    },
-   async loadBookmarks(): Promise<void> {
+   async loadBookmarks({ mostUsed = false }: { mostUsed?: boolean } = {}): Promise<void> {
       this.bookmarksLoaded = false;
       if (process.client) {
          const user = useSupabaseUser().value;
@@ -51,7 +56,22 @@ export const bookmarkStore = {
             return;
          }
 
-         const { data } = await client.from('bookmarks').select('id, title, description, url, redirects').eq('user_id', user.id).limit(100);
+         const query = client
+            .from('bookmarks')
+            .select('*')
+            .order('last_used', { ascending: false })
+            .eq('user_id', user.id)
+            .limit(mostUsed ? 10 : 100);
+
+         if (mostUsed) query.gt('redirects', 0);
+
+         let { data } = await query;
+         data = data?.map((bookmark: any) => ({
+            ...bookmark,
+            last_used: new Date(bookmark.last_used),
+            tags: (bookmark.tags || []) as Tag[]
+         })) as any;
+
          this.bookmarks = (data || []) as Bookmark[];
          this.bookmarksLoaded = true;
          return;
