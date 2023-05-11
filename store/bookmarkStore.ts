@@ -59,11 +59,11 @@ export const bookmarkStore = {
          const query = client
             .from('bookmarks')
             .select('*')
-            .order('last_used', { ascending: false })
             .eq('user_id', user.id)
             .limit(mostUsed ? 10 : 100);
 
          if (mostUsed) query.gt('redirects', 0);
+         if (!mostUsed) query.order('last_used', { ascending: false });
 
          let { data } = await query;
          data = data?.map((bookmark: any) => ({
