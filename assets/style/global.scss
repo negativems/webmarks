@@ -94,6 +94,10 @@ svg.icon {
    width: 24px;
 }
 
+body.dark svg.icon {
+   color: white;
+}
+
 ::-webkit-scrollbar {
    width: 10px;
 }

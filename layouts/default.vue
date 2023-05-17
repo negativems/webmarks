@@ -14,7 +14,18 @@ useHead({
       class: isDark.value ? 'dark' : 'bg-gray-100',
    },
 });
-//    const isDarkModePreferred = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+// listen route and set theme
+watch(
+   () => useRoute().path,
+   () => {
+      if (isDark.value) {
+         store.setTheme('dark');
+      } else {
+         store.setTheme('light');
+      }
+   }
+);
 </script>
 
 <template>

@@ -1,4 +1,5 @@
 import { Bookmark, BookmarkDisplayFormat, Tag } from "~/types/types";
+import short, { SUUID } from 'short-uuid';
 
 export const bookmarkStore = {
    bookmarks: [] as Bookmark[],
@@ -16,7 +17,7 @@ export const bookmarkStore = {
          localStorage.setItem('bookmarkDisplayFormat', this.bookmarkDisplayFormat);
       }
    },
-   incrementRedirects(id: number | undefined) {
+   incrementRedirects(id: SUUID | undefined) {
       if (id === undefined) return;
 
       if (process.client) {
@@ -44,14 +45,26 @@ export const bookmarkStore = {
             });
       }
    },
-   async loadBookmarks({ mostUsed = false }: { mostUsed?: boolean } = {}): Promise<void> {
+   async loadBookmarks({ mostUsed = false, onlySaveLater = false }: { mostUsed?: boolean, onlySaveLater?: boolean } = {}): Promise<void> {
       this.bookmarksLoaded = false;
       if (process.client) {
          const user = useSupabaseUser().value;
          const client = useSupabaseClient();
 
          if (user === null) {
-            this.bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
+            let bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]') as Bookmark[];
+
+            if (mostUsed) {
+               bookmarks = bookmarks
+                  .filter(bookmark => bookmark.redirects > 0)
+                  .sort((a, b) => b.redirects - a.redirects);
+            }
+
+            if (onlySaveLater) {
+               bookmarks = bookmarks.filter(bookmark => bookmark.saved_later);
+            }
+
+            this.bookmarks = bookmarks;
             this.bookmarksLoaded = true;
             return;
          }
@@ -64,6 +77,8 @@ export const bookmarkStore = {
 
          if (mostUsed) query.gt('redirects', 0);
          if (!mostUsed) query.order('last_used', { ascending: false });
+
+         if (onlySaveLater) query.eq('saved_later', true);
 
          let { data } = await query;
          data = data?.map((bookmark: any) => ({
@@ -89,7 +104,7 @@ export const bookmarkStore = {
          if (user === null) {
             if (Array.isArray(data)) {
                data.forEach(bookmark => {
-                  bookmark.id = this.bookmarks.length + 1;
+                  bookmark.id = short.generate();
                   bookmark.redirects = 0;
                });
 
@@ -98,7 +113,7 @@ export const bookmarkStore = {
                return;
             }
 
-            data.id = this.bookmarks.length + 1;
+            data.id = short.generate();
             data.redirects = 0;
             localStorage.setItem('bookmarks', JSON.stringify([...this.bookmarks, data]));
             this.bookmarks.push(data);
@@ -116,7 +131,7 @@ export const bookmarkStore = {
          });
       }
    },
-   async deleteBookmark(id: number | undefined) {
+   async deleteBookmark(id: SUUID | undefined) {
       if (id === undefined) return;
 
       if (process.client) {
@@ -134,6 +149,35 @@ export const bookmarkStore = {
             this.bookmarks = this.bookmarks.filter(bookmark => bookmark.id !== id);
             console.log('Bookmark deleted');
          });
+      }
+   },
+   async saveLater(id: SUUID | undefined) {
+      // save to later (in the table there is a column called "saved_later" which is a boolean)
+      if (id === undefined) return;
+
+      if (process.client) {
+         const user = useSupabaseUser().value;
+         const client = useSupabaseClient();
+
+         if (user === null) {
+            const bookmark = this.bookmarks.find(bookmark => bookmark.id === id);
+            if (bookmark !== undefined) {
+               bookmark.saved_later = !bookmark.saved_later;
+               localStorage.setItem('bookmarks', JSON.stringify(this.bookmarks));
+            }
+
+            return;
+         }
+
+         const saved_later = !this.bookmarks.find(bookmark => bookmark.id === id)!.saved_later;
+         const result = { id, saved_later } as never;
+         client
+            .from('bookmarks')
+            .update(result)
+            .eq('id', id)
+            .then(() => {
+               console.log('Bookmark saved later');
+            });
       }
    }
 };

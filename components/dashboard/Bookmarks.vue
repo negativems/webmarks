@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Bookmark, BookmarkDisplayFormat } from '~/types/types';
 import { store } from '~/store/store';
+import { SUUID } from 'short-uuid';
 
 let prop = defineProps(['search', 'sort']);
 const search = computed(() => prop.search as string);
@@ -28,7 +29,7 @@ const bookmarks = computed(() => {
    return result;
 });
 
-let selectedBookmarkId = ref(undefined as number | undefined);
+let selectedBookmarkId = ref(undefined as SUUID | undefined);
 </script>
 
 <template>
@@ -40,7 +41,7 @@ let selectedBookmarkId = ref(undefined as number | undefined);
    >
       <div
          class="bookmark flex"
-         v-for="{ id, title, url, redirects, last_used, tags } in   bookmarks  "
+         v-for="{ id, title, url, redirects, last_used, tags } in bookmarks"
          :key="id"
          @mouseenter="selectedBookmarkId = id"
          @mouseleave="selectedBookmarkId = undefined"
@@ -48,7 +49,7 @@ let selectedBookmarkId = ref(undefined as number | undefined);
          <NuxtLink
             :to="url"
             target="_blank"
-            class="box-content grid w-full grid-cols-12 justify-between gap-5 rounded-xl bg-white p-5 duration-200 hover:scale-[1.01] hover:bg-gray-200 hover:text-accent-dark hover:shadow-md dark:bg-gray-900 dark:hover:bg-black dark:hover:text-accent"
+            class="relative box-content grid w-full grid-cols-12 justify-between gap-5 rounded-xl bg-white p-5 duration-200 hover:scale-[1.01] hover:bg-gray-200 hover:text-accent-dark hover:shadow-md dark:bg-gray-900 dark:hover:bg-black dark:hover:text-accent"
             :class="{
                   'flex-col': isRow,
                   'items-center': !isRow,
@@ -60,13 +61,20 @@ let selectedBookmarkId = ref(undefined as number | undefined);
                <p class="break-all text-gray-500">{{ url }}</p>
             </div>
             <div
-               class="action-buttons"
+               class="action-buttons absolute bottom-1 right-1"
                :class="{
-                  'col-span-12': isRow,
-                  'col-span-1': !isRow,
-               }"
+                     'col-span-12': isRow,
+                     'col-span-1': !isRow,
+                  }"
                v-if="selectedBookmarkId === id"
             >
+               <!-- Button to save later -->
+               <button
+                  class="flex items-center justify-center gap-5 self-end rounded-lg bg-blue-500 px-3 py-1 text-xs font-bold text-white duration-150 hover:flex hover:scale-110 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700"
+                  @click="$event.preventDefault(); store.saveLater(id)"
+               >
+                  <span>Save for later</span>
+               </button>
                <button
                   class="flex items-center justify-center gap-5 self-end rounded-lg bg-red-500 px-3 py-1 text-xs font-bold text-white duration-150 hover:flex hover:scale-110 hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700"
                   @click="$event.preventDefault(); store.deleteBookmark(id)"
@@ -76,10 +84,10 @@ let selectedBookmarkId = ref(undefined as number | undefined);
             </div>
             <div
                class="tags col-span-12"
-               v-if=" tags.length > 0 "
+               v-if=" tags?.length > 0 "
             >
                <span
-                  v-for="(     { name, color }, index     ) in      tags     "
+                  v-for="(  { name, color }, index  ) in   tags  "
                   :key=" index "
                   class="tag mx-1 rounded-full px-2 py-1 text-xs font-bold text-white"
                   :style=" { 'background-color': color } "
