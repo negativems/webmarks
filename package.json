@@ -29,6 +29,7 @@
       "vue-eslint-parser": "^9.1.1"
    },
    "dependencies": {
+      "@kyvg/vue3-notification": "^2.9.1",
       "@nuxtjs/tailwindcss": "^6.6.7",
       "cheerio": "1.0.0-rc.12",
       "openai": "^3.2.1",

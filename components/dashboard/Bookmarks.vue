@@ -30,6 +30,11 @@ const bookmarks = computed(() => {
 });
 
 let selectedBookmarkId = ref(undefined as SUUID | undefined);
+const selectedContextMenu = ref(undefined as SUUID | undefined);
+const showContextMenu = (id: SUUID | undefined) => {
+   selectedBookmarkId.value = id;
+   selectedContextMenu.value = selectedContextMenu.value !== id ? id : undefined;
+};
 </script>
 
 <template>
@@ -40,12 +45,14 @@ let selectedBookmarkId = ref(undefined as SUUID | undefined);
       }"
    >
       <div
-         class="bookmark flex"
+         class="bookmark relative flex"
          v-for="{ id, title, url, redirects, last_used, tags } in bookmarks"
          :key="id"
          @mouseenter="selectedBookmarkId = id"
          @mouseleave="selectedBookmarkId = undefined"
+         @contextmenu="$event.preventDefault(); showContextMenu(id)"
       >
+         <DashboardContextMenu v-if="selectedContextMenu === id" :id="id"/>
          <NuxtLink
             :to="url"
             target="_blank"
