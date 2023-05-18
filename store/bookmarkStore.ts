@@ -4,7 +4,7 @@ import short, { SUUID } from 'short-uuid';
 export const bookmarkStore = {
    bookmarks: [] as Bookmark[],
    bookmarksLoaded: false,
-   bookmarkDisplayFormat: 'columns' as BookmarkDisplayFormat,
+   bookmarkDisplayFormat: 'cards' as BookmarkDisplayFormat,
    loadBookmarkDisplayFormat() {
       if (process.client && localStorage.getItem('bookmarkDisplayFormat') !== null) {
          this.bookmarkDisplayFormat = localStorage.getItem('bookmarkDisplayFormat') as BookmarkDisplayFormat;

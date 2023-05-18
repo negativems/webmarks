@@ -35,6 +35,13 @@ const showContextMenu = (id: SUUID | undefined) => {
    selectedBookmarkId.value = id;
    selectedContextMenu.value = selectedContextMenu.value !== id ? id : undefined;
 };
+
+// When clicking outside of the context menu, close it, (closest not working)
+onMounted(() => {
+   document.addEventListener('click', () => {
+      selectedContextMenu.value = undefined;
+   });
+});
 </script>
 
 <template>
@@ -46,13 +53,13 @@ const showContextMenu = (id: SUUID | undefined) => {
    >
       <div
          class="bookmark relative flex"
-         v-for="{ id, title, url, redirects, last_used, tags } in bookmarks"
+         v-for="{ id, title, url, tags } in bookmarks"
          :key="id"
          @mouseenter="selectedBookmarkId = id"
          @mouseleave="selectedBookmarkId = undefined"
          @contextmenu="$event.preventDefault(); showContextMenu(id)"
       >
-         <DashboardContextMenu v-if="selectedContextMenu === id" :id="id"/>
+         <DashboardContextMenu v-if="selectedContextMenu === id" :id="id" :bookmarkId="id"/>
          <NuxtLink
             :to="url"
             target="_blank"
@@ -94,10 +101,10 @@ const showContextMenu = (id: SUUID | undefined) => {
                v-if=" tags?.length > 0 "
             >
                <span
-                  v-for="(  { name, color }, index  ) in   tags  "
-                  :key=" index "
+                  v-for="({ name, color }, index) in tags"
+                  :key="index"
                   class="tag mx-1 rounded-full px-2 py-1 text-xs font-bold text-white"
-                  :style=" { 'background-color': color } "
+                  :style="{'background-color': color }"
                >
                   {{ name }}
                </span>
