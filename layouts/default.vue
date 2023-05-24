@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import { store } from '~/store/store';
+import { useTheme } from '~/store/themeStore';
+
+const { theme, setTheme } = useTheme();
 const cookieTheme = useCookie('theme').value;
 
-if (cookieTheme && store.theme !== cookieTheme) {
-   store.setTheme(cookieTheme);
+if (cookieTheme && theme !== cookieTheme) {
+   setTheme(cookieTheme);
 }
 
-const isDark = computed(() => store.theme === 'dark');
+const isDark = computed(() => theme === 'dark');
 
 useHead({
    title: 'Webmarks - Bookmark Manager',
@@ -20,9 +22,9 @@ watch(
    () => useRoute().path,
    () => {
       if (isDark.value) {
-         store.setTheme('dark');
+         setTheme('dark');
       } else {
-         store.setTheme('light');
+         setTheme('light');
       }
    }
 );

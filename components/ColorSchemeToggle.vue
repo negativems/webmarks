@@ -1,7 +1,9 @@
 <script setup lang="ts">
-import { store } from '~/store/store';
+import { useTheme } from '~/store/themeStore';
 
-const isDarkMode = computed(() => store.theme === 'dark');
+const themeStore = useTheme();
+
+const isDarkMode = computed(() => themeStore.theme === 'dark');
 </script>
 <template>
    <div class="color-scheme">
@@ -9,7 +11,7 @@ const isDarkMode = computed(() => store.theme === 'dark');
          <input
             type="checkbox"
             :checked="isDarkMode"
-            @change="store.toggleTheme()"
+            @change="themeStore.toggleTheme()"
          />
          <span class="slider"></span>
       </label>

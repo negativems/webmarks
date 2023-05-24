@@ -5,7 +5,7 @@
       "build": "nuxt build",
       "start": "nuxt start",
       "deploy": "nuxt build && /root/.local/share/pnpm/pm2 restart webmarks",
-      "dev": "nuxt dev",
+      "dev": "nuxt dev --port 3000",
       "generate": "nuxt generate",
       "preview": "nuxt preview",
       "postinstall": "nuxt prepare"
@@ -29,10 +29,11 @@
       "vue-eslint-parser": "^9.1.1"
    },
    "dependencies": {
-      "@kyvg/vue3-notification": "^2.9.1",
       "@nuxtjs/tailwindcss": "^6.6.7",
+      "@pinia/nuxt": "0.4.10",
       "cheerio": "1.0.0-rc.12",
       "openai": "^3.2.1",
+      "pinia": "2.0.36",
       "short-uuid": "^4.2.2"
    }
 }

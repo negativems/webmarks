@@ -1,6 +1,8 @@
 <script setup>
 import { BookmarkIcon, ClockIcon, StarIcon } from '~/components/Icons';
-import { store } from '~/store/store';
+import { useTheme } from '~/store/themeStore';
+
+const { isDarkMode } = useTheme();
 const router = useRouter();
 
 const pages = [
@@ -12,7 +14,7 @@ const isSelectedPage = (link) => link === router.currentRoute.value.path;
 
 const { isSidebarHover } = defineProps(['isSidebarHover']);
 
-const iconColor = computed(() => store.theme === 'dark' ? 'white' : 'black');
+const iconColor = computed(() => isDarkMode ? 'white' : 'black');
 </script>
 
 <template>
