@@ -1,16 +1,13 @@
 <script setup lang="ts">
 import { useTheme } from '~/store/themeStore';
-
 const themeStore = useTheme();
-
-const isDarkMode = computed(() => themeStore.theme === 'dark');
 </script>
 <template>
    <div class="color-scheme">
       <label class="switch">
          <input
             type="checkbox"
-            :checked="isDarkMode"
+            :checked="themeStore.isDarkMode"
             @change="themeStore.toggleTheme()"
          />
          <span class="slider"></span>

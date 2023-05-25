@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import { Bookmark, BookmarkDisplayFormat } from '~/types/types';
-import { store } from '~/store/store';
-import { SUUID } from 'short-uuid';
+import { useBookmark } from '~/store/bookmark';
+const bookmarkStore = useBookmark();
 
 let prop = defineProps(['search', 'sort']);
 const search = computed(() => prop.search as string);
 const sort = computed(() => prop.sort as string);
 
-const isRow = computed(() => store.bookmarkDisplayFormat === 'rows' as BookmarkDisplayFormat);
+const isRow = computed(() => bookmarkStore.bookmarkDisplayFormat === 'rows' as BookmarkDisplayFormat);
 
 const bookmarks = computed(() => {
-   let result = store.bookmarks as Bookmark[];
+   let result = bookmarkStore.bookmarks;
 
    if (search.value) {
       const titleIncludes = (bookmark: Bookmark) => bookmark.title.toLowerCase().includes(search.value.toLowerCase());
@@ -29,22 +29,35 @@ const bookmarks = computed(() => {
    return result;
 });
 
-let selectedBookmarkId = ref(undefined as SUUID | undefined);
-const selectedContextMenu = ref(undefined as SUUID | undefined);
-const showContextMenu = (id: SUUID | undefined) => {
-   selectedBookmarkId.value = id;
-   selectedContextMenu.value = selectedContextMenu.value !== id ? id : undefined;
+const allTags = computed(() => {
+   return bookmarkStore.bookmarks.map(bookmark => bookmark.tags)
+      .flat()
+      .filter((tag, index, self) => index === self.findIndex(t => t.name === tag.name));
+});
+
+let hoverBookmarkId = ref(undefined as number | undefined);
+const contextBookmarkId = ref(undefined as number | undefined);
+const showContextMenu = (bookmarkId: number) => {
+   contextBookmarkId.value = bookmarkId;
 };
 
-// When clicking outside of the context menu, close it, (closest not working)
 onMounted(() => {
+   // Hide the context menu when left click outside of the context menu
    document.addEventListener('click', () => {
-      selectedContextMenu.value = undefined;
+      const isOpenModal = document.querySelector('.modal') !== null;
+      if (contextBookmarkId.value !== hoverBookmarkId.value && !isOpenModal) {
+         contextBookmarkId.value = undefined;
+      }
    });
 });
+
+function changeSelectedBookmark(id: number | undefined) {
+   contextBookmarkId.value = id;
+}
 </script>
 
 <template>
+   <DashboardTagFilter v-if="!useRoute().path.includes('later')"/>
    <div
       class="bookmarks grid gap-5"
       :class="{
@@ -52,64 +65,48 @@ onMounted(() => {
       }"
    >
       <div
-         class="bookmark relative flex"
-         v-for="{ id, title, url, tags } in bookmarks"
-         :key="id"
-         @mouseenter="selectedBookmarkId = id"
-         @mouseleave="selectedBookmarkId = undefined"
-         @contextmenu="$event.preventDefault(); showContextMenu(id)"
+         class="bookmark flex"
+         v-for="{ id: bookmarkId, title, url, tags } in    bookmarks   "
+         :key="bookmarkId"
+         @mouseenter="hoverBookmarkId = bookmarkId"
+         @mouseleave="hoverBookmarkId = undefined"
+         @contextmenu="$event.preventDefault(); showContextMenu(bookmarkId)"
       >
-         <DashboardContextMenu v-if="selectedContextMenu === id" :id="id" :bookmarkId="id"/>
          <NuxtLink
             :to="url"
             target="_blank"
             class="relative box-content grid w-full grid-cols-12 justify-between gap-5 rounded-xl bg-white p-5 duration-200 hover:scale-[1.01] hover:bg-gray-200 hover:text-accent-dark hover:shadow-md dark:bg-gray-900 dark:hover:bg-black dark:hover:text-accent"
             :class="{
-                  'flex-col': isRow,
-                  'items-center': !isRow,
-               }"
-            @click="store.incrementRedirects(id)"
+               'flex-col': isRow,
+               'items-center': !isRow,
+            }"
+            @click=" bookmarkStore.addClickTo(bookmarkId) "
+            @click.middle=" bookmarkStore.addClickTo(bookmarkId) "
          >
             <div class="col-span-11">
                <h3 class="text-xl font-bold">{{ title }}</h3>
                <p class="break-all text-gray-500">{{ url }}</p>
             </div>
             <div
-               class="action-buttons absolute bottom-1 right-1"
-               :class="{
-                     'col-span-12': isRow,
-                     'col-span-1': !isRow,
-                  }"
-               v-if="selectedBookmarkId === id"
-            >
-               <!-- Button to save later -->
-               <button
-                  class="flex items-center justify-center gap-5 self-end rounded-lg bg-blue-500 px-3 py-1 text-xs font-bold text-white duration-150 hover:flex hover:scale-110 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-700"
-                  @click="$event.preventDefault(); store.saveLater(id)"
-               >
-                  <span>Save for later</span>
-               </button>
-               <button
-                  class="flex items-center justify-center gap-5 self-end rounded-lg bg-red-500 px-3 py-1 text-xs font-bold text-white duration-150 hover:flex hover:scale-110 hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700"
-                  @click="$event.preventDefault(); store.deleteBookmark(id)"
-               >
-                  <span>Delete</span>
-               </button>
-            </div>
-            <div
                class="tags col-span-12"
                v-if=" tags?.length > 0 "
             >
                <span
-                  v-for="({ name, color }, index) in tags"
-                  :key="index"
                   class="tag mx-1 rounded-full px-2 py-1 text-xs font-bold text-white"
-                  :style="{'background-color': color }"
+                  v-for="(    { name, color }, index    ) in     tags    "
+                  :key=" index "
+                  :style=" { 'background-color': color } "
                >
                   {{ name }}
                </span>
             </div>
          </NuxtLink>
       </div>
+
+      <DashboardContextMenu
+         v-if=" contextBookmarkId !== undefined "
+         :bookmarkId=" hoverBookmarkId "
+         @selectedBookmarkUpdated=" changeSelectedBookmark "
+      />
    </div>
 </template>

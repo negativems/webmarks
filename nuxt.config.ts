@@ -7,7 +7,8 @@ export default defineNuxtConfig({
       '@pinia/nuxt',
    ],
    css: [
-      '~/assets/style/global.scss'
+      '~/assets/style/global.scss',
+      'vue-final-modal/style.css'
    ],
    vite: {
       server: {

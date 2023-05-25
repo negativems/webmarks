@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import { store } from '~/store/store';
+import { useBookmark } from '~/store/bookmark';
 import { BookmarkDisplayFormat } from '~/types/types';
+
+const bookmarkStore = useBookmark();
 
 definePageMeta({ layout: 'dashboard' });
 
 const search = ref("");
-const hasBookmarks = computed(() => store.bookmarks.length > 0);
-const displayFormat = computed(() => store.bookmarkDisplayFormat as BookmarkDisplayFormat);
+const hasBookmarks = computed(() => bookmarkStore.bookmarks.length > 0);
+const displayFormat = computed(() => bookmarkStore.bookmarkDisplayFormat as BookmarkDisplayFormat);
 
 onMounted(() => {
-   store.loadBookmarks({ mostUsed: true });
-   store.loadBookmarkDisplayFormat();
+   bookmarkStore.load({ mostUsed: true });
+   bookmarkStore.loadBookmarkDisplayFormat();
 });
 </script>
 
@@ -37,7 +39,7 @@ onMounted(() => {
 
       <div
          class="no-bookmarks inline-flex flex-col items-center gap-5 rounded-2xl border-8 border-dashed p-10 text-center backdrop-blur-3xl"
-         v-if="!hasBookmarks && store.bookmarksLoaded"
+         v-if="!hasBookmarks && bookmarkStore.bookmarksLoaded"
       >
          <p
             class="text-gray-500"

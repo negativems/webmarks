@@ -1,21 +1,23 @@
 <script setup lang="ts">
-import { store } from '~/store/store';
-import { type Bookmark } from '~/types/types';
+import { useBookmark } from '~/store/bookmark';
+import { BookmarkDraft } from '~/types/types';
 
-const dragEnter = (e: DragEvent) => {
-   e.preventDefault();
-   e.stopPropagation();
+const bookmarkStore = useBookmark();
+
+const dragEnter = (event: DragEvent) => {
+   event.preventDefault();
+   event.stopPropagation();
    document.querySelector('main')?.classList.add("bg-gray-300");
 };
 
-const dragLeave = (e: any) => {
-   e.preventDefault();
-   e.stopPropagation();
+const dragLeave = (event: any) => {
+   event.preventDefault();
+   event.stopPropagation();
 
    const main = document.querySelector('main');
    const rect = main?.getBoundingClientRect();
-   const x = e.clientX;
-   const y = e.clientY;
+   const x = event.clientX;
+   const y = event.clientY;
    if (rect && x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
       return;
    }
@@ -36,8 +38,8 @@ const drop = async (e: any) => {
    if (urlInput) {
       const url = e.dataTransfer.getData("URL");
       const title = new URL(url).hostname;
-      const bookmark: Bookmark = { url, title, redirects: 0, last_used: new Date() };
-      store.addBookmark(bookmark);
+      const bookmark: BookmarkDraft = { url, title, last_used: new Date() };
+      bookmarkStore.add(bookmark);
       return;
    }
 
@@ -53,7 +55,7 @@ const drop = async (e: any) => {
       const parser = new DOMParser();
       const doc = parser.parseFromString(html as string, "text/html");
       const links = doc.querySelectorAll("a");
-      const bookmarks: Bookmark[] = [];
+      const bookmarks: BookmarkDraft[] = [];
 
       links.forEach((link) => {
          const url = link.href;
@@ -63,7 +65,7 @@ const drop = async (e: any) => {
          }
       });
 
-      store.bookmarks = store.bookmarks.concat(bookmarks);
+      bookmarkStore.addMultiple(bookmarks);
    };
 
    reader.readAsText(file);

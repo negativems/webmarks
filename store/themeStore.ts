@@ -1,13 +1,21 @@
+import { defineStore } from 'pinia';
+
 export const useTheme = defineStore('theme', {
    state: () => ({
-      theme: 'dark'
+      theme: useCookie('theme').value || 'dark'
    }),
    getters: {
       isDarkMode: (state) => state.theme === 'dark',
    },
    actions: {
       setTheme(theme: string) {
-         if (theme === this.theme) return;
+         if (theme === this.theme) {
+            console.log('Theme not changed');
+            return;
+         }
+
+         console.log('Theme changed to', theme);
+
          this.theme = theme;
          useCookie('theme').value = `${theme}`;
 

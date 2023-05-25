@@ -7,7 +7,7 @@ const router = useRouter();
 
 const pages = [
    { name: 'All bookmarks', link: '/dashboard', icon: BookmarkIcon },
-   { name: 'Most used', link: '/dashboard/most-used', icon: StarIcon },
+   { name: 'Favourites', link: '/dashboard/favourites', icon: StarIcon },
    { name: 'Saved to later', link: '/dashboard/later', icon: ClockIcon },
 ];
 const isSelectedPage = (link) => link === router.currentRoute.value.path;

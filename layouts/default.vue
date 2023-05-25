@@ -1,33 +1,22 @@
 <script setup lang="ts">
 import { useTheme } from '~/store/themeStore';
 
-const { theme, setTheme } = useTheme();
-const cookieTheme = useCookie('theme').value;
-
-if (cookieTheme && theme !== cookieTheme) {
-   setTheme(cookieTheme);
-}
-
-const isDark = computed(() => theme === 'dark');
-
+// TODO: There is a bug when you change the route, the useHead() method applies the two classes to the body
 useHead({
    title: 'Webmarks - Bookmark Manager',
    bodyAttrs: {
-      class: isDark.value ? 'dark' : 'bg-gray-100',
+      class: useTheme().theme === 'dark' ? 'dark' : 'bg-gray-100',
    },
 });
 
-// listen route and set theme
 watch(
    () => useRoute().path,
    () => {
-      if (isDark.value) {
-         setTheme('dark');
-      } else {
-         setTheme('light');
-      }
+      document.body.classList.toggle('dark', useTheme().theme === 'dark');
+      document.body.classList.toggle('bg-gray-100', useTheme().theme === 'light');
    }
 );
+
 </script>
 
 <template>
