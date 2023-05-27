@@ -43,10 +43,6 @@ html {
    font-style: normal;
 }
 
-body.dark {
-   @apply bg-gray-800 text-white;
-}
-
 h1,
 h2,
 h3,
@@ -94,8 +90,20 @@ svg.icon {
    width: 24px;
 }
 
-body.dark svg.icon {
-   color: white;
+body.dark {
+   @apply bg-gray-800 text-white;
+
+   svg.icon {
+      color: white;
+   }
+
+   input {
+      color: black;
+
+      &::focus {
+         outline: none;
+      }
+   }
 }
 
 ::-webkit-scrollbar {
