@@ -5,34 +5,40 @@ const user = useSupabaseUser();
 
 <template>
    <!-- Login template using tailwind -->
-   <div class="flex flex-col items-center justify-center h-screen">
-      <div class="flex flex-col items-center justify-center bg-white p-10 rounded-lg shadow-lg">
-         <h1 class="text-3xl font-bold mb-5">Login</h1>
+   <div class="flex h-screen flex-col items-center justify-center">
+      <div class="flex flex-col items-center justify-center rounded-lg bg-white p-10 shadow-lg">
+         <h1 class="mb-5 text-3xl font-bold">Login</h1>
          <form class="flex flex-col items-center justify-center gap-5">
-            <input type="text" class="border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500 w-80" placeholder="Username" />
-            <input type="password" class="border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-indigo-500 w-80" placeholder="Password" />
+            <input
+               type="text"
+               class="w-80 rounded-lg border-2 border-gray-300 p-2 focus:border-indigo-500 focus:outline-none"
+               placeholder="Username"
+            />
+            <input
+               type="password"
+               class="w-80 rounded-lg border-2 border-gray-300 p-2 focus:border-indigo-500 focus:outline-none"
+               placeholder="Password"
+            />
 
             <div class="buttons flex gap-5">
                <button
-                  class="login-button w-full inline-flex justify-center bg-black text-white font-bold p-5 rounded-lg hover:bg-gray-900 justify-self-end"
+                  class="login-button inline-flex w-full justify-center justify-self-end rounded-lg bg-black p-5 font-bold text-white hover:bg-gray-900"
                   @click="client.auth.signInWithOAuth({ provider: 'github' })"
                >
                   <GithubIcon class="invert" />
                </button>
 
                <button
-                  class="login-button w-full inline-flex justify-center bg-red-500 text-white font-bold p-5 rounded-lg hover:bg-gray-900 justify-self-end"
+                  class="login-button inline-flex w-full justify-center justify-self-end rounded-lg bg-red-500 p-5 font-bold text-white hover:bg-gray-900"
                   @click="client.auth.signInWithOAuth({ provider: 'google' })"
                >
                   <GoogleIcon />
                </button>
             </div>
 
-            <button class="bg-indigo-500 text-white font-bold p-2 rounded-lg flex justify-center gap-5 hover:bg-gray-900">
-               Login
-            </button>
-         </form>
-      </div>
+            <button class="flex justify-center gap-5 rounded-lg bg-indigo-500 p-2 font-bold text-white hover:bg-gray-900">
+            Login
+         </button>
+      </form>
    </div>
-
-</template>
+</div></template>

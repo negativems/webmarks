@@ -16,6 +16,12 @@ export const useBookmark = defineStore('bookmark', {
             .flat()
             .filter((tag, index, self) => index === self.findIndex(t => t.name === tag.name));
       },
+      find: (state) => (bookmarkId: number) => {
+         return state.bookmarks.find(bookmark => bookmark.id === bookmarkId);
+      },
+      hasBookmarks(state): boolean {
+         return state.bookmarks.length > 0;
+      }
    },
    actions: {
 
@@ -46,12 +52,12 @@ export const useBookmark = defineStore('bookmark', {
                }
 
                // Load some tags
-               bookmarks.forEach(bookmark => {
-                  bookmark.tags = [
-                     { name: 'tag1', color: '#FF0000' },
-                     { name: 'tag2', color: '#FFFF00' },
-                  ];
-               });
+               // bookmarks.forEach(bookmark => {
+               //    bookmark.tags = [
+               //       { name: 'tag1', color: '#FF0000' },
+               //       { name: 'tag2', color: '#FFFF00' },
+               //    ];
+               // });
 
                this.bookmarks = bookmarks;
                this.bookmarksLoaded = true;
@@ -270,5 +276,72 @@ export const useBookmark = defineStore('bookmark', {
                });
          }
       },
+
+      /**
+       * Add a tag to a bookmark
+       */
+      addTag(bookmarkId: number, tagName: string, color: string = "#60ffa8") {
+         if (bookmarkId === undefined) return;
+
+         if (process.client) {
+            const user = useSupabaseUser().value;
+            const client = useSupabaseClient();
+
+            if (user === null) {
+               const bookmark = this.bookmarks.find(bookmark => bookmark.id === bookmarkId);
+               if (bookmark !== undefined) {
+                  bookmark.tags.push({ name: tagName, color });
+                  localStorage.setItem('bookmarks', JSON.stringify(this.bookmarks));
+                  console.log('Bookmark tag added');
+               }
+
+               return;
+            }
+
+            const tags = this.bookmarks.find(bookmark => bookmark.id === bookmarkId)!.tags;
+            tags.push({ name: tagName, color });
+            const result = { id: bookmarkId, tags } as never;
+            client
+               .from('bookmarks')
+               .update(result)
+               .eq('id', bookmarkId)
+               .then(() => {
+                  console.log('Bookmark tag added');
+               });
+         }
+      },
+
+      /**
+       * Delete a tag from a bookmark
+       */
+      deleteTag(bookmarkId: number, tagName: string) {
+         if (bookmarkId === undefined) return;
+
+         if (process.client) {
+            const user = useSupabaseUser().value;
+            const client = useSupabaseClient();
+
+            if (user === null) {
+               const bookmark = this.bookmarks.find(bookmark => bookmark.id === bookmarkId);
+               if (bookmark !== undefined) {
+                  bookmark.tags = bookmark.tags.filter(tag => tag.name !== tagName);
+                  localStorage.setItem('bookmarks', JSON.stringify(this.bookmarks));
+                  console.log('Bookmark tag deleted');
+               }
+
+               return;
+            }
+
+            const tags = this.bookmarks.find(bookmark => bookmark.id === bookmarkId)!.tags;
+            const result = { id: bookmarkId, tags: tags.filter(tag => tag.name !== tagName) } as never;
+            client
+               .from('bookmarks')
+               .update(result)
+               .eq('id', bookmarkId)
+               .then(() => {
+                  console.log('Bookmark tag deleted');
+               });
+         }
+      }
    }
 });

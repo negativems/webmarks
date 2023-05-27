@@ -45,13 +45,9 @@ onMounted(() => {
       >
          <h2 class="text-2xl font-bold">No bookmarks found</h2>
          <p class="text-gray-500">
-            You don't have any bookmarks yet.
-            <br>
-            Create your first bookmark by clicking the button below or drag and drop here your bookmarks.
+            You don't have any bookmarks yet. <br />
+            Start by adding one dragging and dropping a link, a bookmark from your browser or by dragging and dropping a <a href="/">bookmark file</a>.
          </p>
-         <button class="mt-5 flex items-center justify-center gap-5 rounded-lg bg-accent p-3 px-5 font-bold text-white hover:bg-gray-900">
-            <span>Create Bookmark</span>
-         </button>
       </div>
    </div>
 </template>
