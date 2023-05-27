@@ -57,7 +57,10 @@ function changeSelectedBookmark(id: number | undefined) {
 </script>
 
 <template>
-   <DashboardTagFilter v-if="!useRoute().path.includes('later')"/>
+   <div v-if="!useBookmark().bookmarksLoaded">
+      Loading...
+   </div>
+   <DashboardTagFilter v-if="!useRoute().path.includes('later') && useBookmark().hasBookmarks"/>
    <div
       class="bookmarks grid gap-5"
       :class="{
@@ -66,7 +69,7 @@ function changeSelectedBookmark(id: number | undefined) {
    >
       <div
          class="bookmark flex"
-         v-for="{ id: bookmarkId, title, url, tags } in    bookmarks   "
+         v-for="{ id: bookmarkId, title, url, tags } in bookmarks"
          :key="bookmarkId"
          @mouseenter="hoverBookmarkId = bookmarkId"
          @mouseleave="hoverBookmarkId = undefined"
@@ -85,7 +88,7 @@ function changeSelectedBookmark(id: number | undefined) {
          >
             <div class="col-span-11">
                <h3 class="text-xl font-bold">{{ title }}</h3>
-               <p class="break-all text-gray-500">{{ url }}</p>
+               <p class="break-all text-gray-500">{{ url.substring(0, 50) + (url.length > 50 ? '...' : '') }}</p>
             </div>
             <div
                class="tags col-span-12"

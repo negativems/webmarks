@@ -2,6 +2,7 @@
 import { useBookmark } from '~/store/bookmark';
 import { useModal } from 'vue-final-modal';
 import EditBookmarkModal from '../EditBookmarkModal.vue';
+import { Bookmark } from '~/types/types';
 
 const { bookmarkId } = defineProps(['bookmarkId']);
 
@@ -39,16 +40,21 @@ function deleteContextMenu() {
    emit('selectedBookmarkUpdated', undefined);
 }
 
-const { open, destroy } = useModal({
+const { open } = useModal({
+   component: EditBookmarkModal,
    attrs: {
       title: 'Hello World!',
       onClosed() {
          deleteContextMenu();
       },
-      bookmarkId: bookmarkId.value,
+      onVnodeBeforeMount() {
+         if (useBookmark().find(bookmarkId) === undefined) {
+            deleteContextMenu();
+            console.error('Error: Bookmark not found');
+         }
+      },
+      bookmark: useBookmark().find(bookmarkId) as Bookmark
    },
-
-   component: EditBookmarkModal,
 });
 
 </script>

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { GithubIcon, GoogleIcon, Logo, LogoutIcon } from '@/components/Icons';
+import { GithubIcon, GoogleIcon, Logo, LogoutIcon, SettingsIcon } from '@/components/Icons';
 import SideBarLinks from './SideBarLinks.vue';
 const router = useRouter();
 
@@ -41,13 +41,14 @@ function signOut() {
       />
 
       <div class="account-buttons">
-         <div
-            class="not-logged flex justify-center gap-5"
-            v-if="!user && isSidebarHover"
-         >
+         <div class="not-logged flex justify-center gap-5">
+            <button class="login-button inline-flex w-24 items-center justify-center justify-self-end rounded-lg bg-gray-600 p-5 font-bold text-white duration-100 hover:scale-110 hover:bg-gray-800 dark:hover:bg-gray-700">
+               <SettingsIcon />
+            </button>
             <button
                class="login-button inline-flex w-24 items-center justify-center justify-self-end rounded-lg bg-black p-5 font-bold text-white duration-100 hover:scale-110 hover:bg-gray-800 dark:hover:bg-gray-700"
                @click="client.auth.signInWithOAuth({ provider: 'github' })"
+               v-if="!user && isSidebarHover"
             >
                <GithubIcon class="invert" />
             </button>
@@ -55,6 +56,7 @@ function signOut() {
             <button
                class="login-button inline-flex w-24 items-center justify-center justify-self-end rounded-lg bg-red-500 p-5 font-bold text-white duration-100 hover:scale-110 hover:bg-red-600"
                @click="client.auth.signInWithOAuth({ provider: 'google' })"
+               v-if="!user && isSidebarHover"
             >
                <GoogleIcon />
             </button>
