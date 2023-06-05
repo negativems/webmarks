@@ -25,9 +25,10 @@ export interface Bookmark {
    redirects: number
    last_used: Date
    tags: Tag[]
-   isFavourite: boolean
+   is_favourite: boolean
    user_id?: string | undefined
    description?: string
+   favicon?: string
 }
 
 export type BookmarkDisplayFormat = 'rows' | 'cards'

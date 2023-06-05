@@ -21,7 +21,7 @@ export const useTheme = defineStore('theme', {
 
          if (process.client) {
             document.body.classList.toggle('dark', theme === 'dark');
-            document.body.classList.toggle('bg-gray-100', theme === 'light');
+            document.body.classList.toggle('bg-neutral-100', theme === 'light');
          }
       },
       toggleTheme() {

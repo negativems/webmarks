@@ -32,11 +32,11 @@ export const useBookmark = defineStore('bookmark', {
        *    onlySaveLater?: boolean To only get bookmarks that are saved later
        * }
        */
-      load({ mostUsed = false, onlySaveLater = false }: { mostUsed?: boolean, onlySaveLater?: boolean } = {}) {
+      load({ mostUsed = false, favourite = false }: { mostUsed?: boolean, favourite?: boolean } = {}) {
          this.bookmarksLoaded = false;
          if (process.client) {
             const user = useSupabaseUser().value;
-            const client = useSupabaseClient();
+            const supabase = useSupabaseClient();
 
             if (user === null) {
                let bookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]') as Bookmark[];
@@ -47,24 +47,16 @@ export const useBookmark = defineStore('bookmark', {
                      .sort((a, b) => b.redirects - a.redirects);
                }
 
-               if (onlySaveLater) {
-                  bookmarks = bookmarks.filter(bookmark => bookmark.isFavourite);
+               if (favourite) {
+                  bookmarks = bookmarks.filter(bookmark => bookmark.is_favourite);
                }
-
-               // Load some tags
-               // bookmarks.forEach(bookmark => {
-               //    bookmark.tags = [
-               //       { name: 'tag1', color: '#FF0000' },
-               //       { name: 'tag2', color: '#FFFF00' },
-               //    ];
-               // });
 
                this.bookmarks = bookmarks;
                this.bookmarksLoaded = true;
                return;
             }
 
-            const query = client
+            const query = supabase
                .from('bookmarks')
                .select('*')
                .eq('user_id', user.id)
@@ -73,7 +65,7 @@ export const useBookmark = defineStore('bookmark', {
             if (mostUsed) query.gt('redirects', 0);
             if (!mostUsed) query.order('last_used', { ascending: false });
 
-            if (onlySaveLater) query.eq('saved_later', true);
+            if (favourite) query.eq('is_favourite', true);
 
             query.then(({ data }) => {
                data = data?.map((bookmark: any) => ({
@@ -100,7 +92,7 @@ export const useBookmark = defineStore('bookmark', {
 
          if (process.client) {
             const user = useSupabaseUser().value;
-            const client = useSupabaseClient();
+            const supabase = useSupabaseClient();
 
             if (user === null) {
                bookmark.id = this.localBookmarksIndex++;
@@ -112,7 +104,7 @@ export const useBookmark = defineStore('bookmark', {
 
             bookmark.user_id = user.id;
 
-            client
+            supabase
                .from('bookmarks')
                .insert(bookmark as never)
                .then(() => this.bookmarks.push(bookmark as Bookmark));
@@ -130,7 +122,7 @@ export const useBookmark = defineStore('bookmark', {
 
          if (process.client) {
             const user = useSupabaseUser().value;
-            const client = useSupabaseClient();
+            const supabase = useSupabaseClient();
 
             if (user === null) {
                bookmarks.forEach(bookmark => {
@@ -152,7 +144,7 @@ export const useBookmark = defineStore('bookmark', {
             }
 
             chunks.forEach((chunk: Bookmark[]) => {
-               client.from('bookmarks').insert(chunk as any).then(() => {
+               supabase.from('bookmarks').insert(chunk as any).then(() => {
                   this.bookmarks.push(...chunk);
                });
 
@@ -164,16 +156,47 @@ export const useBookmark = defineStore('bookmark', {
          }
       },
 
+      edit(bookmark: Bookmark) {
+         if (process.client) {
+            if (bookmark === undefined) {
+               console.error('Error editing bookmark, bookmark is undefined');
+               return;
+            }
+
+            const user = useSupabaseUser().value;
+            const supabase = useSupabaseClient();
+
+            if (user === null) {
+               this.bookmarks = this.bookmarks.map(bookmark => bookmark.id === bookmark.id ? bookmark : bookmark);
+               localStorage.setItem('bookmarks', JSON.stringify(this.bookmarks));
+               return;
+            }
+
+            // Removes favicon from bookmark for supabase
+            const { favicon, ...supabaseBookmark } = bookmark;
+
+            supabase
+               .from('bookmarks')
+               .update(supabaseBookmark as never)
+               .eq('id', bookmark.id)
+               .then(() => {
+                  // Updates the bookmark in the store after it has been updated in the database
+                  this.bookmarks = this.bookmarks.map(bookmark => bookmark.id === bookmark.id ? bookmark : bookmark);
+               });
+         }
+      },
+
       /**
        * Deletes a bookmark from the store or from the database
        * @param bookmarkId The id of the bookmark to delete
        */
       delete(bookmarkId: number) {
+         console.log('Deleting bookmark', bookmarkId);
          if (bookmarkId === undefined) return;
 
          if (process.client) {
             const user = useSupabaseUser().value;
-            const client = useSupabaseClient();
+            const supabase = useSupabaseClient();
 
             if (user === null) {
                const newBookmarks = this.bookmarks.filter(bookmark => bookmark.id !== bookmarkId);
@@ -182,7 +205,7 @@ export const useBookmark = defineStore('bookmark', {
                return;
             }
 
-            client.from('bookmarks').delete().eq('id', bookmarkId).then(() => {
+            supabase.from('bookmarks').delete().eq('id', bookmarkId).then(() => {
                this.bookmarks = this.bookmarks.filter(bookmark => bookmark.id !== bookmarkId);
                console.log('Bookmark deleted');
             });
@@ -201,26 +224,36 @@ export const useBookmark = defineStore('bookmark', {
 
          if (process.client) {
             const user = useSupabaseUser().value;
-            const client = useSupabaseClient();
+            const supabase = useSupabaseClient();
 
             if (user === null) {
                const bookmark = bookmarks.find(bookmark => bookmark.id === bookmarkId);
                if (bookmark !== undefined) {
-                  bookmark.isFavourite = !bookmark.isFavourite;
+                  bookmark.is_favourite = !bookmark.is_favourite;
                   localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
                }
                return;
             }
 
-            const isFavourite = !bookmarks.find(bookmark => bookmark.id === bookmarkId)!.isFavourite;
+            const isFavourite = !bookmarks.find(bookmark => bookmark.id === bookmarkId)!.is_favourite;
             const result = { id: bookmarkId, is_favourite: isFavourite } as never;
-            client
+            supabase
                .from('bookmarks')
                .update(result)
                .eq('id', bookmarkId)
-               .then(() => {
-                  console.log('Bookmark saved later');
-               });
+               .then(
+                  (e) => {
+                     console.log('Bookmark added to favourite', e);
+                     this.bookmarks.map((bookmark) => {
+                        if (bookmark.id === bookmarkId) {
+                           bookmark.is_favourite = isFavourite;
+                        }
+                     });
+                  },
+                  (e) => {
+                     console.error('Error adding bookmark to favourite', e);
+                  }
+               );
          }
       },
 
@@ -253,7 +286,7 @@ export const useBookmark = defineStore('bookmark', {
 
          if (process.client) {
             const user = useSupabaseUser().value;
-            const client = useSupabaseClient();
+            const supabase = useSupabaseClient();
 
             if (user === null) {
                const bookmark = this.bookmarks.find(bookmark => bookmark.id === bookmarkId);
@@ -267,7 +300,7 @@ export const useBookmark = defineStore('bookmark', {
 
             const redirects = this.bookmarks.find(bookmark => bookmark.id === bookmarkId)!.redirects + 1 || 1;
             const result = { id: bookmarkId, redirects } as never;
-            client
+            supabase
                .from('bookmarks')
                .update(result)
                .eq('id', bookmarkId)
@@ -280,33 +313,83 @@ export const useBookmark = defineStore('bookmark', {
       /**
        * Add a tag to a bookmark
        */
-      addTag(bookmarkId: number, tagName: string, color: string = "#60ffa8") {
+      addTag(bookmarkId: number, tagName: string, color: string = "#60ffa8"): Tag | undefined {
          if (bookmarkId === undefined) return;
 
          if (process.client) {
             const user = useSupabaseUser().value;
-            const client = useSupabaseClient();
+            const supabase = useSupabaseClient();
+
+            const tag = { name: tagName, color };
 
             if (user === null) {
                const bookmark = this.bookmarks.find(bookmark => bookmark.id === bookmarkId);
                if (bookmark !== undefined) {
-                  bookmark.tags.push({ name: tagName, color });
+                  bookmark.tags.push(tag);
                   localStorage.setItem('bookmarks', JSON.stringify(this.bookmarks));
                   console.log('Bookmark tag added');
                }
 
-               return;
+               return tag;
             }
 
             const tags = this.bookmarks.find(bookmark => bookmark.id === bookmarkId)!.tags;
-            tags.push({ name: tagName, color });
+            tags.push(tag);
             const result = { id: bookmarkId, tags } as never;
-            client
+            supabase
                .from('bookmarks')
                .update(result)
                .eq('id', bookmarkId)
                .then(() => {
                   console.log('Bookmark tag added');
+               });
+
+            return tag;
+         }
+      },
+
+      updateTag(bookmarkId: number, tagName: string, updatedName: string, color: string = "#60ffa8") {
+         if (bookmarkId === undefined) return;
+
+         const bookmark = this.bookmarks.find(bookmark => bookmark.id === bookmarkId);
+         if (bookmark === undefined) return;
+
+         if (process.client) {
+            const user = useSupabaseUser().value;
+            const supabase = useSupabaseClient();
+
+            if (user === null) {
+               const bookmark = this.bookmarks.find(bookmark => bookmark.id === bookmarkId);
+               if (bookmark !== undefined) {
+                  bookmark.tags = bookmark.tags.map(tag => {
+                     if (tag.name === tagName) {
+                        tag.name = updatedName;
+                        tag.color = color;
+                     }
+
+                     return tag;
+                  });
+                  localStorage.setItem('bookmarks', JSON.stringify(this.bookmarks));
+                  console.log('Bookmark tag updated');
+               }
+
+               return;
+            }
+
+            const tags = bookmark.tags;
+            tags.forEach(tag => {
+               if (tag.name === tagName) {
+                  tag.name = updatedName;
+                  tag.color = color;
+               }
+            });
+            const result = { id: bookmarkId, tags } as never;
+            supabase
+               .from('bookmarks')
+               .update(result)
+               .eq('id', bookmarkId)
+               .then(() => {
+                  console.log('Bookmark tag updated');
                });
          }
       },
@@ -317,9 +400,12 @@ export const useBookmark = defineStore('bookmark', {
       deleteTag(bookmarkId: number, tagName: string) {
          if (bookmarkId === undefined) return;
 
+         const bookmark = this.bookmarks.find(bookmark => bookmark.id === bookmarkId);
+         if (bookmark === undefined) return;
+
          if (process.client) {
             const user = useSupabaseUser().value;
-            const client = useSupabaseClient();
+            const supabase = useSupabaseClient();
 
             if (user === null) {
                const bookmark = this.bookmarks.find(bookmark => bookmark.id === bookmarkId);
@@ -332,14 +418,15 @@ export const useBookmark = defineStore('bookmark', {
                return;
             }
 
-            const tags = this.bookmarks.find(bookmark => bookmark.id === bookmarkId)!.tags;
-            const result = { id: bookmarkId, tags: tags.filter(tag => tag.name !== tagName) } as never;
-            client
+            const tags = bookmark.tags;
+            const updateValue = { tags: tags.filter(tag => tag.name !== tagName) } as never;
+            supabase
                .from('bookmarks')
-               .update(result)
+               .update(updateValue)
                .eq('id', bookmarkId)
                .then(() => {
                   console.log('Bookmark tag deleted');
+                  bookmark.tags = tags.filter(tag => tag.name !== tagName);
                });
          }
       }
