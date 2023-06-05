@@ -1,4 +1,4 @@
-<script lang="ts">
+<script setup lang="ts">
 // List of all the features that are included in the free plan of the bookmarks website app
 const starterFeatures = [
    'Unlimited Bookmarks',
@@ -113,7 +113,7 @@ const premiumFeatures = [
                <h3 class="mb-4 text-center text-3xl font-medium text-gray-900 dark:text-white">Enterprise Plan</h3>
                <ul class="text-gray-600 dark:text-gray-400">
                   <li
-                     v-for="feature in enterpriseFeatures"
+                     v-for="feature in proFeatures"
                      :key="feature"
                   >
                      <svg
