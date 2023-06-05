@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useTheme } from '~/store/themeStore';
-import { Bookmark } from '~/types/types';
 import { ModalsContainer } from 'vue-final-modal';
 
 const { theme, setTheme } = useTheme();
@@ -13,15 +12,15 @@ if (cookieTheme && theme !== cookieTheme) {
 useHead({
    title: 'Webmarks - Bookmark Manager',
    bodyAttrs: {
-      class: useTheme().isDarkMode ? 'dark' : 'bg-gray-100',
+      class: useTheme().isDarkMode ? 'dark' : 'bg-neutral-100',
    },
 });
 
 </script>
 
 <template>
-   <div class="dashboard flex h-screen min-h-[300px] bg-accent-light dark:bg-gray-900">
-      <DashboardSideBar />
+   <div class="dashboard flex h-screen min-h-[600px] bg-accent-light dark:bg-black">
+      <DashboardSidebar />
       <DashboardContent>
          <slot />
       </DashboardContent>
