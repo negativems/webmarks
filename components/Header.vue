@@ -31,7 +31,7 @@ watchEffect(() => {
 <template>
    <header :class="'flex items-center bg-transparent mt-5 z-10' + (isHome ? ' absolute w-full' : '')">
       <div
-         class="container mx-auto box-content flex h-full items-center justify-between gap-12 rounded-3xl px-10 dark:bg-gray-900"
+         class="container mx-auto box-content flex h-full items-center justify-between gap-12 rounded-3xl px-10 dark:bg-neutral-900"
          :class="{
             'bg-white': !isHome,
          }"
@@ -58,7 +58,7 @@ watchEffect(() => {
          >
             <NuxtLink
                to="/dashboard"
-               class="btn btn-primary rounded-xl border-2 border-accent bg-white p-3 duration-150 hover:shadow-solid-xl dark:bg-gray-700"
+               class="btn btn-primary rounded-xl border-2 border-accent bg-white p-3 duration-150 hover:shadow-solid-xl dark:bg-neutral-700"
             >
                Dashboard
             </NuxtLink>

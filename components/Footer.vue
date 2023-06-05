@@ -1,9 +1,9 @@
 <script lang="tsx" setup>
-import { BuyMeACoffeIcon, Logo } from './Icons';
+import { BuyMeACoffeIcon, FooterCurveIcon, Logo } from './Icons';
 </script>
 
 <template>
-   <footer class="relative overflow-x-clip bg-white text-black dark:bg-gray-900 dark:text-gray-300">
+   <footer class="relative overflow-x-clip bg-white text-black dark:bg-black dark:text-gray-200">
       <div class="container relative z-10 mx-auto grid h-[200px] grid-cols-12 p-10">
          <div class="about col-span-4">
             <h3 class="text-center">About</h3>
@@ -36,22 +36,7 @@ import { BuyMeACoffeIcon, Logo } from './Icons';
          </div>
       </div>
       <div class="h-[100px] w-full bg-accent-darker">
-         <svg
-            class="mx-auto bg-white dark:fill-gray-900"
-            width="1920"
-            height="100"
-            fill="none"
-         >
-            <path d="M0 0h1920v100H0z" />
-            <path
-               fill="#77FF47"
-               d="M968.5 59.088C588.405 59.51 0 0 0 0v100h1920V.5s-578.2 58.173-951.5 58.588Z"
-            />
-            <path
-               fill="#255116"
-               d="M1920 100V.5s-582.1 76.65-960 76.65S0 0 0 0v100h1920Z"
-            />
-         </svg>
+         <FooterCurveIcon />
       </div>
    </footer>
 </template>
