@@ -34,6 +34,7 @@ $tailwindHeaderMaringTop: 20px;
 
 html {
    overflow-y: overlay;
+   overflow-x: hidden;
 }
 
 @font-face {
@@ -91,7 +92,7 @@ svg.icon {
 }
 
 body.dark {
-   @apply bg-gray-800 text-white;
+   @apply bg-neutral-900 text-white;
 
    svg.icon {
       color: white;
