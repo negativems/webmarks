@@ -22,21 +22,21 @@ const user = useSupabaseUser();
 
             <div class="buttons flex gap-5">
                <button
-                  class="login-button inline-flex w-full justify-center justify-self-end rounded-lg bg-black p-5 font-bold text-white hover:bg-gray-900"
+                  class="login-button inline-flex w-full justify-center justify-self-end rounded-lg bg-black p-5 font-bold text-white hover:bg-neutral-900"
                   @click="client.auth.signInWithOAuth({ provider: 'github' })"
                >
                   <GithubIcon class="invert" />
                </button>
 
                <button
-                  class="login-button inline-flex w-full justify-center justify-self-end rounded-lg bg-red-500 p-5 font-bold text-white hover:bg-gray-900"
+                  class="login-button inline-flex w-full justify-center justify-self-end rounded-lg bg-red-500 p-5 font-bold text-white hover:bg-neutral-900"
                   @click="client.auth.signInWithOAuth({ provider: 'google' })"
                >
                   <GoogleIcon />
                </button>
             </div>
 
-            <button class="flex justify-center gap-5 rounded-lg bg-indigo-500 p-2 font-bold text-white hover:bg-gray-900">
+            <button class="flex justify-center gap-5 rounded-lg bg-indigo-500 p-2 font-bold text-white hover:bg-neutral-900">
             Login
          </button>
       </form>

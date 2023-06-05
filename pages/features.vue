@@ -36,15 +36,7 @@ const premiumFeatures = [
    'Dedicated Account Management',
    'Round-the-clock Support'
 ];
-export default {
-   data() {
-      return {
-         freeFeatures: starterFeatures,
-         premiumFeatures: proFeatures,
-         enterpriseFeatures: proFeatures
-      };
-   }
-};
+
 </script>
 
 <template>
@@ -59,11 +51,11 @@ export default {
          </section>
 
          <section class="plans-section mt-20 grid grid-cols-1 gap-8 md:grid-cols-3">
-            <div class="rounded-lg bg-white p-6 shadow dark:bg-gray-700">
+            <div class="rounded-lg bg-white p-6 shadow dark:bg-neutral-700">
                <h3 class="mb-4 text-center text-3xl font-medium text-gray-900 dark:text-white">Free Plan</h3>
                <ul class="text-gray-600 dark:text-gray-400">
                   <li
-                     v-for="feature in freeFeatures"
+                     v-for="feature in starterFeatures"
                      :key="feature"
                   >
                      <svg
@@ -88,7 +80,7 @@ export default {
                </div>
             </div>
 
-            <div class="rounded-lg bg-white p-6 shadow dark:bg-gray-700">
+            <div class="rounded-lg bg-white p-6 shadow dark:bg-neutral-700">
                <h3 class="mb-4 text-center text-3xl font-medium text-gray-900 dark:text-white">Premium Plan</h3>
                <ul class="text-gray-600 dark:text-gray-400">
                   <li
@@ -117,7 +109,7 @@ export default {
                </div>
             </div>
 
-            <div class="rounded-lg bg-white p-6 shadow dark:bg-gray-700">
+            <div class="rounded-lg bg-white p-6 shadow dark:bg-neutral-700">
                <h3 class="mb-4 text-center text-3xl font-medium text-gray-900 dark:text-white">Enterprise Plan</h3>
                <ul class="text-gray-600 dark:text-gray-400">
                   <li
@@ -147,7 +139,7 @@ export default {
             </div>
          </section>
 
-         <div class="background absolute bottom-0 left-[50%] -z-10 h-1/3 w-screen -translate-x-1/2 transform bg-gray-300 dark:bg-gray-400"></div>
+         <div class="background absolute bottom-0 left-[50%] -z-10 h-1/3 w-screen -translate-x-1/2 transform bg-neutral-300 dark:bg-neutral-400"></div>
       </div>
    </main>
 </template>
