@@ -1,5 +1,3 @@
-import { SUUID } from "short-uuid";
-
 export interface Tag {
    name: string
    color: string
@@ -28,7 +26,7 @@ export interface Bookmark {
    is_favourite: boolean
    user_id?: string | undefined
    description?: string
-   favicon?: string
+   favicon?: string | null
 }
 
 export type BookmarkDisplayFormat = 'rows' | 'cards'

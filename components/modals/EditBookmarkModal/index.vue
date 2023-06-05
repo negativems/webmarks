@@ -5,7 +5,7 @@
          <ModalsEditBookmarkModalTitle :title="bookmark.title" />
 
          <div class="">
-            <ModalsEditBookmarkModalFormInput name="title" v-model:modelValue="bookmark.title" />
+            <!-- <ModalsEditBookmarkModalFormInput name="title" v-model:modelValue="bookmark.title" /> -->
 
             <label
                class="mb-2 block"
@@ -106,7 +106,7 @@
          <div class="buttons">
             <button
                class="rounded-md bg-accent-dark px-5 py-3"
-               @click="emit('update:modelValue', false)"
+               @click="handleSaveClick()"
             >
                Save
             </button>
@@ -119,9 +119,7 @@
 import { VueFinalModal } from 'vue-final-modal';
 import { useBookmark } from '~/store/bookmark';
 import { Bookmark, Tag } from '~/types/types';
-import { PencilIcon, TrashIcon, CheckIcon } from '~/components/Icons';
-
-const emit = defineEmits(['update:modelValue']);
+import { PencilIcon, TrashIcon } from '~/components/Icons';
 
 const props = defineProps({
    bookmark: {
@@ -129,6 +127,8 @@ const props = defineProps({
       required: true,
    }
 });
+
+const emit = defineEmits(['update:modelValue']);
 
 const editingTag = ref(undefined) as Ref<Tag | undefined>;
 const hoverTag = ref(undefined) as Ref<Tag | undefined>;
@@ -170,5 +170,14 @@ function handleTagInputChange(tag: Tag, event: Event) {
 function handleEditTagColorClick(tag: Tag, event: Event) {
    const newColor = (event.target as HTMLInputElement).value;
    useBookmark().updateTag(props.bookmark.id, tag.name, tag.name, newColor);
+}
+
+function saveBookmark() {
+   useBookmark().edit(props.bookmark);
+}
+
+function handleSaveClick() {
+   saveBookmark();
+   emit('update:modelValue', false);
 }
 </script>

@@ -27,7 +27,13 @@ export function getColorByBgColor(hex: string): string {
    return contrastRatio >= 4.5 ? '#000000' : '#ffffff';
 }
 
-export function getFavicon(url: string): string {
-   if (!url) return 'https://s2.googleusercontent.com/s2/favicons?domain=webmarks.io';
+/**
+ * Get the favicon of a website checking if it does not return 404, if it does, return null.
+ * @param url The url to get the favicon from.
+ */
+export function getFavicon(url: string): string | null {
+   if (!url) return 'https://webmarks.io/favicon.ico';
+   // const response = fetch(`https://s2.googleusercontent.com/s2/favicons?domain=${url}`).catch(() => null);
+   // if (response === null) return null;
    return `https://s2.googleusercontent.com/s2/favicons?domain=${url}`;
 }

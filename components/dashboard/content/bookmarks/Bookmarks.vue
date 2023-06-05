@@ -25,14 +25,14 @@
          v-for="{ id: bookmarkId, title, url, tags, favicon, is_favourite } in bookmarks"
          :key="bookmarkId"
          @contextmenu.prevent="handleBookmarkRightClick(bookmarkId)"
-         class="bookmark flex flex-col justify-between rounded-xl bg-white p-5 duration-200 hover:scale-[1.01] hover:bg-neutral-200 hover:text-accent-dark hover:shadow-md dark:bg-neutral-900 dark:hover:bg-black dark:hover:text-accent"
+         class="bookmark flex flex-col justify-between rounded-xl border border-gray-600 bg-white p-5 duration-200 hover:scale-[1.01] hover:bg-neutral-200 hover:text-accent-dark hover:shadow-md dark:border-neutral-600 dark:bg-black dark:hover:bg-black dark:hover:text-accent"
          :class="{
                'flex-row': isRow,
             }"
          @click="bookmarkStore.addClickTo(bookmarkId)"
          @click.middle="bookmarkStore.addClickTo(bookmarkId)"
       >
-         <div class="flex flex-col"> 
+         <div class="flex flex-col">
             <div class="relative flex justify-between">
                <h3 class="overflow-hidden text-ellipsis whitespace-nowrap text-xl font-bold">
                   <StarIcon
@@ -43,7 +43,7 @@
                      class="absolute -left-7 -top-7 scale-110"
                   />
                   <img
-                     :src="favicon"
+                     :src="favicon || '/favicon.ico'"
                      class="inline"
                      :alt="'Favicon of ' + url"
                      width="16"
@@ -66,7 +66,7 @@
          v-if="contextBookmarkId !== undefined"
          :bookmarkId="contextBookmarkId"
          @selectedBookmarkUpdated="changeSelectedBookmark"
-      />
+         />
    </div>
 </template>
 
@@ -87,7 +87,6 @@ const selectedTags = ref([] as string[]);
 
 // Used to tell the context menu which bookmark to use in the buttons (edit favourite and delete)
 const contextBookmarkId = ref(undefined as number | undefined);
-
 let hoverBookmarkId = ref(undefined as number | undefined);
 
 function toggleTag(name: string) {
@@ -119,11 +118,9 @@ const bookmarks = computed(() => {
       result = result.sort((a, b) => a.url.localeCompare(b.url));
    }
 
-   // Set icon
-   result = result.map((bookmark: Bookmark) => {
+   for (const bookmark of result) {
       bookmark.favicon = getFavicon(bookmark.url);
-      return bookmark;
-   });
+   }
 
    return result;
 });
@@ -137,10 +134,10 @@ function changeSelectedBookmark(id: number | undefined) {
 }
 
 onMounted(() => {
-   // Hide the context menu when left click outside of the context menu
+   // Close context menu when clicking
    document.addEventListener('click', () => {
       const isOpenModal = document.querySelector('.modal') !== null;
-      if (contextBookmarkId.value !== hoverBookmarkId.value && !isOpenModal) {
+      if (!isOpenModal) {
          contextBookmarkId.value = undefined;
       }
    });
