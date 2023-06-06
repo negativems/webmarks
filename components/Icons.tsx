@@ -152,3 +152,10 @@ export const TrashIcon = () => (
       <path d="M14 11v5" />
    </svg>
 );
+
+export const InfoIcon = ({fill = '#ffcc14', title = ""}) => (
+   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill={fill} stroke-width="2" >
+      {title && <title>{title}</title>}
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1zm-.5 5a1 1 0 1 0 0 2h.5a1 1 0 1 0 0-2h-.5zM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2z" />
+   </svg>
+);

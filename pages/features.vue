@@ -1,41 +1,58 @@
 <script setup lang="ts">
-// List of all the features that are included in the free plan of the bookmarks website app
-const starterFeatures = [
-   'Unlimited Bookmarks',
-   'Unlimited Collections',
-   'Tagging System',
-   'Search Functionality',
-   'Import/Export Bookmarks',
-];
 
-const proFeatures = [
-   'Limitless Text Highlighting',
-   'Comprehensive Nested Collections',
-   'Visual Bookmark Thumbnails',
-   'Smart Broken Link Identification',
-   'Interactive Bookmark Annotations',
-   'Automated Bookmark Categorization',
-   'Reading Progress Tracker',
-   'Personalized Bookmark Recommendations',
-   'Convenient URL Shortening',
-   'Offline Bookmark Accessibility',
-   'Cross-device Synchronization',
-   'Save-for-later Bookmark Option',
-   'Mobile Application Support',
-   'Priority Customer Assistance'
-];
+const starterPlan = {
+   title: 'Free Plan',
+   priceMonthly: '0',
+   priceYearly: '0',
+   features: [
+      'Unlimited Bookmarks',
+      'Unlimited Collections',
+      'Tagging System',
+      'Search Functionality',
+      'Import/Export Bookmarks',
+   ],
+};
 
-const premiumFeatures = [
-   'Access to All Premium Features',
-   'Customizable Branding Options',
-   'Unique Custom Themes',
-   'Convenient Single Sign-on (SSO)',
-   'Effective User Management System',
-   'Efficient Group Management Tools',
-   'Comprehensive Activity Logs',
-   'Dedicated Account Management',
-   'Round-the-clock Support'
-];
+const proPlan = {
+   title: 'Pro Plan',
+   priceMonthly: '5',
+   priceYearly: '50',
+   features: [
+      'Limitless Text Highlighting',
+      'Comprehensive Nested Collections',
+      'Visual Bookmark Thumbnails',
+      'Smart Broken Link Identification',
+      'Interactive Bookmark Annotations',
+      'Automated Bookmark Categorization',
+      'Reading Progress Tracker',
+      'Personalized Bookmark Recommendations',
+      'Convenient URL Shortening',
+      'Offline Bookmark Accessibility',
+      'Cross-device Synchronization',
+      'Save-for-later Bookmark Option',
+      'Mobile Application Support',
+      'Priority Customer Assistance'
+   ]
+};
+
+const premiumPlan = {
+   title: 'Premium Plan',
+   priceMonthly: '10',
+   priceYearly: '100',
+   features: [
+      'Access to All Premium Features',
+      'Customizable Branding Options',
+      'Unique Custom Themes',
+      'Convenient Single Sign-on (SSO)',
+      'Effective User Management System',
+      'Efficient Group Management Tools',
+      'Comprehensive Activity Logs',
+      'Dedicated Account Management',
+      'Round-the-clock Support'
+   ]
+};
+
+const plans = [starterPlan, proPlan, premiumPlan];
 
 </script>
 
@@ -51,89 +68,37 @@ const premiumFeatures = [
          </section>
 
          <section class="plans-section mt-20 grid grid-cols-1 gap-8 md:grid-cols-3">
-            <div class="rounded-lg bg-white p-6 shadow dark:bg-neutral-700">
-               <h3 class="mb-4 text-center text-3xl font-medium text-gray-900 dark:text-white">Free Plan</h3>
-               <ul class="text-gray-600 dark:text-gray-400">
-                  <li
-                     v-for="feature in starterFeatures"
-                     :key="feature"
-                  >
-                     <svg
-                        class="inline-flex h-5 w-5 text-green-500"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
+            <div
+               class="flex flex-col justify-between gap-5 rounded-lg bg-white p-6 shadow dark:bg-black"
+               v-for="plan in plans"
+            >
+               <div>
+                  <h3 class="mb-4 text-center text-3xl font-medium text-gray-900 dark:text-white">{{ plan.title }}</h3>
+                  <ul class="text-gray-600 dark:text-gray-400">
+                     <li
+                        v-for="feature in plan.features"
+                        :key="feature"
                      >
-                        <path
-                           fill-rule="evenodd"
-                           d="M9.707 14.293a1 1 0 0 0 1.414 0l5-5a1 1 0 1 0-1.414-1.414L10 11.586l-3.293-3.293a1 1 0 0 0-1.414 1.414l4 4z"
-                           clip-rule="evenodd"
-                        ></path>
-                     </svg>
-                     {{ feature }}
-                  </li>
-               </ul>
+                        <svg
+                           class="inline-flex h-5 w-5 text-green-500"
+                           fill="currentColor"
+                           viewBox="0 0 20 20"
+                        >
+                           <path
+                              fill-rule="evenodd"
+                              d="M9.707 14.293a1 1 0 0 0 1.414 0l5-5a1 1 0 1 0-1.414-1.414L10 11.586l-3.293-3.293a1 1 0 0 0-1.414 1.414l4 4z"
+                              clip-rule="evenodd"
+                           ></path>
+                        </svg>
+                        {{ feature }}
+                     </li>
+                  </ul>
+               </div>
+
                <div class="mt-6">
-                  <p class="text-xl font-bold text-gray-900 dark:text-white">$0/month</p>
+                  <p class="text-xl font-bold text-gray-900 dark:text-white">${{ plan.priceMonthly }}/month</p>
                   <button class="mt-4 rounded bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600">
                      Get Started
-                  </button>
-               </div>
-            </div>
-
-            <div class="rounded-lg bg-white p-6 shadow dark:bg-neutral-700">
-               <h3 class="mb-4 text-center text-3xl font-medium text-gray-900 dark:text-white">Premium Plan</h3>
-               <ul class="text-gray-600 dark:text-gray-400">
-                  <li
-                     v-for="feature in premiumFeatures"
-                     :key="feature"
-                  >
-                     <svg
-                        class="inline-flex h-5 w-5 text-green-500"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                     >
-                        <path
-                           fill-rule="evenodd"
-                           d="M9.707 14.293a1 1 0 0 0 1.414 0l5-5a1 1 0 1 0-1.414-1.414L10 11.586l-3.293-3.293a1 1 0 0 0-1.414 1.414l4 4z"
-                           clip-rule="evenodd"
-                        ></path>
-                     </svg>
-                     {{ feature }}
-                  </li>
-               </ul>
-               <div class="mt-6">
-                  <p class="text-xl font-bold text-gray-900 dark:text-white">$9.99/month</p>
-                  <button class="mt-4 rounded bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600">
-                     Get Started
-                  </button>
-               </div>
-            </div>
-
-            <div class="rounded-lg bg-white p-6 shadow dark:bg-neutral-700">
-               <h3 class="mb-4 text-center text-3xl font-medium text-gray-900 dark:text-white">Enterprise Plan</h3>
-               <ul class="text-gray-600 dark:text-gray-400">
-                  <li
-                     v-for="feature in proFeatures"
-                     :key="feature"
-                  >
-                     <svg
-                        class="inline-flex h-5 w-5 text-green-500"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                     >
-                        <path
-                           fill-rule="evenodd"
-                           d="M9.707 14.293a1 1 0 0 0 1.414 0l5-5a1 1 0 1 0-1.414-1.414L10 11.586l-3.293-3.293a1 1 0 0 0-1.414 1.414l4 4z"
-                           clip-rule="evenodd"
-                        ></path>
-                     </svg>
-                     {{ feature }}
-                  </li>
-               </ul>
-               <div class="mt-6">
-                  <p class="text-xl font-bold text-gray-900 dark:text-white">Contact us for pricing</p>
-                  <button class="mt-4 rounded bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600">
-                     Contact Sales
                   </button>
                </div>
             </div>
@@ -141,5 +106,4 @@ const premiumFeatures = [
 
          <div class="background absolute bottom-0 left-[50%] -z-10 h-1/3 w-screen -translate-x-1/2 transform bg-neutral-300 dark:bg-neutral-400"></div>
       </div>
-   </main>
-</template>
+</main></template>
