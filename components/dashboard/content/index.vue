@@ -1,10 +1,10 @@
 <template>
    <main
       className="dark:bg-neutral-800 bg-neutral-100 flex-1 rounded-3xl p-10 m-5 h-min-[500px] overflow-auto"
-      @dragenter="dragEnter"
-      @dragleave="dragLeave"
-      @drop="drop"
-      @dragover="e => e.preventDefault()"
+      @dragenter.stop.prevent="dragEnter"
+      @dragleave.stop.prevent="dragLeave"
+      @drop.stop.prevent="drop"
+      @dragover.prevent=""
    >
       <slot />
    </main>
@@ -17,15 +17,10 @@ import { BookmarkDraft } from '~/types/types';
 const bookmarkStore = useBookmark();
 
 const dragEnter = (event: DragEvent) => {
-   event.preventDefault();
-   event.stopPropagation();
    document.querySelector('main')?.classList.add("bg-neutral-300");
 };
 
 const dragLeave = (event: any) => {
-   event.preventDefault();
-   event.stopPropagation();
-
    const main = document.querySelector('main');
    const rect = main?.getBoundingClientRect();
    const x = event.clientX;
@@ -42,9 +37,6 @@ const dragLeave = (event: any) => {
  * or add a bookmark export file
  */
 const drop = async (e: any) => {
-   e.preventDefault();
-   e.stopPropagation();
-
    // Check if the data being dragged is a URL or a file
    const urlInput = e.dataTransfer.getData("URL");
    if (urlInput) {
