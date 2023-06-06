@@ -11,16 +11,54 @@ export const useBookmark = defineStore('bookmark', {
       insertingBookmarks: 0
    }),
    getters: {
-      tags(state): Tag[] {
-         return state.bookmarks.map(bookmark => bookmark.tags)
+      /**
+       * 
+       * @param state 
+       */
+      getTags(state): () => Tag[] {
+         const tags = new Set<Tag>();
+
+         state.bookmarks
+            .map(bookmark => bookmark.tags)
             .flat()
-            .filter((tag, index, self) => index === self.findIndex(t => t.name === tag.name));
+            // Remove null tags and duplicates name
+            .filter((tag, index, self) => tag && self.findIndex(t => t.name === tag.name) === index)
+            .forEach(tag => {
+               tags.add(tag);
+            });
+
+         return () => Array.from(tags);
       },
       find: (state) => (bookmarkId: number) => {
          return state.bookmarks.find(bookmark => bookmark.id === bookmarkId);
       },
       hasBookmarks(state): boolean {
          return state.bookmarks.length > 0;
+      },
+
+      /**
+       * Returns true if there is more than one bookmark with the same title or url in the store
+       */
+      exists: (state) => ({ title = "", url = "" }: { title?: string, url?: string }): boolean => {
+         // Check that there is a title or url
+         if (!title && !url) {
+            console.error("There was an error checking if a bookmark exists: no title or url was provided");
+            return false;
+         }
+
+         return state.bookmarks.filter(bookmark => {
+            if (title && bookmark.title === title) return true;
+            if (url && bookmark.url === url) return true;
+            return false;
+         }).length > 1;
+      },
+
+      /**
+       * Returns true if there more than one tag with the same name in the store
+       */
+      existsTag: (state) => (name: string): boolean => {
+         const tags = (this as any).getTags() as Tag[];
+         return tags.filter(tag => tag.name === name).length > 1;
       }
    },
    actions: {
@@ -104,6 +142,8 @@ export const useBookmark = defineStore('bookmark', {
 
             bookmark.user_id = user.id;
 
+            console.log('Bookmark added', bookmark);
+            
             supabase
                .from('bookmarks')
                .insert(bookmark as never)
@@ -158,6 +198,8 @@ export const useBookmark = defineStore('bookmark', {
 
       edit(bookmark: Bookmark) {
          if (process.client) {
+            console.log('Bookmark edited', bookmark);
+            
             if (bookmark === undefined) {
                console.error('Error editing bookmark, bookmark is undefined');
                return;

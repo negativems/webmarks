@@ -60,6 +60,10 @@
                :tag="tag"
             />
          </div>
+
+         <div class="" v-if="bookmarkStore.exists({url})">
+            <InfoIcon title="There is a bookmark with the same url"/>
+         </div>
       </NuxtLink>
 
       <DashboardContentBookmarksContextMenu
@@ -73,7 +77,7 @@
 <script setup lang="ts">
 import { Bookmark, BookmarkDisplayFormat } from '~/types/types';
 import { useBookmark } from '~/store/bookmark';
-import { StarIcon } from '~/components/Icons';
+import { InfoIcon, StarIcon } from '~/components/Icons';
 const bookmarkStore = useBookmark();
 
 let prop = defineProps(['search', 'sort']);
