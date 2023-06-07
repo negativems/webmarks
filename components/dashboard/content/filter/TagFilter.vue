@@ -10,6 +10,8 @@
                :handleClick="(tag) => toggleTag(tag.name)"
                :isSelected="selectedTags.includes(tag.name)"
             />
+
+            <span v-if="useBookmark().getTags().length === 0">You can add a tag by right clicking and editing a bookmark</span>
          </div>
       </div>
    </div>

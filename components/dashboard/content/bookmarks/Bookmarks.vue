@@ -105,7 +105,7 @@ const bookmarks = computed(() => {
    let result = bookmarkStore.bookmarks;
 
    if (selectedTags.value.length > 0) {
-      result = result.filter(bookmark => bookmark.tags.some(tag => selectedTags.value.includes(tag.name)));
+      result = result.filter(bookmark => bookmark.tags?.some(tag => selectedTags.value.includes(tag.name)));
    }
 
    if (search.value) {

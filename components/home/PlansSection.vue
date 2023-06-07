@@ -1,10 +1,30 @@
 <template>
    <section>
-      <h2 class="text-3xl font-bold mb-10">Plans</h2>
+      <h2 class="mb-10 text-3xl font-bold">Plans</h2>
       <div class="flex gap-10">
-         <HomePlanCard class="flex-1" name='Free' :features="freeFeatures" :price="0" />
-         <HomePlanCard class="flex-1" name='Premium' :features="premiumFeatures" :price="19" :saveAmount="20" tryable dark />
-         <HomePlanCard class="flex-1" name='Enterprise' :features="enterpriseFeatures" :price="19" :saveAmount="20" tryable />
+         <HomePlanCard
+            class="flex-1"
+            name='Free'
+            :features="freeFeatures"
+            :price="0"
+         />
+         <HomePlanCard
+            class="flex-1"
+            name='Premium'
+            :features="premiumFeatures"
+            :price="19"
+            :saveAmount="20"
+            tryable
+            dark
+         />
+         <HomePlanCard
+            class="flex-1"
+            name='Enterprise'
+            :features="enterpriseFeatures"
+            :price="19"
+            :saveAmount="20"
+            tryable
+         />
       </div>
    </section>
 </template>

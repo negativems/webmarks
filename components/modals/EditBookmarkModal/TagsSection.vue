@@ -58,11 +58,29 @@
                   @blur="editingTag = undefined"
                   @input="handleInput($event)"
                   :class="{
-                     'bg-red-300': existsTag,
-                  }"
+                        'bg-red-300': existsTag,
+                     }"
                />
             </div>
          </button>
+
+         <div
+            class="hover-buttons flex"
+            v-if="newTag !== undefined"
+         >
+            <input
+               class="rounded-md"
+               id="tag-input"
+               type="text"
+               :value="newTag.name"
+               @change="handleTagInputChange(newTag, $event)"
+               @blur="newTag = undefined"
+               @input="handleInput($event)"
+               :class="{
+                     'bg-red-300': existsTag,
+                  }"
+            />
+         </div>
 
          <button
             class="inline-flex rounded-lg bg-white text-black"
@@ -88,6 +106,7 @@ const props = defineProps({
 
 const hoverTag = ref(undefined) as Ref<Tag | undefined>;
 const editingTag = ref(undefined) as Ref<Tag | undefined>;
+const newTag = ref(undefined) as Ref<Tag | undefined>;
 
 const existsTag = ref(false);
 
@@ -96,8 +115,11 @@ function handleInput(event: any) {
 }
 
 function handleAddTagClick() {
-   const tag = useBookmark().addTag(props.bookmark.id, 'test');
-   handlePencilClick(tag as Tag);
+   // const tag = useBookmark().addTag(props.bookmark.id, 'test');
+   newTag.value = {
+      name: 'asd',
+      color: '#000000',
+   } as Tag;
 }
 
 function handleDeleteTagClick(tag: Tag) {
@@ -107,18 +129,7 @@ function handleDeleteTagClick(tag: Tag) {
 function handleTagInputChange(tag: Tag, event: Event) {
    const updatedName = (event.target as HTMLInputElement).value;
    editingTag.value = undefined;
-   useBookmark().updateTag(props.bookmark.id, tag.name, updatedName, tag.color);
-
-   props.bookmark.tags = props.bookmark.tags.map(tag => {
-      if (tag.name === tag.name) {
-         console.log("Se ha encontrado un tag con el mismo nombre");
-         tag.name = updatedName;
-      } else {
-         console.log("No se ha encontrado un tag con el mismo nombre");
-      }
-
-      return tag;
-   });
+   useBookmark().addTag(props.bookmark.id, updatedName, tag.color);
 }
 
 function handleEditTagColorClick(tag: Tag, event: Event) {

@@ -1,29 +1,34 @@
 <template>
-   <header :class="'flex items-center bg-transparent mt-5 z-10' + (isHome ? ' absolute w-full' : '')">
+   <header
+      class="z-10 mt-5 flex items-center bg-transparent"
+      :class="{
+         'absolute w-full': isHome,
+      }"
+   >
       <div
          class="container mx-auto box-content flex h-full items-center justify-between gap-12 rounded-3xl px-10 dark:bg-neutral-900"
          :class="{
-            'bg-white': !isHome,
-         }"
+               'bg-white': !isHome,
+            }"
       >
          <div class="logo-container relative h-full flex-1">
-            <HeaderLogo />
+            <HeaderLogo class="scale-75"/>
          </div>
-         <div class="navbar flex flex-1 gap-12">
+         <div class="navbar hidden flex-1 gap-12 md:flex">
             <NuxtLink
                v-for="link in headerLinks"
                :key="link.href"
                :to="link.href"
                class="max-w-fit rounded-xl px-10 py-2 text-center font-bold hover:bg-accent-light hover:shadow-md dark:text-white dark:hover:bg-accent-dark"
                :class="{
-                  'rounded-none border-b-4 border-accent bg-accent-light dark:bg-accent-dark': selected === link.href
-               }"
+                     'rounded-none border-b-4 border-accent bg-accent-light dark:bg-accent-dark': selected === link.href
+                  }"
             >
                {{ link.label }}
             </NuxtLink>
          </div>
          <div
-            class="flex flex-1 justify-end"
+            class="hidden flex-1 justify-end md:flex"
             v-if="user"
          >
             <NuxtLink

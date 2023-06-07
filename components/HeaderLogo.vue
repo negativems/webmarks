@@ -1,6 +1,3 @@
-
-import { Logo } from './Icons';
-
 <template>
    <NuxtLink to="/" class="inline-flex h-full cursor-pointer items-center transition ease-in-out hover:scale-105">
       <Logo class="shadowed mr-4 h-14" />
@@ -8,7 +5,6 @@ import { Logo } from './Icons';
    </NuxtLink>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { Logo } from './Icons';
-
 </script>
