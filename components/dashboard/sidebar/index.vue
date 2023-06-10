@@ -1,6 +1,6 @@
 <template>
    <div
-      class="sidebar m-5 box-content flex-col gap-10 rounded-2xl bg-white p-5 duration-200 ease-in-out dark:bg-neutral-800 max-[500px]:hidden md:flex"
+      class="sidebar m-5 box-content hidden flex-col gap-10 rounded-2xl bg-white p-5 duration-200 ease-in-out dark:bg-neutral-800 md:flex"
       v-on:mouseenter="() => isSidebarHover = true"
       v-on:mouseleave="() => isSidebarHover = false"
       :class="{
@@ -31,5 +31,11 @@
 
 <script lang="ts" setup>
 import { Logo } from '@/components/Icons';
-const isSidebarHover = ref(true);
+const isSidebarHover = ref(false);
+
+onMounted(() => {
+   isSidebarHover.value = !isMobile.value;
+});
+
+const isMobile = computed(() => screen.width < 768);
 </script>

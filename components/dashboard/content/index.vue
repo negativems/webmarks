@@ -1,6 +1,6 @@
 <template>
    <main
-      className="dark:bg-neutral-800 bg-neutral-100 flex-1 rounded-3xl p-10 m-5 h-min-[500px] overflow-auto"
+      className="dark:bg-neutral-800 bg-neutral-100 flex-1 rounded-3xl p-5 md:p-10 m-5 h-min-[500px] overflow-auto"
       @dragenter.stop.prevent="dragEnter"
       @dragleave.stop.prevent="dragLeave"
       @drop.stop.prevent="drop"

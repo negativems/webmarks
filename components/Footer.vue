@@ -3,7 +3,7 @@ import { BuyMeACoffeIcon, FooterCurveIcon, Logo } from './Icons';
 </script>
 
 <template>
-   <footer class="relative overflow-x-clip bg-white text-black dark:bg-black dark:text-gray-200">
+   <footer class="relative hidden overflow-x-clip bg-white text-black dark:bg-black dark:text-gray-200 md:block">
       <div class="container relative z-10 mx-auto grid h-[200px] grid-cols-12 p-10">
          <div class="about col-span-4 hidden md:block">
             <h3 class="text-center">About</h3>

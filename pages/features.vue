@@ -1,63 +1,5 @@
-<script setup lang="ts">
-
-const starterPlan = {
-   title: 'Free Plan',
-   priceMonthly: '0',
-   priceYearly: '0',
-   features: [
-      'Unlimited Bookmarks',
-      'Unlimited Collections',
-      'Tagging System',
-      'Search Functionality',
-      'Import/Export Bookmarks',
-   ],
-};
-
-const proPlan = {
-   title: 'Pro Plan',
-   priceMonthly: '5',
-   priceYearly: '50',
-   features: [
-      'Limitless Text Highlighting',
-      'Comprehensive Nested Collections',
-      'Visual Bookmark Thumbnails',
-      'Smart Broken Link Identification',
-      'Interactive Bookmark Annotations',
-      'Automated Bookmark Categorization',
-      'Reading Progress Tracker',
-      'Personalized Bookmark Recommendations',
-      'Convenient URL Shortening',
-      'Offline Bookmark Accessibility',
-      'Cross-device Synchronization',
-      'Save-for-later Bookmark Option',
-      'Mobile Application Support',
-      'Priority Customer Assistance'
-   ]
-};
-
-const premiumPlan = {
-   title: 'Premium Plan',
-   priceMonthly: '10',
-   priceYearly: '100',
-   features: [
-      'Access to All Premium Features',
-      'Customizable Branding Options',
-      'Unique Custom Themes',
-      'Convenient Single Sign-on (SSO)',
-      'Effective User Management System',
-      'Efficient Group Management Tools',
-      'Comprehensive Activity Logs',
-      'Dedicated Account Management',
-      'Round-the-clock Support'
-   ]
-};
-
-const plans = [starterPlan, proPlan, premiumPlan];
-
-</script>
-
 <template>
-   <main class="container relative mx-auto">
+   <main class="container relative mx-auto pb-10">
       <div class="py-20">
          <section class="title-section mx-auto">
             <div class="text-center">
@@ -97,13 +39,63 @@ const plans = [starterPlan, proPlan, premiumPlan];
 
                <div class="mt-6">
                   <p class="text-xl font-bold text-gray-900 dark:text-white">${{ plan.priceMonthly }}/month</p>
-                  <button class="mt-4 rounded bg-blue-500 px-4 py-2 font-semibold text-white hover:bg-blue-600">
+                  <button class="mt-4 rounded bg-accent-dark px-4 py-2 font-semibold text-white hover:bg-accent">
                      Get Started
                   </button>
                </div>
             </div>
          </section>
 
-         <div class="background absolute bottom-0 left-[50%] -z-10 h-1/3 w-screen -translate-x-1/2 transform bg-neutral-300 dark:bg-neutral-400"></div>
+         <div class="background absolute bottom-0 left-[50%] -z-10 h-1/3 w-screen -translate-x-1/2 transform bg-neutral-300 dark:bg-neutral-800"></div>
       </div>
-</main></template>
+   </main>
+</template>
+
+<script setup lang="ts">
+
+const starterPlan = {
+   title: 'Free Plan',
+   priceMonthly: '0',
+   priceYearly: '0',
+   features: [
+      'Unlimited Bookmarks',
+      'Unlimited Collections',
+      'Tagging System',
+      'Search Functionality',
+      'Import/Export Bookmarks',
+   ],
+};
+
+const proPlan = {
+   title: 'Pro Plan',
+   priceMonthly: '5',
+   priceYearly: '50',
+   features: [
+      'Smart Broken Link Identification',
+      'Automated Bookmark Categorization',
+      'Save-for-later Bookmark Option',
+      'Mobile Application Support',
+      'Priority Customer Assistance'
+   ]
+};
+
+const premiumPlan = {
+   title: 'Premium Plan',
+   priceMonthly: '10',
+   priceYearly: '100',
+   features: [
+      'Access to All Premium Features',
+      'Customizable Branding Options',
+      'Unique Custom Themes',
+      'Convenient Single Sign-on (SSO)',
+      'Effective User Management System',
+      'Efficient Group Management Tools',
+      'Comprehensive Activity Logs',
+      'Dedicated Account Management',
+      'Round-the-clock Support'
+   ]
+};
+
+const plans = [starterPlan, proPlan, premiumPlan];
+
+</script>

@@ -8,6 +8,7 @@
       <DashboardContentHeaderDisplayFormatSwitcher
          :format="displayFormat"
          v-if="hasBookmarks"
+         class="hidden md:block"
       />
    </header>
 </template>

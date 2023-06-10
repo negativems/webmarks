@@ -1,7 +1,7 @@
 <template>
    <div class="w-full rounded-lg bg-white dark:bg-black">
       <div class="flex flex-col gap-2 p-4">
-         <div class="flex flex-wrap gap-2">
+         <div class="flex flex-wrap gap-3">
             <DashboardContentBookmarksTag
                v-for="tag in useBookmark().getTags()"
                :tag="tag"
@@ -9,6 +9,7 @@
                :isButton="true"
                :handleClick="(tag) => toggleTag(tag.name)"
                :isSelected="selectedTags.includes(tag.name)"
+               class="border dark:border-accent-light"
             />
 
             <span v-if="useBookmark().getTags().length === 0">You can add a tag by right clicking and editing a bookmark</span>

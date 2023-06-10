@@ -25,16 +25,16 @@
          v-for="{ id: bookmarkId, title, url, tags, favicon, is_favourite } in bookmarks"
          :key="bookmarkId"
          @contextmenu.prevent="handleBookmarkRightClick(bookmarkId)"
-         class="bookmark flex flex-col justify-between rounded-xl border border-gray-600 bg-white p-5 duration-200 hover:scale-[1.01] hover:bg-neutral-200 hover:text-accent-dark hover:shadow-md dark:border-neutral-600 dark:bg-black dark:hover:bg-black dark:hover:text-accent"
+         class="flex flex-col justify-between truncate rounded-xl border border-gray-600 bg-white p-5 duration-200 hover:scale-[1.01] hover:bg-neutral-200 hover:text-accent-dark hover:shadow-md dark:border-neutral-600 dark:bg-black dark:hover:bg-black dark:hover:text-accent"
          :class="{
                'flex-row': isRow,
             }"
          @click="bookmarkStore.addClickTo(bookmarkId)"
          @click.middle="bookmarkStore.addClickTo(bookmarkId)"
       >
-         <div class="flex flex-col">
+         <div class="flex flex-col truncate">
             <div class="relative flex justify-between">
-               <h3 class="overflow-hidden text-ellipsis whitespace-nowrap text-xl font-bold">
+               <h3 class="text-xl font-bold">
                   <StarIcon
                      v-if="is_favourite"
                      title="This bookmark is a favourite"
@@ -51,7 +51,9 @@
                   {{ title }}
                </h3>
             </div>
-            <p class="break-all text-gray-500">{{ url.substring(0, 50) + (url.length > 50 ? '...' : '') }}</p>
+            <span>
+               {{ url }}
+            </span>
          </div>
          <div v-if="tags?.length > 0">
             <DashboardContentBookmarksTag
@@ -61,8 +63,11 @@
             />
          </div>
 
-         <div class="" v-if="bookmarkStore.exists({url})">
-            <InfoIcon title="There is a bookmark with the same url"/>
+         <div
+            class=""
+            v-if="bookmarkStore.exists({ url })"
+         >
+            <InfoIcon title="There is a bookmark with the same url" />
          </div>
       </NuxtLink>
 
@@ -70,7 +75,7 @@
          v-if="contextBookmarkId !== undefined"
          :bookmarkId="contextBookmarkId"
          @selectedBookmarkUpdated="changeSelectedBookmark"
-         />
+      />
    </div>
 </template>
 

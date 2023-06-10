@@ -1,18 +1,18 @@
 <template>
    <header
-      class="z-10 mt-5 flex items-center bg-transparent"
+      class="fixed bottom-2 left-1/2 z-20 mt-5 flex w-[90%] -translate-x-1/2 transform items-center text-xs md:static md:bottom-auto md:left-0 md:w-auto md:translate-x-0 md:transform-none md:bg-transparent lg:text-base"
       :class="{
-         'absolute w-full': isHome,
+         'md:absolute md:w-full': isHome,
       }"
    >
       <div
-         class="container mx-auto box-content flex h-full items-center justify-between gap-12 rounded-3xl px-10 dark:bg-neutral-900"
+         class="container mx-auto box-content flex h-full items-center justify-between gap-12 rounded-full border-2 border-neutral-400 bg-white px-10 dark:bg-black"
          :class="{
                'bg-white': !isHome,
             }"
       >
          <div class="logo-container relative h-full flex-1">
-            <HeaderLogo class="scale-75"/>
+            <HeaderLogo />
          </div>
          <div class="navbar hidden flex-1 gap-12 md:flex">
             <NuxtLink
@@ -66,6 +66,7 @@ const selected = computed(() => {
 const headerLinks = [
    { href: '/', label: 'HOME' },
    { href: '/features', label: 'FEATURES' },
+   { href: 'https://docs.webmarks.io', label: 'DOCS' },
 ];
 
 const user = useSupabaseUser();

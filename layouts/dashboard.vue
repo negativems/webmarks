@@ -20,7 +20,7 @@ useHead({
 
 <template>
    <div class="dashboard flex h-screen min-h-[600px] bg-accent-light dark:bg-black">
-      <DashboardSidebar />
+      <DashboardSidebar/>
       <DashboardContent>
          <slot />
       </DashboardContent>
