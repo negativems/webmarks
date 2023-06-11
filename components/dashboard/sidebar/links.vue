@@ -1,22 +1,3 @@
-<script setup>
-import { BookmarkIcon, ClockIcon, StarIcon } from '~/components/Icons';
-import { useTheme } from '~/store/themeStore';
-
-const { isDarkMode } = useTheme();
-const router = useRouter();
-
-const pages = [
-   { name: 'All bookmarks', link: '/dashboard', icon: BookmarkIcon },
-   { name: 'Favourites', link: '/dashboard/favourites', icon: StarIcon },
-   { name: 'Saved to later', link: '/dashboard/later', icon: ClockIcon },
-];
-const isSelectedPage = (link) => link === router.currentRoute.value.path;
-
-const { isSidebarHover } = defineProps(['isSidebarHover']);
-
-const iconColor = computed(() => isDarkMode ? 'white' : 'black');
-</script>
-
 <template>
    <div class="quick-links flex h-full flex-col gap-5">
       <NuxtLink
@@ -33,9 +14,34 @@ const iconColor = computed(() => isDarkMode ? 'white' : 'black');
             :is="icon({color: iconColor})"
             :class="{ 'hidden': isSidebarHover }"
          />
-         <span :class="{ 'hidden': !isSidebarHover }" class="whitespace-nowrap">
+         <span
+            :class="{ 'hidden': !isSidebarHover }"
+            class="whitespace-nowrap"
+         >
             {{ name }}
          </span>
       </NuxtLink>
+
+      <hr class="my-5 border-accent-light" />
+
+      <span v-if="isSidebarHover" class="text-center">My Collections</span>
    </div>
 </template>
+
+<script setup>
+import { BookmarkIcon, ClockIcon, StarIcon } from '~/components/Icons';
+import { useTheme } from '~/store/themeStore';
+
+const { isDarkMode } = useTheme();
+const router = useRouter();
+
+const pages = [
+   { name: 'All bookmarks', link: '/dashboard', icon: BookmarkIcon },
+   { name: 'Favourites', link: '/dashboard/favourites', icon: StarIcon },
+];
+const isSelectedPage = (link) => link === router.currentRoute.value.path;
+
+const { isSidebarHover } = defineProps(['isSidebarHover']);
+
+const iconColor = computed(() => isDarkMode ? 'white' : 'black');
+</script>

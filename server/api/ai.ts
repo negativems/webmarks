@@ -28,6 +28,9 @@ export default defineEventHandler(async (event) => {
       title: $('title').text(),
       h1: $('h1').text(),
       h2: $('h2').text(),
+      h3: $('h3').text(),
+      p: $('p').text(),
+      blockquote: $('blockquote').text(),
    };
 
    const configuration = new Configuration({
@@ -36,11 +39,18 @@ export default defineEventHandler(async (event) => {
    const openai = new OpenAIApi(configuration);
 
    const content = `
-I will give raw text from a website and you will give me the keywords of this website.
+I will give you a website source and you will give me the keywords of this website.
 In case of no data after the double colon, just leave it empty.
-Example: News, Technology, Science, etc.
-Limit the response to 5 elements.
-Make it all in same line separated with comma:
+If you know what the website is about, generate a few keywords for it.
+Example of answer: News, Technology, Science, etc.
+Do not add spaces, just one word speparated by comma.
+Do not add special characters, just letters.
+Try to generate keywords that are related to the content of the website.
+If you understand the content of the website, you can generate keywords that could be related to the content of the website.
+If the keyword is not descriptive enough, do not add it.
+Every keyword should have maximum 10 letters and maximum 2 words.
+Limit the answer to 5 elements separated by commas:
+
 ${JSON.stringify(HTMLResult)}
    `;
 
@@ -58,8 +68,7 @@ ${JSON.stringify(HTMLResult)}
 //       <meta charset="utf-8">
 //    </head>
 //    <body>
-//       <h1>${HTMLResult.h1}</h1>
-//       <h2>${HTMLResult.h2}</h2>
+//       <span>${$('body').text()}</span>
 //    </body>
 // </html>
 //    `;

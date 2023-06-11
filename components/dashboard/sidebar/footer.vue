@@ -3,22 +3,16 @@
       class="footer-buttons grid gap-2"
       :class="{
          'grid-cols-3': !isLogged && isSidebarHover,
-         'grid-cols-2': isLogged && isSidebarHover
+         'grid-cols-2': isLogged === true && isSidebarHover
       }"
    >
       <div class="settings relative inline-flex">
          <button
-            class="settings-button flex w-full items-center justify-center rounded-lg bg-neutral-600 p-5 font-bold text-white duration-100 hover:bg-neutral-800 dark:hover:bg-neutral-700"
-            @click="isSettingsOpen = !isSettingsOpen"
+            class="settings-button flex w-full items-center justify-center rounded-lg bg-neutral-400 p-5 font-bold text-white duration-100 hover:bg-neutral-500 dark:bg-neutral-700 dark:hover:bg-black"
+            @click="handleSettingsClick()"
          >
             <SettingsIcon />
          </button>
-         <div
-            class="absolute -top-[200px] h-[200px] w-[150px] bg-red-300"
-            v-if="isSettingsOpen"
-         >
-            asd
-         </div>
       </div>
 
       <button
@@ -55,6 +49,8 @@
 
 <script setup lang="ts">
 import { GithubIcon, GoogleIcon, LogoutIcon, SettingsIcon } from '@/components/Icons';
+import SettingsModal from '@/components/modals/SettingsModal/index.vue';
+import { useModal } from 'vue-final-modal';
 const router = useRouter();
 const client = useSupabaseClient();
 
@@ -64,14 +60,36 @@ defineProps({
       required: true
    }
 });
-const isSettingsOpen = ref(false);
 
 const user = useSupabaseUser();
 const isLogged = computed(() => user.value !== null);
+
+const { open, close } = useModal({
+   component: SettingsModal,
+   attrs: {
+      title: 'Settings',
+      onClosed() {
+         console.log('closed');
+      }
+   },
+});
+
+function handleSettingsClick() {
+   open();
+}
 
 function signOut() {
    client.auth.signOut().then(() => {
       router.push('/');
    });
 }
+
+onMounted(() => {
+   // On click on .modal-background, close the modal
+   document.addEventListener('click', (e: any) => {
+      if (e.target?.classList.contains('modal-background')) {
+         close();
+      }
+   });
+});
 </script>

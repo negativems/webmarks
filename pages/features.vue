@@ -75,7 +75,8 @@ const proPlan = {
       'Automated Bookmark Categorization',
       'Save-for-later Bookmark Option',
       'Mobile Application Support',
-      'Priority Customer Assistance'
+      'Priority Customer Assistance',
+      'AI-powered Bookmark Tagging',
    ]
 };
 

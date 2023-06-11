@@ -1,3 +1,14 @@
+<template>
+   <div class="dashboard flex h-screen min-h-[600px] bg-accent-light dark:bg-black">
+      <DashboardSidebar />
+      <DashboardContent>
+         <slot />
+      </DashboardContent>
+
+      <ModalsContainer />
+   </div>
+</template>
+
 <script setup lang="ts">
 import { useTheme } from '~/store/themeStore';
 import { ModalsContainer } from 'vue-final-modal';
@@ -17,14 +28,3 @@ useHead({
 });
 
 </script>
-
-<template>
-   <div class="dashboard flex h-screen min-h-[600px] bg-accent-light dark:bg-black">
-      <DashboardSidebar/>
-      <DashboardContent>
-         <slot />
-      </DashboardContent>
-
-      <ModalsContainer />
-   </div>
-</template>

@@ -66,7 +66,7 @@ const { open, close } = useModal({
             console.error('Error: Bookmark not found');
          }
       },
-      bookmark: bookmark.value
+      bookmark: bookmark.value,
    },
 });
 
@@ -74,9 +74,9 @@ onMounted(() => {
    const contextMenu = document.querySelector('.context-menu') as HTMLElement;
    contextMenu?.classList.add('h-[200px]');
 
-   const buttons = contextMenu?.querySelectorAll('button') as NodeListOf<HTMLButtonElement>;
+   const contextMenuButtons = contextMenu?.querySelectorAll('button') as NodeListOf<HTMLButtonElement>;
 
-   buttons.forEach((button) => {
+   contextMenuButtons.forEach((button) => {
       button.addEventListener('click', () => {
          if (button.innerText === 'Edit' || button.innerText === 'Delete') {
             contextMenu.classList.add('hidden');
@@ -86,9 +86,12 @@ onMounted(() => {
       });
    });
 
-   document.addEventListener('contextmenu', (e) => {
-      contextMenu.style.top = `${e.clientY}px`;
-      contextMenu.style.left = `${e.clientX}px`;
+   document?.addEventListener('contextmenu', (e: any) => {
+      const rect = document.querySelector('div.bookmarks')?.getBoundingClientRect();
+      contextMenu.style.left = `${e.clientX - rect!.left}px`;
+      contextMenu.style.top = `${e.clientY - rect!.top}px`;
+
+      console.log(e.clientX, e.clientY);
    });
 
    // On click on .modal-background, close the modal

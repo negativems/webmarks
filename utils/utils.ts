@@ -1,9 +1,19 @@
+
+/**
+ * Get a random pastel color.
+ * @returns {string} The color in hex format. Example: #000000
+ */
 export function getRandomPastelColor() {
-   var hue = Math.floor(Math.random() * 360); // choose a random hue
-   var pastelSaturation = Math.floor(Math.random() * 31) + 70; // set saturation between 70% and 100%
-   var pastelLightness = Math.floor(Math.random() * 41) + 30; // set lightness between 30% and 70%
-   var pastelColor = 'hsl(' + hue + ',' + pastelSaturation + '%,' + pastelLightness + '%)'; // build the HSL color string
-   return pastelColor;
+    let color = "#";
+    for(let i = 0; i < 3; i++){
+        // Add 127 to ensure it's always a pastel color
+        let component = Math.round(Math.random() * 127 + 127).toString(16);
+        if(component.length === 1){
+            component = "0" + component;
+        }
+        color += component;
+    }
+    return color;
 }
 
 /**

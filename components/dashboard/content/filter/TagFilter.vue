@@ -7,9 +7,9 @@
                :tag="tag"
                :key="tag.name"
                :isButton="true"
-               :handleClick="(tag) => toggleTag(tag.name)"
-               :isSelected="selectedTags.includes(tag.name)"
-               class="border dark:border-accent-light"
+               :handleClick="(tag) => useBookmark().toggleTag(tag.name)"
+               :isSelected="useBookmark().selectedTags.includes(tag.name)"
+               class="border hover:shadow-md dark:border-accent-light"
             />
 
             <span v-if="useBookmark().getTags().length === 0">You can add a tag by right clicking and editing a bookmark</span>
@@ -20,5 +20,4 @@
 
 <script setup lang="ts">
 import { useBookmark } from '~/store/bookmark';
-defineProps(['toggleTag', 'selectedTags']);
 </script>

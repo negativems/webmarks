@@ -30,3 +30,10 @@ export interface Bookmark {
 }
 
 export type BookmarkDisplayFormat = 'rows' | 'cards'
+
+export type BookmarkFilterTagType = 'restrictive' | 'individual'
+
+export interface Profile {
+   id: string
+   plan: 'pro' | 'premium' | undefined
+}

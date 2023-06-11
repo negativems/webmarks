@@ -1,12 +1,12 @@
 <template>
-   <div>
+   <div class="w-full">
       <label
          class="mb-2 block"
       >
          {{ uppercase }}
       </label>
       <input
-         class="w-1/2 rounded py-2"
+         class="w-full rounded py-2"
          type="text"
          name="title"
          :value="modelValue"

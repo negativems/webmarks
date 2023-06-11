@@ -12,6 +12,7 @@
          v-model:search="search"
          :hasBookmarks="hasBookmarks"
          :format="displayFormat"
+         :filterTagsType="filterTagsType"
       />
 
       <DashboardContentBookmarks :search="search" />
@@ -42,9 +43,11 @@ definePageMeta({
 const search = ref("");
 const hasBookmarks = computed(() => useBookmark().bookmarks.length > 0);
 const displayFormat = computed(() => useBookmark().bookmarkDisplayFormat as BookmarkDisplayFormat);
+const filterTagsType = computed(() => useBookmark().bookmarkFilterTagType);
 
 onMounted(() => {
    bookmarkStore.load();
    bookmarkStore.loadBookmarkDisplayFormat();
+   bookmarkStore.loadBookmarkFilterTagType();
 });
 </script>

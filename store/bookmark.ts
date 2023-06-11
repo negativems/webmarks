@@ -1,4 +1,4 @@
-import { Bookmark, BookmarkDisplayFormat, BookmarkDraft, Tag } from "~/types/types";
+import { Bookmark, BookmarkDisplayFormat, BookmarkDraft, BookmarkFilterTagType, Tag } from "~/types/types";
 import { defineStore } from 'pinia';
 
 // Create from scratch the above store
@@ -7,8 +7,10 @@ export const useBookmark = defineStore('bookmark', {
       bookmarks: [] as Bookmark[],
       bookmarksLoaded: false,
       bookmarkDisplayFormat: 'rows' as BookmarkDisplayFormat,
+      bookmarkFilterTagType: 'individual' as BookmarkFilterTagType,
       localBookmarksIndex: 0,
-      insertingBookmarks: 0
+      insertingBookmarks: 0,
+      selectedTags: [] as string[],
    }),
    getters: {
       /**
@@ -54,12 +56,33 @@ export const useBookmark = defineStore('bookmark', {
       },
    },
    actions: {
+      toggleTag(name: string) {
+         if (this.selectedTags.includes(name)) {
+            this.unselectTag(name);
+         } else {
+            this.selectedTags.push(name);
+         }
+      },
+
+      unselectTag(name: string) {
+         console.log("unselecting tag", name);
+         
+         this.selectedTags = this.selectedTags.filter(tag => tag !== name);
+      },
+
       /**
        * Returns true if there more than one tag with the same name in the store
        */
-      existsTag: (name: string): boolean => {
-         const tags = useBookmark().getTags();
-         return tags?.filter(tag => tag.name === name).length > 1 || false;
+      existsTag: (name: string, bookmark?: Bookmark): boolean => {
+         const tags = [] as Tag[];
+
+         if (bookmark) {
+            tags.push(...bookmark.tags);
+         } else {
+            tags.push(...useBookmark().getTags());
+         }
+
+         return tags?.some(tag => tag.name === name);
       },
 
 
@@ -325,6 +348,20 @@ export const useBookmark = defineStore('bookmark', {
          }
       },
 
+      loadBookmarkFilterTagType() {
+         if (process.client && localStorage.getItem('bookmarkFilterTagType') !== null) {
+            this.bookmarkFilterTagType = localStorage.getItem('bookmarkFilterTagType') as BookmarkFilterTagType;
+         }
+      },
+
+      toggleFilterTagType() {
+         this.bookmarkFilterTagType = this.bookmarkFilterTagType === 'restrictive' ? 'individual' : 'restrictive';
+
+         if (process.client) {
+            localStorage.setItem('bookmarkFilterTagType', this.bookmarkFilterTagType);
+         }
+      },
+
       /**
        * Increments the clicked times of a bookmark
        * @param bookmarkId The id of the bookmark to increment the redirects
@@ -363,6 +400,7 @@ export const useBookmark = defineStore('bookmark', {
        */
       addTag(bookmarkId: number, tagName: string, color: string = "#60ffa8"): Tag | undefined {
          if (bookmarkId === undefined) return;
+         if (this.getTags().some(tag => tag.name === tagName)) return;
 
          if (process.client) {
             const user = useSupabaseUser().value;
@@ -455,37 +493,50 @@ export const useBookmark = defineStore('bookmark', {
       /**
        * Delete a tag from a bookmark
        */
-      deleteTag(bookmarkId: number, tagName: string) {
-         if (bookmarkId === undefined) return;
-
-         const bookmark = this.bookmarks.find(bookmark => bookmark.id === bookmarkId);
-         if (bookmark === undefined) return;
+      deleteTag(tagName: string, bookmarkId?: number) {
+         if (tagName === undefined || !this.existsTag(tagName)) {
+            console.error('Error deleting tag from bookmark: tag not found');
+            return;
+         }
 
          if (process.client) {
             const user = useSupabaseUser().value;
             const supabase = useSupabaseClient();
 
             if (user === null) {
-               const bookmark = this.bookmarks.find(bookmark => bookmark.id === bookmarkId);
-               if (bookmark !== undefined) {
-                  bookmark.tags = bookmark.tags.filter(tag => tag.name !== tagName);
-                  localStorage.setItem('bookmarks', JSON.stringify(this.bookmarks));
-                  console.log('Bookmark tag deleted');
+               let bookmarks = this.bookmarks.filter(bookmark => bookmark.tags.some(tag => tag.name === tagName));
+               if (bookmarkId) {
+                  bookmarks = bookmarks.filter(bookmark => bookmark.id === bookmarkId);
                }
+
+               bookmarks.forEach(bookmark => {
+                  bookmark.tags = bookmark.tags.filter(tag => tag.name !== tagName);
+               });
+
+               localStorage.setItem('bookmarks', JSON.stringify(this.bookmarks));
+               console.log('Bookmark tag deleted');
 
                return;
             }
 
-            const tags = bookmark.tags;
-            const updateValue = { tags: tags.filter(tag => tag.name !== tagName) } as never;
-            supabase
-               .from('bookmarks')
-               .update(updateValue)
-               .eq('id', bookmarkId)
-               .then(() => {
-                  console.log('Bookmark tag deleted');
-                  bookmark.tags = tags.filter(tag => tag.name !== tagName);
-               });
+            let bookmarks = this.bookmarks.filter(bookmark => bookmark.tags.some(tag => tag.name === tagName));
+            if (bookmarkId) {
+               bookmarks = bookmarks.filter(bookmark => bookmark.id === bookmarkId);
+            }
+
+            console.log("There are " + bookmarks.length + " bookmarks with tag " + tagName);
+            
+            bookmarks = bookmarks.map(bookmark => {
+               bookmark.tags = bookmark.tags.filter(tag => tag.name !== tagName);
+               supabase
+                  .from('bookmarks')
+                  .update({ tags: bookmark.tags } as never)
+                  .eq('id', bookmark.id)
+                  .then(() => {
+                     console.log('Bookmark tag ' + tagName + " deleted from bookmark " + bookmark.title);
+                  });
+               return bookmark;
+            });
          }
       }
    }
