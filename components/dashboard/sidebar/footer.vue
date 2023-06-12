@@ -8,7 +8,7 @@
    >
       <div class="settings relative inline-flex">
          <button
-            class="settings-button flex w-full items-center justify-center rounded-lg bg-neutral-400 p-5 font-bold text-white duration-100 hover:bg-neutral-500 dark:bg-neutral-700 dark:hover:bg-black"
+            class="settings-button flex w-full items-center justify-center rounded-lg bg-neutral-400 p-5 font-bold text-white duration-100 hover:scale-110 hover:bg-neutral-500 dark:bg-neutral-700 dark:hover:bg-black"
             @click="handleSettingsClick()"
          >
             <SettingsIcon />

@@ -37,6 +37,8 @@ const dragLeave = (event: any) => {
  * or add a bookmark export file
  */
 const drop = async (e: any) => {
+   document.querySelector('main')?.classList.remove("bg-neutral-300");
+
    // Check if the data being dragged is a URL or a file
    const urlInput = e.dataTransfer.getData("URL");
    if (urlInput) {

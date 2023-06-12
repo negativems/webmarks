@@ -6,7 +6,7 @@
          {{ uppercase }}
       </label>
       <input
-         class="w-full rounded py-2"
+         class="w-full rounded p-2"
          type="text"
          name="title"
          :value="modelValue"

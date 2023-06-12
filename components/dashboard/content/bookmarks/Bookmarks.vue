@@ -24,7 +24,7 @@
          v-for="{ id: bookmarkId, title, url, tags, favicon, is_favourite } in bookmarks"
          :key="bookmarkId"
          @contextmenu.prevent="handleBookmarkRightClick(bookmarkId)"
-         class="bookmark relative flex flex-col gap-y-2 rounded-xl border border-gray-600 bg-white p-5 duration-200 hover:scale-[1.01] hover:bg-neutral-200 hover:text-accent-dark hover:shadow-md dark:border-neutral-600 dark:bg-black dark:hover:bg-black dark:hover:text-accent"
+         class="bookmark relative flex flex-col gap-y-2 truncate rounded-xl border border-gray-600 bg-white p-5 duration-200 hover:scale-[1.01] hover:bg-neutral-200 hover:text-accent-dark hover:shadow-md dark:border-neutral-600 dark:bg-black dark:hover:bg-black dark:hover:text-accent"
          :class="{
                'flex-row': isRow,
                'favourite': is_favourite,

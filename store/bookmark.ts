@@ -74,15 +74,11 @@ export const useBookmark = defineStore('bookmark', {
        * Returns true if there more than one tag with the same name in the store
        */
       existsTag: (name: string, bookmark?: Bookmark): boolean => {
-         const tags = [] as Tag[];
-
          if (bookmark) {
-            tags.push(...bookmark.tags);
+            return bookmark.tags?.some(tag => tag.name === name);
          } else {
-            tags.push(...useBookmark().getTags());
+            return this!.bookmarks.some(bookmark => bookmark.tags?.some(tag => tag.name === name));
          }
-
-         return tags?.some(tag => tag.name === name);
       },
 
 
@@ -118,7 +114,7 @@ export const useBookmark = defineStore('bookmark', {
                   bookmarks = bookmarks.filter(bookmark => bookmark.is_favourite);
                }
 
-               this.bookmarks = bookmarks;
+               this.bookmarks = bookmarks.slice(0, 100);
                this.localBookmarksIndex = bookmarks.length;
                this.bookmarksLoaded = true;
                return;
