@@ -12,8 +12,8 @@
                </h1>
             </div>
             <div class="flex flex-1 items-center justify-center md:justify-end">
-               <div class="square h-2/3 w-80 rounded-2xl bg-neutral-300 p-5 shadow-solid-xl">
-                  asd
+               <div class="square h-2/3 w-96 rounded-2xl bg-neutral-300 p-5 shadow-solid-xl">
+                  
                </div>
             </div>
          </div>
