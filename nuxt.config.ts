@@ -31,4 +31,9 @@ export default defineNuxtConfig({
          autoprefixer: {},
       },
    },
+   head: {
+      links: [
+         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
+      ]
+   }
 });
