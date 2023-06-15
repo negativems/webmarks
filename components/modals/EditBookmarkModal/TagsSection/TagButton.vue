@@ -40,18 +40,17 @@
          class="hover-buttons flex"
          v-if="isEditing"
       >
-         <!-- <input
+         <input
             class="rounded-md"
             id="tag-input"
             type="text"
             :value="tag.name"
             @change="handleTagInputChange(tag, $event)"
             @blur="emit('editingTag', undefined)"
-            @input="handleInput($event)"
             :class="{
                   'bg-red-300': existsTag,
                }"
-         /> -->
+         />
       </div>
    </button>
 </template>
@@ -82,6 +81,7 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['editingTag', 'hoverTag']);
+const existsTag = computed(() => useBookmark().existsTag(props.tag.name));
 
 function handleDeleteTagClick(tag: Tag) {
    useBookmark().deleteTag(tag.name, props.bookmark.id);
@@ -103,6 +103,22 @@ function handlePencilClick(tag: Tag) {
    nextTick(() => {
       document.getElementById('tag-input')?.focus();
    });
+}
+
+function handleTagInputChange(tag: Tag, event: Event) {
+   const newTagName = (event.target as HTMLInputElement).value;
+
+   if (newTagName === tag.name) {
+      emit('editingTag', undefined);
+      return;
+   }
+
+   if (useBookmark().getTags().some(tag => tag.name === newTagName)) {
+      return;
+   }
+
+   useBookmark().updateTag(props.bookmark.id, tag.name, newTagName, tag.color);
+   emit('editingTag', undefined);
 }
 
 </script>

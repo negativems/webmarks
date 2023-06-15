@@ -4,6 +4,7 @@ import { Configuration, OpenAIApi } from 'openai';
 const PARAM_NAME = "url";
 
 export default defineEventHandler(async (event) => {
+
    const { searchParams } = new URL(event.node.req.url || '', 'http://localhost');
    const url = searchParams.get(PARAM_NAME);
 
@@ -26,29 +27,27 @@ export default defineEventHandler(async (event) => {
 
    const HTMLResult = {
       title: $('title').text(),
-      h1: $('h1').text(),
-      h2: $('h2').text(),
-      h3: $('h3').text(),
-      p: $('p').text(),
-      blockquote: $('blockquote').text(),
+      h1: $('h1').text().replaceAll('\t','').replaceAll('\n',''),
+      h2: $('h2').text().replaceAll('\t','').replaceAll('\n',''),
+      // h3: $('h3').text().replaceAll('\t','').replaceAll('\n',''),
+      // p: $('p').text().replaceAll('\t','').replaceAll('\n',''),
+      // blockquote: $('blockquote').text().replaceAll('\t','').replaceAll('\n',''),
    };
 
-   const configuration = new Configuration({
-      apiKey: process.env.OPENAI_API_KEY
-   });
+   const configuration = new Configuration({ apiKey: process.env.OPENAI_API_KEY });
    const openai = new OpenAIApi(configuration);
 
    const content = `
 I will give you a website source and you will give me the keywords of this website.
 In case of no data after the double colon, just leave it empty.
 If you know what the website is about, generate a few keywords for it.
-Example of answer: News, Technology, Science, etc.
 Do not add spaces, just one word speparated by comma.
 Do not add special characters, just letters.
 Try to generate keywords that are related to the content of the website.
 If you understand the content of the website, you can generate keywords that could be related to the content of the website.
 If the keyword is not descriptive enough, do not add it.
 Every keyword should have maximum 10 letters and maximum 2 words.
+Example of answer: News, Technology, Science
 Limit the answer to 5 elements separated by commas:
 
 ${JSON.stringify(HTMLResult)}
@@ -56,10 +55,10 @@ ${JSON.stringify(HTMLResult)}
 
    const completion = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content }]
+      messages: [{ role: 'user', content: 'hello' }]
    });
 
-   return completion.data.choices[0].message?.content.split(',').map((item) => item.trim());
+   return completion.data.choices[0].message;
 
 //    const HTMLRaw = `
 // <html>
@@ -68,7 +67,7 @@ ${JSON.stringify(HTMLResult)}
 //       <meta charset="utf-8">
 //    </head>
 //    <body>
-//       <span>${$('body').text()}</span>
+//       <span>${JSON.stringify(HTMLResult)}</span>
 //    </body>
 // </html>
 //    `;

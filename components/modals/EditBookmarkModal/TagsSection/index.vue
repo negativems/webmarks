@@ -14,7 +14,7 @@
             :isEditing="editingTag === tag"
             :isHover="hoverTag === tag"
             @hoverTag="hoverTag = $event"
-            @editingTag="editingTag = $event"
+            @editingTag="handleEditingTag(tag)"
          />
 
          <div
@@ -22,13 +22,15 @@
             v-if="newTag !== undefined"
          >
             <input
-               class="rounded-md px-2"
+               class="rounded-md border-2 px-2 outline-none"
                id="tag-input"
                type="text"
+               v-model="newTag.name"
                @input="handleTagInput($event)"
-               @keydown.enter="handleTagInputEnter(newTag, $event)"
+               @keydown.enter="handleTagInputAdd(newTag, $event)"
+               @keydown.esc="newTag = undefined"
             />
-            <div class="tag-selector absolute top-8 z-10 max-h-[200px] w-full overflow-y-scroll rounded-md bg-white">
+            <div class="tag-selector absolute top-8 z-10 max-h-[200px] w-full overflow-y-scroll rounded-md bg-white text-black">
                <ul>
                   <li
                      v-for="tag in availableTags.filter(tag => tag.name.includes(newTagInput))"
@@ -92,27 +94,43 @@ function handleAddTagButtonClick() {
 
    nextTick(() => {
       document.getElementById('tag-input')?.focus();
+
+      // document.addEventListener('click', (event) => {
+      //    if (event.target instanceof HTMLElement) {
+      //       console.log('.tag-selector', newTag.value);
+
+      //       if (!event.target.closest('.tag-selector') && newTag.value !== undefined) {
+      //          newTag.value = undefined;
+      //          console.log('close tag selector');
+      //       }
+      //    }
+      // });
    });
 }
 
-function handleTagInputEnter(tag: Tag, event: Event) {
+function handleTagInputAdd(tag: Tag, event: Event) {
    const updatedName = (event.target as HTMLInputElement).value;
    editingTag.value = undefined;
 
    if (updatedName === '') {
       console.log('empty name, deleting tag');
 
-      useBookmark().deleteTag(tag.name);
-      return;
+      // useBookmark().deleteTag(tag.name);
+      // return;
    }
 
    if (useBookmark().existsTag(updatedName, props.bookmark)) {
-      console.error('Could not update tag name, tag is already in use');
+      console.log('Could not update tag name, tag is already in use');
+      document.querySelector('#tag-input')?.classList.add('border-red-500');
+      setTimeout(() => {
+         document.querySelector('#tag-input')?.classList.remove('border-red-500');
+      }, 1000);
       return;
    }
 
+   console.log('updated tag name', updatedName, tag);
+   
    useBookmark().addTag(props.bookmark.id, updatedName, tag.color);
-
    newTag.value = undefined;
 }
 
@@ -123,4 +141,10 @@ function handleTagSelectorClick(tag: Tag) {
       document.getElementById('tag-input')?.focus();
    });
 }
+
+function handleEditingTag(tag: Tag) {
+   editingTag.value = tag;
+   console.log('handle editing tag', tag);
+}
+
 </script>

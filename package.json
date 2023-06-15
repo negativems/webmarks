@@ -1,5 +1,5 @@
 {
-   "name": "nuxt-app",
+   "name": "Webmarks - Save and organize your bookmarks",
    "private": true,
    "scripts": {
       "build": "nuxt build",
@@ -13,9 +13,10 @@
    "devDependencies": {
       "@nuxtjs/eslint-config-typescript": "^12.0.0",
       "@nuxtjs/eslint-module": "^4.1.0",
-      "@nuxtjs/supabase": "^0.3.6",
-      "@types/node": "^18.16.17",
+      "@nuxtjs/supabase": "^0.3.7",
+      "@types/node": "^18.16.18",
       "autoprefixer": "^10.4.14",
+      "axios": "^1.4.0",
       "eslint": "^8.42.0",
       "eslint-config-standard-with-typescript": "^34.0.1",
       "eslint-plugin-tailwindcss": "^3.12.1",
@@ -23,13 +24,13 @@
       "node-sass": "^8.0.0",
       "nuxt": "^3.5.3",
       "postcss": "^8.4.24",
-      "sass": "^1.63.3",
+      "sass": "^1.63.4",
       "sass-loader": "^13.3.2",
       "tailwindcss": "^3.3.2",
       "vue-eslint-parser": "^9.3.1"
    },
    "dependencies": {
-      "@nuxtjs/tailwindcss": "^6.7.0",
+      "@nuxtjs/tailwindcss": "^6.7.2",
       "@pinia/nuxt": "0.4.10",
       "cheerio": "1.0.0-rc.12",
       "openai": "^3.2.1",

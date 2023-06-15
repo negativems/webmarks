@@ -14,7 +14,7 @@
          <div class="logo-container relative hidden h-full md:block">
             <HeaderLogo />
          </div>
-         <div class="navbar flex gap-2 lg:gap-12">
+         <div class="navbar flex w-full justify-center gap-2 lg:gap-12">
             <NuxtLink
                v-for="link in headerLinks"
                :key="link.href"
@@ -28,7 +28,7 @@
             </NuxtLink>
          </div>
          <div
-            class="hidden flex-1 justify-end md:flex"
+            class="hidden min-w-[fit-content] justify-end md:flex"
             v-if="user"
          >
             <NuxtLink

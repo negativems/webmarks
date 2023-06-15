@@ -17,10 +17,11 @@ export const useBookmark = defineStore('bookmark', {
        * 
        * @param state 
        */
-      getTags(state): () => Tag[] {
+      getTags: (state) => (bookmarkId?: number): Tag[] => {
          const tags = new Set<Tag>();
 
          state.bookmarks
+            .filter(bookmark => bookmarkId === undefined || bookmark.id === bookmarkId)
             .map(bookmark => bookmark.tags)
             .flat()
             // Remove null tags and duplicates name
@@ -29,7 +30,7 @@ export const useBookmark = defineStore('bookmark', {
                tags.add(tag);
             });
 
-         return () => Array.from(tags);
+         return Array.from(tags);
       },
       find: (state) => (bookmarkId: number) => {
          return state.bookmarks.find(bookmark => bookmark.id === bookmarkId);
@@ -73,11 +74,11 @@ export const useBookmark = defineStore('bookmark', {
       /**
        * Returns true if there more than one tag with the same name in the store
        */
-      existsTag: (name: string, bookmark?: Bookmark): boolean => {
+      existsTag(name: string, bookmark?: Bookmark): boolean {
          if (bookmark) {
             return bookmark.tags?.some(tag => tag.name === name);
          } else {
-            return this!.bookmarks.some(bookmark => bookmark.tags?.some(tag => tag.name === name));
+            return this.bookmarks.some(bookmark => bookmark.tags?.some(tag => tag.name === name));
          }
       },
 
@@ -395,8 +396,15 @@ export const useBookmark = defineStore('bookmark', {
        * Add a tag to a bookmark
        */
       addTag(bookmarkId: number, tagName: string, color: string = "#60ffa8"): Tag | undefined {
-         if (bookmarkId === undefined) return;
-         if (this.getTags().some(tag => tag.name === tagName)) return;
+         if (bookmarkId === undefined) {
+            console.error('Error adding tag to bookmark: bookmarkId is undefined');
+            return;
+         }
+
+         if (this.getTags(bookmarkId).some(tag => tag.name === tagName)) {
+            console.error('Error adding tag to bookmark: tag already exists', bookmarkId, tagName, color);
+            return;
+         }
 
          if (process.client) {
             const user = useSupabaseUser().value;
@@ -406,13 +414,15 @@ export const useBookmark = defineStore('bookmark', {
 
             if (user === null) {
                const bookmark = this.bookmarks.find(bookmark => bookmark.id === bookmarkId);
-               if (bookmark !== undefined) {
-                  if (bookmark.tags === undefined) bookmark.tags = [];
-                  
-                  bookmark.tags.push(tag);
-                  localStorage.setItem('bookmarks', JSON.stringify(this.bookmarks));
-                  console.log('Bookmark tag added');
+               if (bookmark == undefined) {
+                  console.error('Error adding tag to bookmark: bookmark not found');
+                  return;
                }
+
+               if (bookmark.tags === undefined) bookmark.tags = [];
+               bookmark.tags.push(tag);
+               localStorage.setItem('bookmarks', JSON.stringify(this.bookmarks));
+               console.log('Bookmark (local) tag added');
 
                return tag;
             }
@@ -435,6 +445,9 @@ export const useBookmark = defineStore('bookmark', {
                .then(() => {
                   console.log('Bookmark tag added');
                });
+
+            console.log('End of addTag');
+            
 
             return tag;
          }
