@@ -9,7 +9,7 @@
                :isButton="true"
                :handleClick="(tag) => useBookmark().toggleTag(tag.name)"
                :isSelected="useBookmark().selectedTags.includes(tag.name)"
-               class="border hover:shadow-md dark:border-accent-light"
+               class="hover:shadow-md"
             />
 
             <span v-if="useBookmark().getTags().length === 0">You can add a tag by right clicking and editing a bookmark</span>

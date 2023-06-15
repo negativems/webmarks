@@ -16,7 +16,7 @@
       "@nuxtjs/supabase": "^0.3.7",
       "@types/node": "^18.16.18",
       "autoprefixer": "^10.4.14",
-      "axios": "^1.4.0",
+      "dotenv": "^16.1.4",
       "eslint": "^8.42.0",
       "eslint-config-standard-with-typescript": "^34.0.1",
       "eslint-plugin-tailwindcss": "^3.12.1",

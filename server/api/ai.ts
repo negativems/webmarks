@@ -3,6 +3,10 @@ import { Configuration, OpenAIApi } from 'openai';
 
 const PARAM_NAME = "url";
 
+// require("dotenv").config();
+import dotenv from 'dotenv';
+dotenv.config();
+
 export default defineEventHandler(async (event) => {
 
    const { searchParams } = new URL(event.node.req.url || '', 'http://localhost');
@@ -34,7 +38,7 @@ export default defineEventHandler(async (event) => {
       // blockquote: $('blockquote').text().replaceAll('\t','').replaceAll('\n',''),
    };
 
-   const configuration = new Configuration({ apiKey: process.env.OPENAI_API_KEY });
+   const configuration = new Configuration({ apiKey: dotenv.config().parsed.OPENAI_API_KEY });
    const openai = new OpenAIApi(configuration);
 
    const content = `
@@ -55,10 +59,27 @@ ${JSON.stringify(HTMLResult)}
 
    const completion = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: 'hello' }]
+      messages: [{ role: 'user', content }]
    });
 
-   return completion.data.choices[0].message;
+   return completion.data.choices[0].message?.content.split(',').map((item) => item.trim());
+
+   // const responseAI = await fetch('https://api.openai.com/v1/chat/completions', {
+   //    method: 'POST',
+   //    headers: {
+   //       'Content-Type': 'application/json',
+   //       'Authorization': `Bearer ${dotenv.config().parsed.OPENAI_API_KEY}`
+   //    },
+   //    body: JSON.stringify({
+   //       model: 'gpt-3.5-turbo',
+   //       messages: [{ role: 'user', content: content }],
+   //    })
+   // });
+
+   // return responseAI.json();
+
+
+
 
 //    const HTMLRaw = `
 // <html>
