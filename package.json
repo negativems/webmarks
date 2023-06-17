@@ -32,6 +32,7 @@
    "dependencies": {
       "@nuxtjs/tailwindcss": "^6.7.2",
       "@pinia/nuxt": "0.4.10",
+      "@vercel/analytics": "^1.0.1",
       "cheerio": "1.0.0-rc.12",
       "openai": "^3.2.1",
       "pinia": "2.0.36",

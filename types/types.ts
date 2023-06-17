@@ -33,7 +33,7 @@ export type BookmarkDisplayFormat = 'rows' | 'cards'
 
 export type BookmarkFilterTagType = 'restrictive' | 'individual'
 
-export interface Profile {
+export interface UserProfile {
    id: string
    plan: 'pro' | 'premium' | undefined
 }

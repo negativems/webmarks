@@ -42,10 +42,8 @@
 <script setup lang="ts">
 import { VueFinalModal } from 'vue-final-modal';
 import { useBookmark } from '~/store/bookmark';
-import { Bookmark, Profile } from '~/types/types';
-
-const supabase = useSupabaseClient();
-const user = useSupabaseUser();
+import { useUser } from '~/store/user';
+import { Bookmark } from '~/types/types';
 
 const props = defineProps({
    bookmark: {
@@ -54,10 +52,11 @@ const props = defineProps({
    }
 });
 
+const isPro = await useUser().isPro();
+
 const emit = defineEmits(['update:modelValue']);
 
 const generatingAI = ref(false);
-const isPro = ref(false);
 
 function saveBookmark() {
    useBookmark().edit(props.bookmark);
@@ -66,32 +65,6 @@ function saveBookmark() {
 function handleSaveClick() {
    saveBookmark();
    emit('update:modelValue', false);
-}
-
-checkIsPro();
-async function checkIsPro() {
-   if (!user.value) return false;
-   const result = await supabase
-      .from('profiles')
-      .select("*")
-      .eq('id', user.value.id)
-      .then(({ data, error }) => {
-         if (error) {
-            console.log(error);
-            return false;
-         }
-
-         if (!data || data.length === 0) return false;
-
-         const profile = data[0] as Profile;
-         if (!profile) return false;
-
-         if (profile.plan === 'pro') return true;
-
-         return false;
-      });
-
-   isPro.value = result;
 }
 
 function handleGenerateTagsClick() {

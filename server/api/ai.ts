@@ -1,13 +1,25 @@
 import { load } from 'cheerio';
 import { Configuration, OpenAIApi } from 'openai';
+import { isPro } from '~/utils/User';
 
 const PARAM_NAME = "url";
 
-// require("dotenv").config();
 import dotenv from 'dotenv';
+import { serverSupabaseClient, serverSupabaseUser } from '#supabase/server';
 dotenv.config();
 
 export default defineEventHandler(async (event) => {
+   const user = await serverSupabaseUser(event);
+   const client = serverSupabaseClient(event);
+
+   const hasProPlan = await isPro(user?.id, client);
+
+   if (!hasProPlan) {
+      return {
+         status: 401,
+         error: 'Unauthorized'
+      };
+   }
 
    const { searchParams } = new URL(event.node.req.url || '', 'http://localhost');
    const url = searchParams.get(PARAM_NAME);

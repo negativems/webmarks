@@ -94,17 +94,6 @@ function handleAddTagButtonClick() {
 
    nextTick(() => {
       document.getElementById('tag-input')?.focus();
-
-      // document.addEventListener('click', (event) => {
-      //    if (event.target instanceof HTMLElement) {
-      //       console.log('.tag-selector', newTag.value);
-
-      //       if (!event.target.closest('.tag-selector') && newTag.value !== undefined) {
-      //          newTag.value = undefined;
-      //          console.log('close tag selector');
-      //       }
-      //    }
-      // });
    });
 }
 
@@ -129,7 +118,7 @@ function handleTagInputAdd(tag: Tag, event: Event) {
    }
 
    console.log('updated tag name', updatedName, tag);
-   
+
    useBookmark().addTag(props.bookmark.id, updatedName, tag.color);
    newTag.value = undefined;
 }
@@ -146,5 +135,19 @@ function handleEditingTag(tag: Tag) {
    editingTag.value = tag;
    console.log('handle editing tag', tag);
 }
+
+// onMounted(() => {
+//    // On click outside .tag-selector set newTag to undefined but only if it's not already undefined
+//    document.addEventListener('click', (event) => {
+//       console.log(newTag.value + "asd");
+      
+//       if (editingTag.value !== undefined) {
+//          const tagSelector = document.querySelector('.tag-selector');
+//          if (tagSelector && !tagSelector.contains(event.target as Node)) {
+//             newTag.value = undefined;
+//          }
+//       }
+//    });
+// });
 
 </script>

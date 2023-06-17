@@ -6,6 +6,12 @@ export default defineNuxtConfig({
       '@nuxtjs/supabase',
       '@pinia/nuxt',
    ],
+   plugins: [
+      {
+         src: '~/plugins/vercel.ts',
+         mode: 'client'
+      }
+   ],
    css: [
       '~/assets/style/global.scss',
       'vue-final-modal/style.css'
