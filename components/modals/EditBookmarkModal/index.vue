@@ -52,7 +52,7 @@ const props = defineProps({
    }
 });
 
-const isPro = await useUser().isPro();
+const isPro = computed(() => useUser().isPro);
 
 const emit = defineEmits(['update:modelValue']);
 

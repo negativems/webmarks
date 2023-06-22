@@ -90,8 +90,6 @@ onMounted(() => {
       const rect = document.querySelector('div.bookmarks')?.getBoundingClientRect();
       contextMenu.style.left = `${e.clientX - rect!.left}px`;
       contextMenu.style.top = `${e.clientY - rect!.top}px`;
-
-      console.log(e.clientX, e.clientY);
    });
 
    // On click on .modal-background, close the modal

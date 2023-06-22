@@ -115,11 +115,9 @@ const bookmarks = computed(() => {
    let selectedTags = bookmarkStore.selectedTags;
 
    if (selectedTags.length > 0) {
-      console.log(selectedTags);
-      
       if (useBookmark().bookmarkFilterTagType === 'restrictive') {
          // Filter all bookmarks must have all the selected tags
-         console.log("asd");
+         console.log("restrictive", "selectedTags", selectedTags, "result", result);
          
          result = result.filter(bookmark => selectedTags.every(tag => bookmark.tags?.some(bookmarkTag => bookmarkTag.name === tag)));
       } else {

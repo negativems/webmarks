@@ -6,6 +6,8 @@
       </DashboardContent>
 
       <ModalsContainer />
+
+      <!-- <notifications group="foo" /> -->
    </div>
 </template>
 
@@ -20,11 +22,21 @@ if (cookieTheme && theme !== cookieTheme) {
    setTheme(cookieTheme);
 }
 
+// doNotification();
+
+// function doNotification() {
+//    this.$notify({
+//       title: 'Welcome to Webmarks!',
+//       text: 'This is a bookmark manager that allows you to save your favorite websites.',
+//       type: 'success',
+//       duration: 10000,
+//    });
+// }
+
 useHead({
    title: 'Webmarks - Bookmark Manager',
    bodyAttrs: {
       class: useTheme().isDarkMode ? 'dark' : 'bg-neutral-100',
    },
 });
-
 </script>
