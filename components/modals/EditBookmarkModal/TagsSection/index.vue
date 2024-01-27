@@ -59,7 +59,7 @@
 
 <script setup lang="ts">
 import { useBookmark } from '~/store/bookmark';
-import { Bookmark, Tag } from '~/types/types';
+import type { Bookmark, Tag } from '~/types/types';
 import TagButton from './TagButton.vue';
 
 const props = defineProps({

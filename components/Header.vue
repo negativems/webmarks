@@ -1,15 +1,11 @@
 <template>
    <header
-      class="fixed bottom-2 left-1/2 z-20 mt-5 flex w-[90%] -translate-x-1/2 transform items-center text-xs md:static md:bottom-auto md:left-0 md:w-auto md:translate-x-0 md:transform-none md:bg-transparent lg:text-base"
-      :class="{
-         'md:absolute md:w-full': isHome,
-      }"
+      class="fixed bottom-2 left-1/2 z-20 flex w-[90%] -translate-x-1/2 transform items-center text-xs shadow-lg md:static md:bottom-auto md:left-0 md:w-auto md:translate-x-0 md:transform-none md:bg-transparent lg:text-base"
+      :class="{ 'absolute md:w-full': isHome }"
    >
       <div
-         class="container mx-auto box-content flex h-full items-center justify-center gap-2 rounded-full border-2 border-neutral-400 bg-white px-8 dark:bg-black md:justify-between md:gap-12 md:px-10"
-         :class="{
-               'bg-white': !isHome,
-            }"
+         class="container mx-auto box-content flex h-full items-center justify-center gap-2 rounded-full bg-white px-8 dark:bg-black md:justify-between md:gap-12 md:px-10"
+         :class="{ 'bg-white': !isHome }"
       >
          <div class="logo-container relative hidden h-full md:block">
             <HeaderLogo />
@@ -20,9 +16,7 @@
                :key="link.href"
                :to="link.href"
                class="max-w-fit rounded-xl px-5 py-2 text-center font-bold hover:bg-accent-light hover:shadow-md dark:text-white dark:hover:bg-accent-dark md:px-10"
-               :class="{
-                     'rounded-none border-b-4 border-accent bg-accent-light dark:bg-accent-dark': selected === link.href
-                  }"
+               :class="{ 'rounded-none border-b-4 border-accent bg-accent-light dark:bg-accent-dark': selected === link.href }"
             >
                {{ link.label }}
             </NuxtLink>

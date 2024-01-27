@@ -8,11 +8,12 @@ import { BuyMeACoffeIcon, FooterCurveIcon, Logo } from './Icons';
          <div class="about col-span-4 hidden md:block">
             <h3 class="text-center">About</h3>
             <div class="text">
-               <p class="mb-3">Hello 👋, I am <a href="https://x.com/negativeems">Mohamed</a> a 22yo programmer from <span class="location relative underline">Málaga</span>, Spain📍.</p>
+               <p class="mb-3">Hello 👋, I am <a href="https://mmbh.dev" target="_blank">Mohamed</a> a 22yo programmer from <span class="location relative underline">Málaga</span>, Spain📍.</p>
                <p>This website is part of my final project of my degree, was made using
                   <a
                      href="https://nuxt.com"
                      class="font-bold text-accent-light underline"
+                     target="_blank"
                   >Nuxt</a>.
                </p>
             </div>

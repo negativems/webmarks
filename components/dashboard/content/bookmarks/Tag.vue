@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { Tag } from '~/types/types';
+import type { Tag } from '~/types/types';
 
 const { tag } = defineProps({
    tag: {

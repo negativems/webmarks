@@ -59,7 +59,7 @@
 import { TrashIcon } from '~/components/Icons';
 import { PencilIcon } from '~/components/Icons';
 import { useBookmark } from '~/store/bookmark';
-import { Bookmark, Tag } from '~/types/types';
+import type { Bookmark, Tag } from '~/types/types';
 
 const props = defineProps({
    bookmark: {

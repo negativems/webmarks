@@ -85,7 +85,7 @@
 </template>
 
 <script setup lang="ts">
-import { Bookmark, BookmarkDisplayFormat } from '~/types/types';
+import { type Bookmark, type BookmarkDisplayFormat } from '~/types/types';
 import { useBookmark } from '~/store/bookmark';
 import { InfoIcon, StarIcon } from '~/components/Icons';
 const bookmarkStore = useBookmark();

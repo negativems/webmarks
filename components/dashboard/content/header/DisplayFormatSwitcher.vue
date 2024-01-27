@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ListIcon, GridIcon } from '~/components/Icons';
 import { useBookmark } from '~/store/bookmark';
-import { BookmarkDisplayFormat } from '~/types/types';
+import { type BookmarkDisplayFormat } from '~/types/types';
 
 const isRows = computed(() => useBookmark().bookmarkDisplayFormat === 'rows' as BookmarkDisplayFormat);
 </script>

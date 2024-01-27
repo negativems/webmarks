@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { useBookmark } from '~/store/bookmark';
-import { BookmarkDraft } from '~/types/types';
+import type { BookmarkDraft } from '~/types/types';
 
 const bookmarkStore = useBookmark();
 

@@ -26,7 +26,7 @@
 <script setup lang="ts">
 import { useBookmark } from '~/store/bookmark';
 import { useModal } from 'vue-final-modal';
-import { Bookmark } from '~/types/types';
+import type { Bookmark } from '~/types/types';
 import EditBookmarkModal from '~/components/modals/EditBookmarkModal/index.vue';
 
 const emit = defineEmits(['selectedBookmarkUpdated']);

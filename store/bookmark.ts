@@ -1,4 +1,4 @@
-import { Bookmark, BookmarkDisplayFormat, BookmarkDraft, BookmarkFilterTagType, Tag } from "~/types/types";
+import type { Bookmark, BookmarkDisplayFormat, BookmarkDraft, BookmarkFilterTagType, Tag } from "~/types/types";
 import { defineStore } from 'pinia';
 
 // Create from scratch the above store

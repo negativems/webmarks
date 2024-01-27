@@ -23,6 +23,8 @@ $tailwindHeaderMaringTop: 20px;
    --light-theme-text: #000000;
    --header-height: 70px;
    --footer-height: 300px;
+
+   color: #222;
 }
 
 // Global styles
@@ -133,6 +135,9 @@ header .logo-container span {
   font-weight: 500;
 } */
 
+body.dark a {
+   color: var(--accent-light);
+}
 
 svg.logo.shadowed {
    filter: drop-shadow(3px 3px 0px rgba(0, 0, 0, .25));

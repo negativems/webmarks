@@ -43,7 +43,7 @@
 import { VueFinalModal } from 'vue-final-modal';
 import { useBookmark } from '~/store/bookmark';
 import { useUser } from '~/store/user';
-import { Bookmark } from '~/types/types';
+import type { Bookmark } from '~/types/types';
 
 const props = defineProps({
    bookmark: {
