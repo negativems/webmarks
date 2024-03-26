@@ -15,35 +15,35 @@ $footerHeight: 300px;
 $tailwindHeaderMaringTop: 20px;
 
 :root {
-   --accent: #3AE000;
-   --accent-dark: #4DA32F;
-   --accent-darker: #255116;
-   --accent-light: #9DFF7A;
-   --red: #FF0000;
-   --light-theme-text: #000000;
-   --header-height: 70px;
-   --footer-height: 300px;
+  --accent: #3AE000;
+  --accent-dark: #4DA32F;
+  --accent-darker: #255116;
+  --accent-light: #9DFF7A;
+  --red: #FF0000;
+  --light-theme-text: #000000;
+  --header-height: 70px;
+  --footer-height: 300px;
 
-   color: #222;
+  color: #222;
 }
 
 // Global styles
 * {
-   box-sizing: border-box;
-   padding: 0;
-   margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 html {
-   overflow-y: overlay;
-   overflow-x: hidden;
+  overflow-y: overlay;
+  overflow-x: hidden;
 }
 
 @font-face {
-   font-family: 'nunito';
-   src: url('/nunito.ttf') format('truetype');
-   font-weight: 900;
-   font-style: normal;
+  font-family: 'nunito';
+  src: url('/nunito.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
 }
 
 h1,
@@ -52,78 +52,78 @@ h3,
 h4,
 h5,
 h6 {
-   font-family: 'nunito', sans-serif !important;
-   font-weight: bold;
+  font-family: 'nunito', sans-serif !important;
+  font-weight: bold;
 }
 
 h1 {
-   font-size: 2.5rem;
-   font-weight: 900;
+  font-size: 2.5rem;
+  font-weight: 900;
 }
 
 h2 {
-   font-size: 2rem;
+  font-size: 2rem;
 }
 
 h3 {
-   font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
 h4 {
-   font-size: 1.25rem;
+  font-size: 1.25rem;
 }
 
 h5 {
-   font-size: 1rem;
+  font-size: 1rem;
 }
 
 #__nuxt {
 
-   >header {
-      height: $headerHeight;
-   }
+  >header {
+    height: $headerHeight;
+  }
 
-   main {
-      min-height: calc(100vh - $headerHeight - $footerHeight - $tailwindHeaderMaringTop);
-   }
+  main {
+    min-height: calc(100vh - $headerHeight - $footerHeight - $tailwindHeaderMaringTop);
+  }
 }
 
 svg.icon {
-   height: 24px;
-   width: 24px;
+  height: 24px;
+  width: 24px;
 }
 
 body.dark {
-   @apply bg-neutral-900 text-white;
+  @apply bg-neutral-900 text-white;
 
-   svg.icon {
-      color: white;
-   }
+  svg.icon {
+    color: white;
+  }
 
-   input {
-      color: black;
+  input {
+    color: black;
 
-      &::focus {
-         outline: none;
-      }
-   }
+    &::focus {
+      outline: none;
+    }
+  }
 }
 
 ::-webkit-scrollbar {
-   width: 10px;
+  width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-   border-radius: 10px;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-   background: var(--accent-dark);
-   border-radius: 10px;
+  background: var(--accent-dark);
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-   background: var(--accent-dark);
+  background: var(--accent-dark);
 }
 
 /* header .logo-container a {
@@ -135,31 +135,31 @@ header .logo-container span {
   font-weight: 500;
 } */
 
-body.dark a {
-   color: var(--accent-light);
+body.dark p a {
+  color: var(--accent-light);
 }
 
 svg.logo.shadowed {
-   filter: drop-shadow(3px 3px 0px rgba(0, 0, 0, .25));
+  filter: drop-shadow(3px 3px 0px rgba(0, 0, 0, .25));
 }
 
 /* On hover on .location make ::before appears */
 .location::before {
-   display: none;
-   content: '';
-   position: absolute;
-   top: -250px;
-   left: 50%;
-   transform: translateX(-50%);
-   width: 744px;
-   height: 222px;
-   z-index: 100;
-   transition: opacity .3s ease-in-out;
-   background-image: url('/malaga.jpg');
-   background-size: cover;
-   background-position: center;
+  display: none;
+  content: '';
+  position: absolute;
+  top: -250px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 744px;
+  height: 222px;
+  z-index: 100;
+  transition: opacity .3s ease-in-out;
+  background-image: url('/malaga.jpg');
+  background-size: cover;
+  background-position: center;
 }
 
 .location:hover::before {
-   display: block;
+  display: block;
 }

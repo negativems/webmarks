@@ -22,7 +22,7 @@
          <div class="buttons flex justify-center lg:justify-start">
             <NuxtLink
                to="/dashboard"
-               class="inline-block rounded-lg bg-accent-dark px-12 py-3 font-bold text-white shadow-solid-md ring-accent-dark duration-100 hover:scale-110 hover:bg-accent hover:shadow-solid-xl focus:bg-accent-light focus:ring active:bg-accent-dark"
+               class="inline-block rounded-lg bg-accent-dark px-12 py-3 font-bold text-white shadow-solid-md ring-accent-dark duration-100 hover:scale-110 hover:bg-accent hover:shadow-solid-xl focus:bg-accent-light focus:ring active:bg-accent-dark dark:text-white"
             >
                Try it
             </NuxtLink>
