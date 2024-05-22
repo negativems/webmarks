@@ -1,12 +1,17 @@
 import { load } from 'cheerio';
-import { Configuration, OpenAIApi } from 'openai';
 import { isPro } from '~/utils/User';
+import OpenAI from "openai";
 
 const PARAM_NAME = "url";
 
 import dotenv from 'dotenv';
 import { serverSupabaseClient, serverSupabaseUser } from '#supabase/server';
 dotenv.config();
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+  organization: process.env.OPENAI_ORG,
+});
 
 export default defineEventHandler(async (event) => {
   const user = await serverSupabaseUser(event);
@@ -50,9 +55,6 @@ export default defineEventHandler(async (event) => {
     // blockquote: $('blockquote').text().replaceAll('\t','').replaceAll('\n',''),
   };
 
-  const configuration = new Configuration({ apiKey: process.env.OPENAI_API_KEY });
-  const openai = new OpenAIApi(configuration);
-
   const content = `
 I will give you a website source and you will give me the keywords of this website.
 In case of no data after the double colon, just leave it empty.
@@ -69,12 +71,12 @@ Limit the answer to 5 elements separated by commas:
 ${JSON.stringify(HTMLResult)}
    `;
 
-  const completion = await openai.createChatCompletion({
+  const completion = await openai.chat.completions.create({
+    messages: [{ role: 'user', content }],
     model: 'gpt-3.5-turbo',
-    messages: [{ role: 'user', content }]
   });
 
-  const apiResponse = completion.data.choices[0].message?.content;
+  const apiResponse = completion.choices[0].message?.content;
 
   return apiResponse?.split(',').map((item) => item.trim());
 

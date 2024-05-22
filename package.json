@@ -35,7 +35,7 @@
     "@pinia/nuxt": "0.4.10",
     "@vercel/analytics": "^1.0.1",
     "cheerio": "1.0.0-rc.12",
-    "openai": "^3.3.0",
+    "openai": "4.47.1",
     "pinia": "2.0.36",
     "short-uuid": "^4.2.2",
     "tiny-emitter": "^2.1.0",
