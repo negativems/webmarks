@@ -11,5 +11,5 @@
 </template>
 
 <script setup lang="ts">
-import { Logo } from './Icons';
+import { Logo } from "./Icons";
 </script>

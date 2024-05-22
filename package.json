@@ -1,4 +1,5 @@
 {
+<<<<<<< Updated upstream
    "name": "nuxt-app",
    "private": true,
    "scripts": {
@@ -39,3 +40,41 @@
       "vue-final-modal": "^4.4.2"
    }
 }
+=======
+  "name": "webmarks",
+  "description": "Webmarks is a bookmark manager that helps you save and organize your bookmarks in a beautiful and intuitive way.",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "deploy": "nuxt build && /root/.local/share/pnpm/pm2 restart webmarks",
+    "dev": "nuxt dev --port 3000",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@nuxt/image": "^1.4.0",
+    "@nuxt/ui": "^2.15.0",
+    "@nuxtjs/supabase": "1.2.0",
+    "@types/node": "20.12.2",
+    "autoprefixer": "10.4.19",
+    "dotenv": "16.4.5",
+    "node-sass": "9.0.0",
+    "nuxt": "3.11.1",
+    "postcss": "8.4.38",
+    "sass": "1.72.0",
+    "sass-loader": "14.1.1"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "0.5.1",
+    "@vercel/analytics": "1.2.2",
+    "cheerio": "1.0.0-rc.12",
+    "openai": "4.31.0",
+    "pinia": "2.1.7",
+    "short-uuid": "4.2.2",
+    "tiny-emitter": "2.1.0",
+    "vue-final-modal": "^4.5.4"
+  }
+}
+>>>>>>> Stashed changes

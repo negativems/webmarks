@@ -52,51 +52,49 @@
 </template>
 
 <script setup lang="ts">
-
 const starterPlan = {
-   title: 'Free Plan',
-   priceMonthly: '0',
-   priceYearly: '0',
-   features: [
-      'Unlimited Bookmarks',
-      'Unlimited Collections',
-      'Tagging System',
-      'Search Functionality',
-      'Import/Export Bookmarks',
-   ],
+	title: "Free Plan",
+	priceMonthly: "0",
+	priceYearly: "0",
+	features: [
+		"Unlimited Bookmarks",
+		"Unlimited Collections",
+		"Tagging System",
+		"Search Functionality",
+		"Import/Export Bookmarks",
+	],
 };
 
 const proPlan = {
-   title: 'Pro Plan',
-   priceMonthly: '5',
-   priceYearly: '50',
-   features: [
-      'Smart Broken Link Identification',
-      'Automated Bookmark Categorization',
-      'Save-for-later Bookmark Option',
-      'Mobile Application Support',
-      'Priority Customer Assistance',
-      'AI-powered Bookmark Tagging',
-   ]
+	title: "Pro Plan",
+	priceMonthly: "5",
+	priceYearly: "50",
+	features: [
+		"Smart Broken Link Identification",
+		"Automated Bookmark Categorization",
+		"Save-for-later Bookmark Option",
+		"Mobile Application Support",
+		"Priority Customer Assistance",
+		"AI-powered Bookmark Tagging",
+	],
 };
 
 const premiumPlan = {
-   title: 'Premium Plan',
-   priceMonthly: '10',
-   priceYearly: '100',
-   features: [
-      'Access to All Premium Features',
-      'Customizable Branding Options',
-      'Unique Custom Themes',
-      'Convenient Single Sign-on (SSO)',
-      'Effective User Management System',
-      'Efficient Group Management Tools',
-      'Comprehensive Activity Logs',
-      'Dedicated Account Management',
-      'Round-the-clock Support'
-   ]
+	title: "Premium Plan",
+	priceMonthly: "10",
+	priceYearly: "100",
+	features: [
+		"Access to All Premium Features",
+		"Customizable Branding Options",
+		"Unique Custom Themes",
+		"Convenient Single Sign-on (SSO)",
+		"Effective User Management System",
+		"Efficient Group Management Tools",
+		"Comprehensive Activity Logs",
+		"Dedicated Account Management",
+		"Round-the-clock Support",
+	],
 };
 
 const plans = [starterPlan, proPlan, premiumPlan];
-
 </script>

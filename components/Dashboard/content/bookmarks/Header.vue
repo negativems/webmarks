@@ -27,9 +27,9 @@
 </template>
 
 <script setup>
-import DisplayFilterTagsTypeSwitcher from '../header/DisplayFilterTagsTypeSwitcher.vue';
-import DisplayFormatSwitcher from '../header/DisplayFormatSwitcher.vue';
-import SearchBar from '../header/SearchBar.vue';
+import DisplayFilterTagsTypeSwitcher from "../header/DisplayFilterTagsTypeSwitcher.vue";
+import DisplayFormatSwitcher from "../header/DisplayFormatSwitcher.vue";
+import SearchBar from "../header/SearchBar.vue";
 
-defineProps(['search', 'hasBookmarks', 'displayFormat', 'filterTagsType']);
+defineProps(["search", "hasBookmarks", "displayFormat", "filterTagsType"]);
 </script>

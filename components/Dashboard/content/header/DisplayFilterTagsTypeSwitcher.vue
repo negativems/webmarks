@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { FilterIcon } from '~/components/Icons';
-import { useBookmark } from '~/store/bookmark';
+import { FilterIcon } from "~/components/Icons";
+import { useBookmark } from "~/store/bookmark";
 
-const isRestrictive = computed(() => useBookmark().bookmarkFilterTagType === 'restrictive');
+const isRestrictive = computed(
+	() => useBookmark().bookmarkFilterTagType === "restrictive",
+);
 </script>
 
 <template>

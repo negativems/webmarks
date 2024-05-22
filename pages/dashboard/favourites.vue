@@ -20,7 +20,7 @@
       <DashboardContentBookmarks :search="search" />
 
       <div
-         class="no-bookmarks inline-flex flex-col items-center gap-5 rounded-2xl border-8 border-dashed p-10 text-center backdrop-blur-3xl"
+         class="inline-flex flex-col items-center gap-5 p-10 text-center border-8 border-dashed no-bookmarks rounded-2xl backdrop-blur-3xl"
          v-if="!hasBookmarks && bookmarkStore.bookmarksLoaded"
       >
          <p class="text-gray-500">
@@ -28,7 +28,7 @@
             <br>
             Use your first bookmark by clicking on it
          </p>
-         <button class="mt-5 flex items-center justify-center gap-5 rounded-lg bg-accent p-3 px-5 font-bold text-white hover:bg-neutral-900">
+         <button class="flex items-center justify-center gap-5 p-3 px-5 mt-5 font-bold text-white rounded-lg bg-accent hover:bg-neutral-900">
             <span>Create Bookmark</span>
          </button>
       </div>
@@ -36,19 +36,26 @@
 </template>
 
 <script setup lang="ts">
+<<<<<<< Updated upstream
 import { useBookmark } from '~/store/bookmark';
 import { BookmarkDisplayFormat } from '~/types/types';
+=======
+import { useBookmark } from "~/store/bookmark";
+import type { BookmarkDisplayFormat } from "~/types/types";
+>>>>>>> Stashed changes
 
 const bookmarkStore = useBookmark();
 
-definePageMeta({ layout: 'dashboard' });
+definePageMeta({ layout: "dashboard" });
 
 const search = ref("");
 const hasBookmarks = computed(() => bookmarkStore.bookmarks.length > 0);
-const displayFormat = computed(() => bookmarkStore.bookmarkDisplayFormat as BookmarkDisplayFormat);
+const displayFormat = computed(
+	() => bookmarkStore.bookmarkDisplayFormat as BookmarkDisplayFormat,
+);
 
 onMounted(() => {
-   bookmarkStore.load({ favourite: true });
-   bookmarkStore.loadBookmarkDisplayFormat();
+	bookmarkStore.load({ favourite: true });
+	bookmarkStore.loadBookmarkDisplayFormat();
 });
 </script>

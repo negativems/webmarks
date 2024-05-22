@@ -30,11 +30,11 @@
 </template>
 
 <script lang="ts" setup>
-import { Logo } from '@/components/Icons';
+import { Logo } from "@/components/Icons";
 const isSidebarHover = ref(false);
 
 onMounted(() => {
-   isSidebarHover.value = !isMobile.value;
+	isSidebarHover.value = !isMobile.value;
 });
 
 const isMobile = computed(() => screen.width < 768);

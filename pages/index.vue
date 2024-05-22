@@ -1,6 +1,6 @@
 <template>
-   <HomeHero />
-   <main class="container mx-auto mb-52 mt-10 px-10 md:my-20">
-      <HomeFeaturesSection />
+   <LandingHero />
+   <main class="container px-10 mx-auto mt-10 mb-52 md:my-20">
+      <LandingFeaturesSection />
    </main>
 </template>

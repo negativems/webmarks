@@ -6,5 +6,5 @@
 </template>
 
 <script setup>
-defineProps(['title']);
+defineProps(["title"]);
 </script>

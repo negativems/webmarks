@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useTheme } from '~/store/themeStore';
+import { useTheme } from "~/store/themeStore";
 const themeStore = useTheme();
 </script>
 <template>

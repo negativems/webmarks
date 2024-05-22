@@ -1,5 +1,5 @@
 <script setup>
-import { SearchIcon } from '~/components/Icons';
+import { SearchIcon } from "~/components/Icons";
 </script>
 
 <template>

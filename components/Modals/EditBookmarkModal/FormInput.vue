@@ -16,8 +16,10 @@
 </template>
 
 <script setup>
-const props = defineProps(['name', 'modelValue']);
-const emit = defineEmits(['update:modelValue']);
+const props = defineProps(["name", "modelValue"]);
+const emit = defineEmits(["update:modelValue"]);
 
-const uppercase = computed(() => props.name.charAt(0).toUpperCase() + props.name.slice(1));
+const uppercase = computed(
+	() => props.name.charAt(0).toUpperCase() + props.name.slice(1),
+);
 </script>

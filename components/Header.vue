@@ -1,5 +1,6 @@
 <template>
    <header
+<<<<<<< Updated upstream
       class="fixed bottom-2 left-1/2 z-20 mt-5 flex w-[90%] -translate-x-1/2 transform items-center text-xs md:static md:bottom-auto md:left-0 md:w-auto md:translate-x-0 md:transform-none md:bg-transparent lg:text-base"
       :class="{
          'md:absolute md:w-full': isHome,
@@ -10,19 +11,36 @@
          :class="{
                'bg-white': !isHome,
             }"
+=======
+      class="fixed bottom-2 left-1/2 z-20 flex w-[90%] -translate-x-1/2 transform items-center text-xs shadow-lg md:static md:bottom-auto md:left-0 md:w-auto md:translate-x-0 md:transform-none md:bg-transparent lg:text-base"
+      :class="{ 'md:w-full': isHome }"
+   >
+      <div
+         class="container box-content flex items-center justify-center h-full gap-2 px-8 mx-auto bg-white rounded-full dark:bg-black md:justify-between md:gap-12 md:px-10"
+         :class="{ 'bg-white': !isHome }"
+>>>>>>> Stashed changes
       >
-         <div class="logo-container relative hidden h-full md:block">
+         <div class="relative hidden h-full logo-container md:block">
             <HeaderLogo />
          </div>
+<<<<<<< Updated upstream
          <div class="navbar flex gap-2 lg:gap-12">
+=======
+         <div class="flex justify-center w-full gap-2 navbar lg:gap-12">
+>>>>>>> Stashed changes
             <NuxtLink
                v-for="link in headerLinks"
                :key="link.href"
                :to="link.href"
+<<<<<<< Updated upstream
                class="max-w-fit rounded-xl px-5 py-2 text-center font-bold hover:bg-accent-light hover:shadow-md dark:text-white dark:hover:bg-accent-dark md:px-10"
                :class="{
                      'rounded-none border-b-4 border-accent bg-accent-light dark:bg-accent-dark': selected === link.href
                   }"
+=======
+               class="px-5 py-2 text-center max-w-fit rounded-xl hover:bg-accent-light hover:shadow-md dark:text-white dark:hover:bg-accent-dark md:px-10"
+               :class="{ 'rounded-none border-accent bg-accent-light dark:bg-accent-dark': selected === link.href }"
+>>>>>>> Stashed changes
             >
                {{ link.label }}
             </NuxtLink>
@@ -33,19 +51,19 @@
          >
             <NuxtLink
                to="/dashboard"
-               class="btn btn-primary flex items-center gap-3 rounded-xl bg-neutral-100 px-3 py-2 hover:shadow-md dark:bg-neutral-800 "
+               class="flex items-center gap-3 px-3 py-2 btn btn-primary rounded-xl bg-neutral-100 hover:shadow-md dark:bg-neutral-800 "
             >
                <img
                   v-if="user.user_metadata.avatar_url"
                   :src="user.user_metadata.avatar_url"
                   alt="Profile picture"
-                  class="h-8 w-8 rounded-full"
+                  class="w-8 h-8 rounded-full"
                >
                Dashboard
             </NuxtLink>
          </div>
 
-         <div class="color-scheme hidden md:block">
+         <div class="hidden color-scheme md:block">
             <ColorSchemeToggle />
          </div>
       </div>
@@ -55,30 +73,23 @@
 <script setup lang="ts">
 const route = useRoute();
 const path = ref(route.path);
-const isHome = ref(path.value === '/');
+const isHome = ref(path.value === "/");
 
-const selected = computed(() => {
-   if (path.value === '/') {
-      return '/';
-   } else if (path.value === '/features') {
-      return '/features';
-   } else if (path.value === '/about') {
-      return '/about';
-   } else {
-      return '';
-   }
-});
+const availableLinks = ["/", "/features", "/about"];
+const selected = computed(() =>
+	availableLinks.includes(path.value) ? path.value : "",
+);
 
 const headerLinks = [
-   { href: '/', label: 'HOME' },
-   { href: '/features', label: 'FEATURES' },
-   { href: 'https://docs.webmarks.io', label: 'DOCS' },
+	{ href: "/", label: "HOME" },
+	{ href: "/features", label: "FEATURES" },
+	{ href: "https://docs.webmarks.io", label: "DOCS" },
 ];
 
 const user = useSupabaseUser();
 
 watchEffect(() => {
-   path.value = route.path;
-   isHome.value = path.value === '/';
+	path.value = route.path;
+	isHome.value = path.value === "/";
 });
 </script>

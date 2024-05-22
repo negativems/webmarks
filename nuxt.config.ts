@@ -1,6 +1,8 @@
+import { fileURLToPath } from "node:url";
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+<<<<<<< Updated upstream
    modules: [
       '@nuxtjs/tailwindcss',
       '@nuxtjs/supabase',
@@ -31,4 +33,34 @@ export default defineNuxtConfig({
          autoprefixer: {},
       },
    },
+=======
+  modules: [
+    "@nuxtjs/supabase",
+    "@pinia/nuxt",
+    "@nuxt/ui",
+    "@nuxt/image",
+  ],
+  plugins: [
+    {
+      src: "~/plugins/vercel.ts",
+      mode: "client",
+    },
+  ],
+  alias: {
+    "@": fileURLToPath(new URL("./", import.meta.url)),
+  },
+  css: ["~/assets/style/global.scss"],
+  vite: {
+    server: { hmr: true },
+  },
+  tailwindcss: {
+    viewer: false,
+  },
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
+>>>>>>> Stashed changes
 });

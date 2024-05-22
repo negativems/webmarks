@@ -1,4 +1,5 @@
 {
+<<<<<<< Updated upstream
    "editor.codeActionsOnSave": {
       "source.fixAll.eslint": true
    },
@@ -11,3 +12,17 @@
    ],
    "html.format.wrapAttributes": "force-expand-multiline",
 }
+=======
+	"editor.codeActionsOnSave": {
+		"source.fixAll.eslint": "explicit"
+	},
+	"eslint.validate": [
+		"vue",
+		"javascript",
+		"typescript",
+		"javascriptreact",
+		"typescriptreact"
+	],
+	"html.format.wrapAttributes": "force-expand-multiline"
+}
+>>>>>>> Stashed changes

@@ -29,19 +29,19 @@
 </template>
 
 <script setup>
-import { BookmarkIcon, ClockIcon, StarIcon } from '~/components/Icons';
-import { useTheme } from '~/store/themeStore';
+import { BookmarkIcon, ClockIcon, StarIcon } from "~/components/Icons";
+import { useTheme } from "~/store/themeStore";
 
 const { isDarkMode } = useTheme();
 const router = useRouter();
 
 const pages = [
-   { name: 'All bookmarks', link: '/dashboard', icon: BookmarkIcon },
-   { name: 'Favourites', link: '/dashboard/favourites', icon: StarIcon },
+	{ name: "All bookmarks", link: "/dashboard", icon: BookmarkIcon },
+	{ name: "Favourites", link: "/dashboard/favourites", icon: StarIcon },
 ];
 const isSelectedPage = (link) => link === router.currentRoute.value.path;
 
-const { isSidebarHover } = defineProps(['isSidebarHover']);
+const { isSidebarHover } = defineProps(["isSidebarHover"]);
 
-const iconColor = computed(() => isDarkMode ? 'white' : 'black');
+const iconColor = computed(() => (isDarkMode ? "white" : "black"));
 </script>
